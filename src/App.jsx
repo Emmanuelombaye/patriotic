@@ -2,6 +2,53 @@ import React, { useState } from 'react';
 import IntakeQuiz from './components/IntakeQuiz';
 import { translations } from './translations';
 
+// Translations specific to FAQs (defined at the top to avoid hoisting issues)
+const faqItemsEn = [
+  {
+    question: 'How does Patriot Men\'s Health telehealth work?',
+    answer: 'It\'s simple and fully virtual. First, you complete a brief online health questionnaire sharing your goals and history. Next, one of our licensed U.S. physicians reviews your intake. If eligible, they prescribe a personalized treatment protocol. Finally, our partner compounding pharmacy ships your medications directly to your door in discreet packaging.'
+  },
+  {
+    question: 'Do I need insurance to use your services?',
+    answer: 'No, insurance is not required. We operate on a direct-to-consumer cash-pay subscription model. This allows us to keep pricing transparent, affordable, and free from insurance pre-approvals or co-pays. The price you see covers the physician consult, prescription, shipping, and all treatment supplies.'
+  },
+  {
+    question: 'Are the medications real and FDA-regulated?',
+    answer: 'We work exclusively with state-licensed, U.S. compounding pharmacies that comply with strict federal quality standards. Compounded medications are customized preparations made by licensed pharmacists based on a physician\'s prescription, incorporating active pharmaceutical ingredients identical to brand-name alternatives.'
+  },
+  {
+    question: 'How often will my blood work be monitored for TRT?',
+    answer: 'Safety is our absolute priority. For TRT patients, we require an initial blood panel prior to beginning therapy to establish baseline levels. We then schedule regular follow-up blood work (typically at 3 months, 6 months, and annually) to monitor free and total testosterone, hematocrit, PSA, and other biomarkers to ensure your protocol is safe and optimal.'
+  },
+  {
+    question: 'Can I cancel my subscription or change treatments?',
+    answer: 'Yes, absolutely. All of our plans are flexible monthly subscriptions. You can request changes to your dosage, adjust your shipping frequency, or pause/cancel your account at any time by contacting our patient support team without any hidden cancellation fees.'
+  }
+];
+
+const faqItemsEs = [
+  {
+    question: '¿Cómo funciona la telemedicina de Patriot Men\'s Health?',
+    answer: 'Es simple y totalmente virtual. Primero, complete un breve cuestionario de salud en línea compartiendo sus objetivos e historial. Luego, uno de nuestros médicos con licencia en EE. UU. revisa su información. Si califica, le recetará un protocolo de tratamiento personalizado. Finalmente, nuestra farmacia de compuestos asociada envía sus medicamentos directamente a su puerta en un empaque discreto.'
+  },
+  {
+    question: '¿Necesito seguro para usar sus servicios?',
+    answer: 'No, no se requiere seguro. Operamos en un modelo de suscripción de pago en efectivo directo al consumidor. Esto nos permite mantener precios transparentes, asequibles y libres de aprobaciones previas de seguros o copagos. El precio que ve cubre la consulta médica, la receta, el envío y todos los suministros de tratamiento.'
+  },
+  {
+    question: '¿Los medicamentos son reales y están regulados por la FDA?',
+    answer: 'Trabajamos exclusivamente con farmacias de compuestos con licencia estatal en EE. UU. que cumplen con los estrictos estándares de calidad federales. Los medicamentos compuestos son preparaciones personalizadas realizadas por farmacéuticos autorizados basadas en la receta de un médico, incorporando ingredientes farmacéuticos activos idénticos a las alternativas de marca.'
+  },
+  {
+    question: '¿Con qué frecuencia se controlarán mis análisis de sangre para TRT?',
+    answer: 'La seguridad es nuestra absoluta prioridad. Para los pacientes de TRT, requerimos un panel de sangre inicial antes de comenzar la terapia para establecer los niveles de referencia. Luego programamos análisis de sangre de seguimiento regulares (generalmente a los 3 meses, 6 meses y anualmente) para monitorear la testosterona libre y total, el hematocrito, el PSA y otros biomarcadores para garantizar que su protocolo sea seguro y óptimo.'
+  },
+  {
+    question: '¿Puedo cancelar mi suscripción o cambiar de tratamiento?',
+    answer: 'Sí, absolutamente. Todos nuestros planes son suscripciones mensuales flexibles. Puede solicitar cambios en su dosis, ajustar la frecuencia de envío o pausar/cancelar su cuenta en cualquier momento comunicándose con nuestro equipo de atención al paciente sin cargos de cancelación ocultos.'
+  }
+];
+
 function App() {
   const [locale, setLocale] = useState('en'); // 'en' or 'es'
   const [quizOpen, setQuizOpen] = useState(false);
@@ -156,24 +203,29 @@ function App() {
         <div className="container nav-container">
           <div className="logo-wrapper">
             <div className="logo-icon">★</div>
-            <span className="logo-text">PATRIOT</span>
+            <div className="logo-text">
+              {t('footerBrand')}
+              <span className="logo-subtext">{t('footerBrandSub')}</span>
+            </div>
           </div>
           
           <ul className={`nav-links ${menuOpen ? 'mobile-open' : ''}`}>
             <li><a href="#treatments" onClick={() => setMenuOpen(false)}>{t('treatments')}</a></li>
             <li><a href="#how-it-works" onClick={() => setMenuOpen(false)}>{t('howItWorks')}</a></li>
-            <li><a href="#clinical-network" onClick={() => setMenuOpen(false)}>{t('clinicalNetwork')}</a></li>
-            <li><a href="#reviews" onClick={() => setMenuOpen(false)}>{t('reviews')}</a></li>
-            <li><a href="#faqs" onClick={() => setMenuOpen(false)}>{t('faqs')}</a></li>
+            <li><a href="#pricing" onClick={() => setMenuOpen(false)}>{t('pricing')}</a></li>
+            <li><a href="#about-us" onClick={() => setMenuOpen(false)}>{t('aboutUs')}</a></li>
+            <li><a href="#faqs" onClick={() => setMenuOpen(false)}>{t('faq')}</a></li>
+            <li><a href="#blog" onClick={() => setMenuOpen(false)}>{t('blog')}</a></li>
+            <li><a href="#contact" onClick={() => setMenuOpen(false)}>{t('contact')}</a></li>
           </ul>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {/* Language Toggle Button */}
-            <button className="btn btn-secondary" onClick={toggleLocale} style={{ padding: '6px 12px', fontSize: '13px', fontWeight: 'bold' }}>
+            <button className="btn btn-red" onClick={toggleLocale} style={{ padding: '8px 12px', fontSize: '13px', fontWeight: 'bold', backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.2)' }}>
               🌐 {locale.toUpperCase()}
             </button>
-            <button className="btn btn-primary" onClick={() => setQuizOpen(true)} style={{ padding: '8px 16px', fontSize: '14px', display: 'flex' }}>
-              {t('startAssessment')}
+            <button className="btn btn-red" onClick={() => setQuizOpen(true)} style={{ padding: '8px 16px', fontSize: '14px', fontWeight: 'bold' }}>
+              {t('getStarted')}
             </button>
             {/* Mobile Menu Burger Toggle */}
             <button className="burger-menu-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle Menu">
@@ -214,88 +266,125 @@ function App() {
       <header className="hero-section">
         <div className="container hero-grid">
           <div className="hero-content">
-            <div className="hero-tag">{t('heroTag')}</div>
+            <span className="hero-tag">{t('premiumHealthcare')}</span>
             <h1 className="hero-title">
-              {t('heroTitlePre')} <br />
+              {t('heroTitlePre')}
               <span>{t('heroTitleSpan')}</span>
             </h1>
             <p className="hero-description">{t('heroDesc')}</p>
             
-            <div className="hero-bullets">
-              <div className="hero-bullet">
-                <div className="hero-bullet-icon">✓</div>
-                <span>{t('heroBullet1')}</span>
-              </div>
-              <div className="hero-bullet">
-                <div className="hero-bullet-icon">✓</div>
-                <span>{t('heroBullet2')}</span>
-              </div>
-              <div className="hero-bullet">
-                <div className="hero-bullet-icon">✓</div>
-                <span>{t('heroBullet3')}</span>
-              </div>
+            <div className="hero-actions">
+              <button className="btn btn-red" onClick={() => setQuizOpen(true)}>
+                {t('startConsultation')}
+              </button>
+              <a href="#treatments" className="btn btn-outline-navy">
+                {t('seeTreatments')}
+              </a>
             </div>
 
-            <div className="hero-actions">
-              <button className="btn btn-primary" onClick={() => setQuizOpen(true)}>
-                {t('startAssessment')}
-              </button>
-              <a href="#treatments" className="btn btn-secondary">
-                {t('viewTreatments')}
-              </a>
+            <div className="hero-trust-indicators">
+              <div className="hero-trust-item">
+                <div className="hero-trust-icon">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <span className="hero-trust-label">{t('licensedProviders')}</span>
+              </div>
+              <div className="hero-trust-item">
+                <div className="hero-trust-icon">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <span className="hero-trust-label">{t('secureConsult')}</span>
+              </div>
+              <div className="hero-trust-item">
+                <div className="hero-trust-icon">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+                <span className="hero-trust-label">{t('discreetDelivery')}</span>
+              </div>
+              <div className="hero-trust-item">
+                <div className="hero-trust-icon">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <span className="hero-trust-label">{t('hipaaCompliant')}</span>
+              </div>
             </div>
           </div>
 
-          <div className="hero-images">
-            <div className="hero-image-card">
-              <img src="/images/vitality_hero.jpg" alt="Active healthy lifestyle" className="hero-img" />
-              <div className="hero-card-meta">
-                <span className="hero-card-title">{t('trtCardTitle')}</span>
-                <span className="hero-card-price">$129/mo</span>
-              </div>
-            </div>
-
-            <div className="hero-image-card">
-              <img src="/images/weightloss_hero.jpg" alt="Athletic training fitness" className="hero-img" />
-              <div className="hero-card-meta">
-                <span className="hero-card-title">{t('weightCardTitle')}</span>
-                <span className="hero-card-price">$249/mo</span>
-              </div>
-            </div>
+          <div className="hero-image-wrapper">
+            <img src="/images/vitality_hero.jpg" alt="Smiling fit healthy man" className="hero-img-main" />
           </div>
         </div>
       </header>
 
-      {/* Treatments Section */}
-      <section id="treatments" className="section" style={{ backgroundColor: '#fff', borderTop: '2px solid var(--navy)' }}>
+      {/* Our Treatments Section */}
+      <section id="treatments" className="section section-grey">
         <div className="container">
           <div className="section-title-wrapper">
+            <span className="section-tag">{t('ourTreatments')}</span>
             <h2 className="section-title">{t('treatmentTitle')}</h2>
-            <p className="section-subtitle">{t('treatmentSub')}</p>
           </div>
 
-          <div className="treatments-grid">
-            {treatments.map((tPlan) => (
-              <div key={tPlan.id} className="card treatment-card">
-                <div>
-                  <div className="treatment-header">
-                    <span className="treatment-badge">{tPlan.badge}</span>
-                    <span className="treatment-price">{locale === 'en' ? 'from' : 'desde'} <strong>${tPlan.price}</strong>/mo</span>
-                  </div>
-                  <img src={tPlan.image} alt={tPlan.title} className="treatment-img" />
-                  <h3 className="treatment-title">{tPlan.title}</h3>
-                  <p className="treatment-description">{tPlan.description}</p>
+          <div className="treatments-grid-PMC">
+            {treatmentItems.map((item) => (
+              <div key={item.id} className="treatment-card-PMC">
+                <div className="treatment-icon-PMC">{item.icon}</div>
+                <h3 className="treatment-title-PMC">{item.title}</h3>
+                <p className="treatment-desc-PMC">{item.desc}</p>
+                <a href="#pricing" className="treatment-link-PMC">
+                  {t('learnMore')} <span>→</span>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Dark Section */}
+      <section id="how-it-works" className="how-it-works-dark">
+        <div className="container">
+          <div className="section-title-wrapper">
+            <span className="section-tag" style={{ color: 'var(--red)' }}>{t('howItWorksTag')}</span>
+            <h2 className="section-title">{t('howItWorksTitle')}</h2>
+          </div>
+
+          <div className="steps-flow-PMC">
+            {steps.map((step) => (
+              <div key={step.number} className="step-item-PMC">
+                <div className="step-icon-wrapper-PMC">
+                  <div className="step-badge-PMC">{step.number}</div>
+                  {step.icon}
                 </div>
-                
-                <div>
-                  <ul className="treatment-features">
-                    {tPlan.features.map((f, i) => (
-                      <li key={i}>{f}</li>
-                    ))}
-                  </ul>
-                  <button className="btn btn-navy" onClick={() => setQuizOpen(true)} style={{ width: '100%' }}>
-                    {t('getStarted')}
-                  </button>
+                <h3 className="step-title-PMC">{step.title}</h3>
+                <p className="step-desc-PMC">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Patriot Section */}
+      <section id="about-us" className="section">
+        <div className="container">
+          <div className="section-title-wrapper">
+            <span className="section-tag">{t('whyChooseTag')}</span>
+            <h2 className="section-title">{t('whyChooseTitle')}</h2>
+          </div>
+
+          <div className="features-grid-PMC">
+            {features.map((feat, idx) => (
+              <div key={idx} className="feature-item-PMC">
+                <div className="feature-icon-PMC">{feat.icon}</div>
+                <div className="feature-content-PMC">
+                  <h3 className="feature-title-PMC">{feat.title}</h3>
+                  <p className="feature-desc-PMC">{feat.desc}</p>
                 </div>
               </div>
             ))}
@@ -303,112 +392,166 @@ function App() {
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section id="how-it-works" className="section" style={{ borderTop: '2px solid var(--navy)' }}>
+      {/* Patient Success Stories Slider Section */}
+      <section id="reviews" className="section section-grey">
         <div className="container">
           <div className="section-title-wrapper">
-            <h2 className="section-title">{t('howItWorks')}</h2>
-            <p className="section-subtitle">{t('howItWorksSub')}</p>
+            <span className="section-tag">{t('successTag')}</span>
+            <h2 className="section-title">{t('successTitle')}</h2>
           </div>
 
-          <div className="steps-wrapper">
-            <div className="card step-card">
-              <div className="step-number">1</div>
-              <h3 className="step-title">{t('step1Title')}</h3>
-              <p className="step-description">{t('step1Desc')}</p>
-            </div>
-            
-            <div className="card step-card">
-              <div className="step-number">2</div>
-              <h3 className="step-title">{t('step2Title')}</h3>
-              <p className="step-description">{t('step2Desc')}</p>
-            </div>
-
-            <div className="card step-card">
-              <div className="step-number">3</div>
-              <h3 className="step-title">{t('step3Title')}</h3>
-              <p className="step-description">{t('step3Desc')}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Meet Our Doctors and Lab Network Section */}
-      <section id="clinical-network" className="section" style={{ backgroundColor: '#fff', borderTop: '2px solid var(--navy)' }}>
-        <div className="container">
-          <div className="section-title-wrapper">
-            <h2 className="section-title">{t('networkTitle')}</h2>
-            <p className="section-subtitle">{t('networkSub')}</p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
-            <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'center' }}>
-              <img src="/images/telehealth_doctor.jpg" alt="Telehealth Physician" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--navy)' }} />
-              <h3 style={{ fontSize: '20px' }}>{t('networkCard1Title')}</h3>
-              <p style={{ fontSize: '14px', color: '#555' }}>{t('networkCard1Desc')}</p>
-            </div>
-
-            <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'center' }}>
-              <img src="/images/diagnostic_kit.jpg" alt="Diagnostic Blood Panel Kit" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--navy)' }} />
-              <h3 style={{ fontSize: '20px' }}>{t('networkCard2Title')}</h3>
-              <p style={{ fontSize: '14px', color: '#555' }}>{t('networkCard2Desc')}</p>
-            </div>
-
-            <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'center' }}>
-              <img src="/images/clinical_lab.jpg" alt="Compounding Laboratory" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--navy)' }} />
-              <h3 style={{ fontSize: '20px' }}>{t('networkCard3Title')}</h3>
-              <p style={{ fontSize: '14px', color: '#555' }}>{t('networkCard3Desc')}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Reviews/Testimonials Section */}
-      <section id="reviews" className="section" style={{ borderTop: '2px solid var(--navy)' }}>
-        <div className="container">
-          <div className="section-title-wrapper">
-            <h2 className="section-title">{t('reviewsTitle')}</h2>
-            <p className="section-subtitle">{t('reviewsSub')}</p>
-          </div>
-
-          <div className="reviews-grid">
-            {reviews.map((r, i) => (
-              <div key={i} className="card review-card" style={{ backgroundColor: '#fff', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <img src={r.image} alt={r.user} className="review-avatar" />
-                  <div>
-                    <h4 style={{ fontSize: '16px', color: 'var(--navy)' }}>{r.user}</h4>
-                    <span className="review-verified" style={{ display: 'inline-block', marginTop: '2px' }}>{r.location}</span>
-                  </div>
+          <div className="reviews-row-PMC">
+            {testimonials.map((test, idx) => (
+              <div key={idx} className="review-card-PMC">
+                <div className="review-avatar-wrapper-PMC">
+                  <img src={test.avatar} alt={test.author} className="review-avatar-PMC" />
                 </div>
-                <div className="review-stars">
-                  {'★'.repeat(r.stars)}
+                <div className="review-stars-PMC">
+                  {'★'.repeat(test.stars)}
                 </div>
-                <p className="review-text">"{r.text}"</p>
+                <p className="review-quote-PMC">"{test.quote}"</p>
+                <h4 className="review-author-PMC">{test.author}</h4>
+                <span className="review-meta-PMC">{test.meta}</span>
               </div>
             ))}
           </div>
+
+          <div className="slider-nav-PMC">
+            <button className="slider-arrow-PMC">←</button>
+            <div className="slider-dots-PMC">
+              <div className="slider-dot-PMC active"></div>
+              <div className="slider-dot-PMC"></div>
+              <div className="slider-dot-PMC"></div>
+              <div className="slider-dot-PMC"></div>
+            </div>
+            <button className="slider-arrow-PMC">→</button>
+          </div>
         </div>
       </section>
 
-      {/* FAQs Section */}
-      <section id="faqs" className="section" style={{ backgroundColor: '#fff', borderTop: '2px solid var(--navy)' }}>
+      {/* Crimson Stats Bar */}
+      <div className="stats-bar-red">
+        <div className="container stats-grid-PMC">
+          <div className="stat-item-PMC">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stat-icon-PMC">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span className="stat-number-PMC">10,000+</span>
+            <span className="stat-label-PMC">{t('statPatients')}</span>
+          </div>
+          <div className="stat-item-PMC">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stat-icon-PMC">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+            </svg>
+            <span className="stat-number-PMC">98%</span>
+            <span className="stat-label-PMC">{t('statSatisfaction')}</span>
+          </div>
+          <div className="stat-item-PMC">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stat-icon-PMC">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <span className="stat-number-PMC">Licensed</span>
+            <span className="stat-label-PMC">{t('statProviders')}</span>
+          </div>
+          <div className="stat-item-PMC">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stat-icon-PMC">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+            </svg>
+            <span className="stat-number-PMC">Fast</span>
+            <span className="stat-label-PMC">{t('statDelivery')}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Pricing Preview Section */}
+      <section id="pricing" className="section">
         <div className="container">
           <div className="section-title-wrapper">
-            <h2 className="section-title">{t('faqsTitle')}</h2>
-            <p className="section-subtitle">{t('faqsSub')}</p>
+            <span className="section-tag">{t('pricingTag')}</span>
+            <h2 className="section-title">{t('pricingTitle')}</h2>
+            <p className="section-subtitle">{t('pricingSub')}</p>
           </div>
 
-          <div className="faqs-list">
-            {faqItems.map((item, idx) => (
-              <div key={idx} className={`faq-item ${openFaq === idx ? 'open' : ''}`}>
-                <button className="faq-question-btn" onClick={() => toggleFaq(idx)}>
-                  <span className="faq-question">{item.question}</span>
-                  <span className="faq-icon">{openFaq === idx ? '-' : '+'}</span>
+          <div className="pricing-grid-PMC">
+            <div className="price-card-PMC">
+              <h3 className="price-title-PMC">{t('trtTreatment')}</h3>
+              <div className="price-val-PMC">
+                $149<span>/{t('month')}</span>
+              </div>
+              <ul className="price-features-PMC">
+                <li>Personalized TRT Plan</li>
+                <li>Regular Lab Monitoring</li>
+                <li>Provider Consultations</li>
+                <li>Medication Included</li>
+              </ul>
+              <button className="btn btn-red" onClick={() => setQuizOpen(true)}>
+                {t('getStarted')}
+              </button>
+            </div>
+
+            <div className="price-card-PMC featured">
+              <div className="featured-badge-PMC">{t('mostPopular')}</div>
+              <h3 className="price-title-PMC">{t('edTreatment')}</h3>
+              <div className="price-val-PMC">
+                $99<span>/{t('month')}</span>
+              </div>
+              <ul className="price-features-PMC">
+                <li>ED Medication</li>
+                <li>Medical Consultations</li>
+                <li>Discreet Shipping</li>
+                <li>Ongoing Support</li>
+              </ul>
+              <button className="btn btn-red" onClick={() => setQuizOpen(true)}>
+                {t('getStarted')}
+              </button>
+            </div>
+
+            <div className="price-card-PMC">
+              <h3 className="price-title-PMC">{t('weightProgram')}</h3>
+              <div className="price-val-PMC">
+                $179<span>/{t('month')}</span>
+              </div>
+              <ul className="price-features-PMC">
+                <li>Personalized Plan</li>
+                <li>Medication Included</li>
+                <li>Nutrition Guidance</li>
+                <li>Regular Check-ins</li>
+              </ul>
+              <button className="btn btn-red" onClick={() => setQuizOpen(true)}>
+                {t('getStarted')}
+              </button>
+            </div>
+          </div>
+
+          <p className="pricing-note-PMC">
+            {locale === 'en' 
+              ? "*Prices start at and vary by treatment plan. Consultation is subject to medical evaluation."
+              : "*Los precios comienzan desde y varían según el plan de tratamiento. La consulta está sujeta a evaluación médica."}
+          </p>
+        </div>
+      </section>
+
+      {/* Pre-Footer FAQ Section (collapsible items) */}
+      <section id="faqs" className="section section-grey" style={{ borderTop: '1px solid var(--gray-border)' }}>
+        <div className="container">
+          <div className="section-title-wrapper">
+            <span className="section-tag">{t('faq')}</span>
+            <h2 className="section-title">{t('pricingTitle')} FAQs</h2>
+          </div>
+
+          <div className="faqs-list-PMC">
+            {faqItemsEn.map((item, idx) => (
+              <div key={idx} className={`faq-item-PMC ${openFaq === idx ? 'open' : ''}`}>
+                <button className="faq-question-btn-PMC" onClick={() => toggleFaq(idx)}>
+                  <span className="faq-question-PMC">
+                    {locale === 'en' ? item.question : faqItemsEs[idx].question}
+                  </span>
+                  <span className="faq-icon-PMC">{openFaq === idx ? '✕' : '+'}</span>
                 </button>
-                <div className="faq-answer-panel" style={{ maxHeight: openFaq === idx ? '200px' : '0' }}>
-                  <div className="faq-answer-inner">
-                    <p>{item.answer}</p>
+                <div className="faq-answer-panel-PMC" style={{ maxHeight: openFaq === idx ? '200px' : '0' }}>
+                  <div className="faq-answer-inner-PMC">
+                    <p>{locale === 'en' ? item.answer : faqItemsEs[idx].answer}</p>
                   </div>
                 </div>
               </div>
@@ -417,53 +560,91 @@ function App() {
         </div>
       </section>
 
-      {/* Telehealth Footer */}
-      <footer className="footer">
+      {/* Pre-Footer Call to Action Banner */}
+      <div id="contact" className="cta-banner-PMC">
+        <div className="container cta-banner-content-PMC">
+          <h2 className="cta-banner-title-PMC">{t('preFooterTitle')}</h2>
+          <p className="cta-banner-desc-PMC">{t('preFooterSub')}</p>
+          <button className="btn btn-red" onClick={() => setQuizOpen(true)} style={{ padding: '14px 36px', fontWeight: 'bold' }}>
+            {t('beginConsultation')}
+          </button>
+        </div>
+      </div>
+
+      {/* Footer Section */}
+      <footer className="footer-PMC">
         <div className="container">
-          <div className="footer-grid">
-            <div className="footer-brand">
+          <div className="footer-grid-PMC">
+            <div className="footer-brand-PMC">
               <div className="logo-wrapper">
-                <div className="logo-icon" style={{ backgroundColor: 'var(--white)', color: 'var(--navy)', borderColor: 'var(--red)' }}>★</div>
-                <span className="logo-text" style={{ color: '#fff' }}>PATRIOT</span>
+                <div className="logo-icon" style={{ backgroundColor: 'var(--white)', color: 'var(--navy-dark)', borderColor: 'var(--red)' }}>★</div>
+                <span className="logo-text" style={{ color: '#fff' }}>
+                  {t('footerBrand')}
+                  <span className="logo-subtext" style={{ color: 'var(--red)' }}>{t('footerBrandSub')}</span>
+                </span>
               </div>
-              <p className="footer-about">{t('footerAbout')}</p>
+              <p className="footer-about-PMC">{t('footerAbout')}</p>
+              <div className="footer-socials-PMC">
+                <a href="#" className="social-icon-PMC" aria-label="Facebook">f</a>
+                <a href="#" className="social-icon-PMC" aria-label="Instagram">i</a>
+                <a href="#" className="social-icon-PMC" aria-label="YouTube">y</a>
+                <a href="#" className="social-icon-PMC" aria-label="Twitter">t</a>
+              </div>
             </div>
 
             <div>
-              <h4 className="footer-links-title">{t('treatments')}</h4>
-              <ul className="footer-links">
-                <li><a href="#treatments" onClick={() => setQuizOpen(true)}>Hormone Therapy (TRT)</a></li>
-                <li><a href="#treatments" onClick={() => setQuizOpen(true)}>Medical Weight Loss</a></li>
-                <li><a href="#treatments" onClick={() => setQuizOpen(true)}>ED Treatment Plans</a></li>
-                <li><a href="#treatments" onClick={() => setQuizOpen(true)}>NAD+ Injections</a></li>
+              <h4 className="footer-title-PMC">{t('treatments')}</h4>
+              <ul className="footer-links-PMC">
+                <li><a href="#pricing" onClick={() => setQuizOpen(true)}>TRT Therapy</a></li>
+                <li><a href="#pricing" onClick={() => setQuizOpen(true)}>ED Treatment</a></li>
+                <li><a href="#pricing" onClick={() => setQuizOpen(true)}>Weight Loss</a></li>
+                <li><a href="#pricing" onClick={() => setQuizOpen(true)}>Hair Restoration</a></li>
+                <li><a href="#pricing" onClick={() => setQuizOpen(true)}>Peptide Therapy</a></li>
+                <li><a href="#pricing" onClick={() => setQuizOpen(true)}>Wellness Optimization</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="footer-links-title">Company</h4>
-              <ul className="footer-links">
+              <h4 className="footer-title-PMC">{t('resources')}</h4>
+              <ul className="footer-links-PMC">
                 <li><a href="#how-it-works">{t('howItWorks')}</a></li>
-                <li><a href="#reviews">Success Stories</a></li>
-                <li><a href="#faqs">{t('faqs')}</a></li>
-                <li><a href="mailto:support@patriotmensclinic.com">Contact Clinical Support</a></li>
+                <li><a href="#faqs">{t('faq')}</a></li>
+                <li><a href="#blog">{t('blog')}</a></li>
+                <li><a href="#reviews">{t('reviews')}</a></li>
+                <li><a href="#contact">{t('contact')}</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="footer-title-PMC">{t('contactUs')}</h4>
+              <ul className="footer-links-PMC" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <li className="footer-contact-item-PMC">
+                  <span>📞</span> (833) 123-4567
+                </li>
+                <li className="footer-contact-item-PMC">
+                  <span>✉️</span> info@patriotmensclinic.com
+                </li>
+                <li className="footer-contact-item-PMC">
+                  <span>📍</span> 123 Freedom Way, Suite 100, Nashville, TN 37203
+                </li>
               </ul>
             </div>
           </div>
 
-          <div className="footer-disclaimers">
-            <p className="disclaimer-text">
-              <strong>{t('medicalDisclaimerTitle')}</strong> {t('medicalDisclaimerText')}
+          <div className="footer-disclaimers-PMC">
+            <p className="disclaimer-text-PMC">
+              <strong>{locale === 'en' ? 'Medical Disclaimer:' : 'Descargo de Responsabilidad Médica:'}</strong> The content on this website is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Compounded prescription drug preparations are customized formulations prescribed by U.S.-licensed practitioners based on individual patient medical evaluations. Compounded medications are not FDA-approved, meaning the FDA does not verify their safety, effectiveness, or quality prior to marketing.
             </p>
-            <p className="disclaimer-text">
-              <strong>{t('telehealthServicesTitle')}</strong> {t('telehealthServicesText')}
+            <p className="disclaimer-text-PMC">
+              <strong>{locale === 'en' ? 'Telehealth Services:' : 'Servicios de Telemedicina:'}</strong> Telehealth consultations are provided by independent, U.S.-licensed physicians and nurse practitioners contracted with clinical groups. Prescription eligibility is subject to physician evaluation, clinical protocol guidelines, and lab test results when required. Services are cash-pay; insurance is not billed.
             </p>
           </div>
 
-          <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} {t('allRightsReserved')}</p>
+          <div className="footer-bottom-PMC">
+            <p>&copy; 2024 {t('allRightsReserved')}</p>
             <p style={{ display: 'flex', gap: '16px' }}>
-              <a href="#" style={{ color: '#8da4c8', textDecoration: 'none' }}>{t('privacyPolicy')}</a>
-              <a href="#" style={{ color: '#8da4c8', textDecoration: 'none' }}>{t('termsOfService')}</a>
+              <a href="#" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('privacyPolicy')}</a>
+              <a href="#" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('termsOfService')}</a>
             </p>
           </div>
         </div>
@@ -474,52 +655,5 @@ function App() {
     </>
   );
 }
-
-// Translations specific to FAQs (to keep main dictionary cleaner)
-const faqItemsEn = [
-  {
-    question: 'How does Patriot Men\'s Health telehealth work?',
-    answer: 'It\'s simple and fully virtual. First, you complete a brief online health questionnaire sharing your goals and history. Next, one of our licensed U.S. physicians reviews your intake. If eligible, they prescribe a personalized treatment protocol. Finally, our partner compounding pharmacy ships your medications directly to your door in discreet packaging.'
-  },
-  {
-    question: 'Do I need insurance to use your services?',
-    answer: 'No, insurance is not required. We operate on a direct-to-consumer cash-pay subscription model. This allows us to keep pricing transparent, affordable, and free from insurance pre-approvals or co-pays. The price you see covers the physician consult, prescription, shipping, and all treatment supplies.'
-  },
-  {
-    question: 'Are the medications real and FDA-regulated?',
-    answer: 'We work exclusively with state-licensed, U.S. compounding pharmacies that comply with strict federal quality standards. Compounded medications are customized preparations made by licensed pharmacists based on a physician\'s prescription, incorporating active pharmaceutical ingredients identical to brand-name alternatives.'
-  },
-  {
-    question: 'How often will my blood work be monitored for TRT?',
-    answer: 'Safety is our absolute priority. For TRT patients, we require an initial blood panel prior to beginning therapy to establish baseline levels. We then schedule regular follow-up blood work (typically at 3 months, 6 months, and annually) to monitor free and total testosterone, hematocrit, PSA, and other biomarkers to ensure your protocol is safe and optimal.'
-  },
-  {
-    question: 'Can I cancel my subscription or change treatments?',
-    answer: 'Yes, absolutely. All of our plans are flexible monthly subscriptions. You can request changes to your dosage, adjust your shipping frequency, or pause/cancel your account at any time by contacting our patient support team without any hidden cancellation fees.'
-  }
-];
-
-const faqItemsEs = [
-  {
-    question: '¿Cómo funciona la telemedicina de Patriot Men\'s Health?',
-    answer: 'Es simple y totalmente virtual. Primero, complete un breve cuestionario de salud en línea compartiendo sus objetivos e historial. Luego, uno de nuestros médicos con licencia en EE. UU. revisa su información. Si califica, le recetará un protocolo de tratamiento personalizado. Finalmente, nuestra farmacia de compuestos asociada envía sus medicamentos directamente a su puerta en un empaque discreto.'
-  },
-  {
-    question: '¿Necesito seguro para usar sus servicios?',
-    answer: 'No, no se requiere seguro. Operamos en un modelo de suscripción de pago en efectivo directo al consumidor. Esto nos permite mantener precios transparentes, asequibles y libres de aprobaciones previas de seguros o copagos. El precio que ve cubre la consulta médica, la receta, el envío y todos los suministros de tratamiento.'
-  },
-  {
-    question: '¿Los medicamentos son reales y están regulados por la FDA?',
-    answer: 'Trabajamos exclusivamente con farmacias de compuestos con licencia estatal en EE. UU. que cumplen con los estrictos estándares de calidad federales. Los medicamentos compuestos son preparaciones personalizadas realizadas por farmacéuticos autorizados basadas en la receta de un médico, incorporando ingredientes farmacéuticos activos idénticos a las alternativas de marca.'
-  },
-  {
-    question: '¿Con qué frecuencia se controlarán mis análisis de sangre para TRT?',
-    answer: 'La seguridad es nuestra absoluta prioridad. Para los pacientes de TRT, requerimos un panel de sangre inicial antes de comenzar la terapia para establecer los niveles de referencia. Luego programamos análisis de sangre de seguimiento regulares (generalmente a los 3 meses, 6 meses y anualmente) para monitorear la testosterona libre y total, el hematocrito, el PSA y otros biomarcadores para garantizar que su protocolo sea seguro y óptimo.'
-  },
-  {
-    question: '¿Puedo cancelar mi suscripción o cambiar de tratamiento?',
-    answer: 'Sí, absolutamente. Todos nuestros planes son suscripciones mensuales flexibles. Puede solicitar cambios en su dosis, ajustar la frecuencia de envío o pausar/cancelar su cuenta en cualquier momento comunicándose con nuestro equipo de atención al paciente sin cargos de cancelación ocultos.'
-  }
-];
 
 export default App;
