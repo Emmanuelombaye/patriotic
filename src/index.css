@@ -382,16 +382,16 @@ body {
 .nav-cta-pill {
   background-color: var(--red);
   color: var(--white);
-  border: none;
-  border-radius: 50px;
-  box-shadow: 0 4px 15px rgba(179, 53, 50, 0.3);
+  border: var(--brutal-border);
+  border-radius: 999px;
+  box-shadow: var(--brutal-shadow);
   padding: 12px 28px;
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 15px;
   letter-spacing: 0.5px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   white-space: nowrap;
   flex-shrink: 0;
   text-transform: uppercase;
@@ -415,9 +415,13 @@ body {
 }
 
 .nav-cta-pill:hover {
-  transform: translateY(-2px);
-  background-color: #922b28; /* Slightly darker red */
-  box-shadow: 0 8px 25px rgba(179, 53, 50, 0.4);
+  transform: translate(2px, 2px);
+  box-shadow: var(--brutal-shadow-hover);
+}
+
+.nav-cta-pill:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
 }
 
 .nav-lang-btn {
