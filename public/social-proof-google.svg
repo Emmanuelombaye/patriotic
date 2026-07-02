@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 66" width="116" height="66">
+  <!-- Card Base -->
+  <rect x="1" y="1" width="114" height="64" rx="14" fill="#ffffff" stroke="#1f2a37" stroke-width="2" />
+  
+  <!-- Google "G" logo + text -->
+  <g transform="translate(18, 12)">
+    <!-- Google colored G icon -->
+    <path d="M7 0C10.86 0 14 3.14 14 7C14 10.86 10.86 14 7 14C3.14 14 0 10.86 0 7C0 3.14 3.14 0 7 0Z" fill="none" />
+    <path d="M12.85 5.85H7V8.5H10.37C9.88 9.8 8.57 10.75 7 10.75C4.93 10.75 3.25 9.07 3.25 7C3.25 4.93 4.93 3.25 7 3.25C7.94 3.25 8.79 3.6 9.46 4.19L11.53 2.12C10.32 1 8.75 0.35 7 0.35C3.33 0.35 0.35 3.33 0.35 7C0.35 10.67 3.33 13.65 7 13.65C10.5 13.65 13.65 11.15 13.65 7C13.65 6.6 13.6 6.2 13.5 5.85H12.85Z" fill="#ffb400" />
+    <!-- Colored logo segment path can be simplified to just a colored Google-like styling or standard styling -->
+    <text x="18" y="12" font-family="system-ui, sans-serif" font-size="12" font-weight="900" fill="#1f2a37">Google</text>
+  </g>
+
+  <!-- Stars -->
+  <g transform="translate(24, 30)">
+    <!-- 5 stars -->
+    <text x="0" y="10" font-family="system-ui, sans-serif" font-size="12" fill="#ffb400">★★★★★</text>
+  </g>
+  
+  <!-- Score -->
+  <text x="58" y="54" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1f2a37" text-anchor="middle">Rating 4.8 / 5.0</text>
+</svg>

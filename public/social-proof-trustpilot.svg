@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 66" width="116" height="66">
+  <!-- Card Base -->
+  <rect x="1" y="1" width="114" height="64" rx="14" fill="#ffffff" stroke="#1f2a37" stroke-width="2" />
+  
+  <!-- Trustpilot Star (green star on dark) or 5 stars -->
+  <!-- Trustpilot logo/icon -->
+  <g transform="translate(18, 12)">
+    <rect x="0" y="2" width="14" height="14" fill="#00b67a" />
+    <polygon points="7,4.5 8.5,8 12,8 9,10 10.5,13.5 7,11.5 3.5,13.5 5,10 2,8 5.5,8" fill="#ffffff" />
+    <text x="18" y="14" font-family="system-ui, sans-serif" font-size="12" font-weight="900" fill="#1f2a37">Trustpilot</text>
+  </g>
+
+  <!-- Stars -->
+  <g transform="translate(24, 30)">
+    <!-- 5 stars -->
+    <text x="0" y="10" font-family="system-ui, sans-serif" font-size="12" fill="#00b67a">★★★★★</text>
+  </g>
+  
+  <!-- Score -->
+  <text x="58" y="54" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#1f2a37" text-anchor="middle">Rated 4.8 / 5.0</text>
+</svg>

@@ -3,12 +3,18 @@ export const translations = {
     // Nav & General
     treatments: "Treatments",
     howItWorks: "How It Works",
-    pricing: "Pricing",
+    gallery: "Gallery",
     aboutUs: "About Us",
     faq: "FAQ",
     blog: "Blog",
     contact: "Contact",
     getStarted: "GET STARTED",
+    promo: "Save up to $400 on your first prescription order — Limited time offer",
+    claimOffer: "CLAIM OFFER",
+    reviews: "Patient Reviews",
+    allRightsReserved: "Patriot Men's Clinic. All rights reserved.",
+    privacyPolicy: "Privacy Policy",
+    termsOfService: "Terms of Service",
     
     // Hero
     premiumHealthcare: "PREMIUM MEN'S HEALTHCARE",
@@ -25,7 +31,7 @@ export const translations = {
     // Our Treatments
     ourTreatments: "OUR TREATMENTS",
     treatmentTitle: "Evidence-Based Solutions For Every Stage of Life",
-    trtTitle: "Testosterone Replacement Therapy (TRT)",
+    trtTitle: "Testosterene Replacement Therapy (TRT)",
     trtDesc: "Evidence-based therapy to restore strength, energy, and overall vitality.",
     edTitle: "Erectile Dysfunction Treatment",
     edDesc: "Personalized clinical solutions to improve sexual health and performance.",
@@ -35,21 +41,28 @@ export const translations = {
     hairDesc: "Advanced, physician-guided treatments to combat hair loss and thinning.",
     wellnessTitle: "Men's Wellness Optimization",
     wellnessDesc: "Preventive, custom protocols targeting long-term health and vitality.",
-    peptideTitle: "Peptide Therapy",
-    peptideDesc: "Targeted cell-signal peptides to support recovery, healing, and fat loss.",
+    peptideTitle: "Regenerative Therapy",
+    peptideDesc: "Targeted cellular therapies to support recovery, healing, and healthy aging.",
     learnMore: "LEARN MORE",
     
     // How It Works
     howItWorksTag: "HOW IT WORKS",
     howItWorksTitle: "Personalized Care, Simple Process",
     step1Title: "Complete Online Assessment",
-    step1Desc: "Answer a few simple questions about your health and goals.",
-    step2Title: "Medical Review by Provider",
-    step2Desc: "A licensed provider reviews your assessment and health history.",
+    step1Desc: "Begin your journey by filling out a secure, comprehensive intake form. Share your medical history, symptoms, and health goals in under 5 minutes so we can understand exactly what your body needs.",
+    step1Btn: "START ASSESSMENT",
+    
+    step2Title: "Expert Medical Review",
+    step2Desc: "A US-licensed, board-certified physician will thoroughly review your profile within 24 hours. They will evaluate your unique biomarkers and determine the safest, most effective clinical protocol for you.",
+    step2Btn: "MEET OUR EXPERTS",
+    
     step3Title: "Personalized Treatment Plan",
-    step3Desc: "Receive a custom plan tailored to your specific needs.",
-    step4Title: "Medication Delivered to Your Door",
-    step4Desc: "Your medication is discreetly shipped directly to you.",
+    step3Desc: "If approved, you'll receive a fully customized prescription. From optimal dosing to targeted regenerative therapies, your protocol is built specifically for your biology and lifestyle.",
+    step3Btn: "VIEW TREATMENTS",
+    
+    step4Title: "Fast, Discreet Delivery",
+    step4Desc: "Your medication is compounded at a licensed US pharmacy and shipped directly to your door with free 2-day expedited shipping. Unmarked, temperature-controlled packaging ensures ultimate privacy.",
+    step4Btn: "LEARN ABOUT SHIPPING",
     
     // Why Choose
     whyChooseTag: "WHY CHOOSE PATRIOT",
@@ -80,6 +93,16 @@ export const translations = {
     statProviders: "Providers Nationwide",
     statDelivery: "Delivery Options",
     
+    // Doctors
+    doctorsTag: "MEDICAL TEAM",
+    doctorsTitle: "Trusted by certified physicians who will guide and support you",
+    doctor1Name: "Dr. Michael Wasef, MD",
+    doctor1Title: "Internal Medicine Physician",
+    doctor1School: "University of South Florida",
+    doctor2Name: "Dr. Andrew Sakla, DO",
+    doctor2Title: "Internal Medicine Physician",
+    doctor2School: "Nova Southeastern University",
+    
     // Pricing
     pricingTag: "PRICING PREVIEW",
     pricingTitle: "Simple, Transparent Pricing",
@@ -89,6 +112,18 @@ export const translations = {
     weightProgram: "Weight Loss Program",
     mostPopular: "Most Popular",
     month: "month",
+    trtFeat1: "Personalized TRT Plan",
+    trtFeat2: "Regular Lab Monitoring",
+    trtFeat3: "Provider Consultations",
+    trtFeat4: "Medication Included",
+    edFeat1: "ED Medication",
+    edFeat2: "Medical Consultations",
+    edFeat3: "Discreet Shipping",
+    edFeat4: "Ongoing Support",
+    weightFeat1: "Persoalized Plan",
+    weightFeat2: "Medication Included",
+    weightFeat3: "Nutrition Guidance",
+    weightFeat4: "Regular Check-ins",
     
     // Pre-Footer
     preFooterTitle: "Start Your Health Transformation Today",
@@ -107,12 +142,18 @@ export const translations = {
     // Nav & General
     treatments: "Tratamientos",
     howItWorks: "Cómo Funciona",
-    pricing: "Precios",
+    gallery: "Galería",
     aboutUs: "Nosotros",
     faq: "FAQ",
     blog: "Blog",
     contact: "Contacto",
     getStarted: "COMENZAR",
+    promo: "Ahorre hasta $400 en su primer pedido de receta — Oferta por tiempo limitado",
+    claimOffer: "RECLAMAR OFERTA",
+    reviews: "Reseñas de Pacientes",
+    allRightsReserved: "Patriot Men's Clinic. Todos los derechos reservados.",
+    privacyPolicy: "Política de Privacidad",
+    termsOfService: "Términos de Servicio",
     
     // Hero
     premiumHealthcare: "ATENCIÓN MÉDICA PREMIUM PARA HOMBRES",
@@ -139,21 +180,28 @@ export const translations = {
     hairDesc: "Tratamientos avanzados guiados por médicos para combatir la caída y el adelgazamiento del cabello.",
     wellnessTitle: "Optimización del Bienestar Masculino",
     wellnessDesc: "Protocolos personalizados preventivos dirigidos a la salud y vitalidad a largo plazo.",
-    peptideTitle: "Terapia de Péptidos",
-    peptideDesc: "Péptidos de señal celular dirigidos para apoyar la recuperación, la curación y la pérdida de grasa.",
+    peptideTitle: "Terapia Regenerativa",
+    peptideDesc: "Terapias celulares dirigidas para apoyar la recuperación, curación y envejecimiento saludable.",
     learnMore: "MÁS INFORMACIÓN",
     
     // How It Works
     howItWorksTag: "CÓMO FUNCIONA",
     howItWorksTitle: "Atención Personalizada, Proceso Simple",
-    step1Title: "Completar Evaluación en Línea",
-    step1Desc: "Responda unas preguntas sencillas sobre su salud y objetivos.",
-    step2Title: "Revisión Médica por un Proveedor",
-    step2Desc: "Un proveedor autorizado revisa su evaluación e historial de salud.",
+    step1Title: "Complete la Evaluación en Línea",
+    step1Desc: "Comience su viaje completando un formulario de admisión seguro y completo. Comparta su historial médico, síntomas y objetivos de salud en menos de 5 minutos para que podamos entender exactamente qué necesita su cuerpo.",
+    step1Btn: "COMENZAR EVALUACIÓN",
+    
+    step2Title: "Revisión Médica Experta",
+    step2Desc: "Un médico certificado con licencia en EE. UU. revisará minuciosamente su perfil en 24 horas. Evaluarán sus biomarcadores únicos y determinarán el protocolo clínico más seguro y efectivo para usted.",
+    step2Btn: "CONOZCA A NUESTROS EXPERTOS",
+    
     step3Title: "Plan de Tratamiento Personalizado",
-    step3Desc: "Reciba un plan personalizado adaptado a sus necesidades específicas.",
-    step4Title: "Medicamento Entregado en su Puerta",
-    step4Desc: "Su medicamento se envía discretamente directamente a usted.",
+    step3Desc: "Si es aprobado, recibirá una receta totalmente personalizada. Desde la dosis óptima hasta terapias regenerativas dirigidas, su protocolo está diseñado específicamente para su biología y estilo de vida.",
+    step3Btn: "VER TRATAMIENTOS",
+    
+    step4Title: "Entrega Rápida y Discreta",
+    step4Desc: "Su medicamento se prepara en una farmacia con licencia en EE. UU. y se envía directamente a su puerta con envío rápido y gratuito en 2 días. El embalaje sin marcas y con temperatura controlada garantiza la máxima privacidad.",
+    step4Btn: "INFORMACIÓN DE ENVÍO",
     
     // Why Choose
     whyChooseTag: "POR QUÉ ELEGIR PATRIOT",
@@ -184,6 +232,16 @@ export const translations = {
     statProviders: "Proveedores a Nivel Nacional",
     statDelivery: "Opciones de Envío",
     
+    // Doctors
+    doctorsTag: "EQUIPO MÉDICO",
+    doctorsTitle: "Respaldado por médicos certificados que le guiarán y apoyarán",
+    doctor1Name: "Dr. Michael Wasef, MD",
+    doctor1Title: "Médico de Medicina Interna",
+    doctor1School: "Universidad del Sur de Florida",
+    doctor2Name: "Dr. Andrew Sakla, DO",
+    doctor2Title: "Médico de Medicina Interna",
+    doctor2School: "Universidad Nova Southeastern",
+    
     // Pricing
     pricingTag: "VISTA PREVIA DE PRECIOS",
     pricingTitle: "Precios Simples y Transparentes",
@@ -193,6 +251,18 @@ export const translations = {
     weightProgram: "Programa de Pérdida de Peso",
     mostPopular: "Más Popular",
     month: "mes",
+    trtFeat1: "Plan de TRT Personalizado",
+    trtFeat2: "Monitoreo Regular de Laboratorio",
+    trtFeat3: "Consultas de Proveedores",
+    trtFeat4: "Medicación Incluida",
+    edFeat1: "Medicamento para la DE",
+    edFeat2: "Consultas Médicas",
+    edFeat3: "Envío Discreto",
+    edFeat4: "Soporte Continuo",
+    weightFeat1: "Plan Personalizado",
+    weightFeat2: "Medicación Incluida",
+    weightFeat3: "Guía de Nutrición",
+    weightFeat4: "Controles Regulares",
     
     // Pre-Footer
     preFooterTitle: "Comience su Transformación de Salud Hoy",
