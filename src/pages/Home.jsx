@@ -128,42 +128,42 @@ function Home({ locale, setQuizOpen }) {
       id: 'trt',
       title: t('trtTitle'),
       desc: t('trtDesc'),
-      image: '/images/testosterone_vial.jpg',
+      image: '/images/testosterone_vial.webp',
       badge: locale === 'en' ? 'Clinically Proven' : 'Clínicamente Probado'
     },
     {
       id: 'ed',
       title: t('edTitle'),
       desc: t('edDesc'),
-      image: '/images/telehealth_doctor.jpg',
+      image: '/images/telehealth_doctor.webp',
       badge: locale === 'en' ? 'FDA Approved Ingredients' : 'Ingredientes Aprobados FDA'
     },
     {
       id: 'weight',
       title: t('weightTitle'),
       desc: t('weightDesc'),
-      image: '/images/semaglutide_vial.jpg',
+      image: '/images/semaglutide_vial.webp',
       badge: locale === 'en' ? 'Compounded GLP-1' : 'GLP-1 Compuesto'
     },
     {
       id: 'hair',
       title: t('hairTitle'),
       desc: t('hairDesc'),
-      image: '/images/hair_dropper.jpg',
+      image: '/images/hair_dropper.webp',
       badge: locale === 'en' ? 'Physician Guided' : 'Guiado por Médicos'
     },
     {
       id: 'wellness',
       title: t('wellnessTitle'),
       desc: t('wellnessDesc'),
-      image: '/images/nad_vial.jpg',
+      image: '/images/nad_vial.webp',
       badge: locale === 'en' ? 'Cellular Boosters' : 'Impulsores Celulares'
     },
     {
       id: 'peptide',
       title: t('peptideTitle'),
       desc: t('peptideDesc'),
-      image: '/images/diagnostic_kit.jpg',
+      image: '/images/diagnostic_kit.webp',
       badge: locale === 'en' ? 'Longevity Protocols' : 'Protocolos de Longevidad'
     }
   ];
@@ -174,28 +174,28 @@ function Home({ locale, setQuizOpen }) {
       title: t('step1Title'),
       desc: t('step1Desc'),
       btnText: t('step1Btn'),
-      image: '/images/diagnostic_kit.jpg'
+      image: '/images/diagnostic_kit.webp'
     },
     {
       number: 2,
       title: t('step2Title'),
       desc: t('step2Desc'),
       btnText: t('step2Btn'),
-      image: '/images/telehealth_doctor.jpg'
+      image: '/images/telehealth_doctor.webp'
     },
     {
       number: 3,
       title: t('step3Title'),
       desc: t('step3Desc'),
       btnText: t('step3Btn'),
-      image: '/images/discreet_packaging.jpg'
+      image: '/images/discreet_packaging.webp'
     },
     {
       number: 4,
       title: t('step4Title'),
       desc: t('step4Desc'),
       btnText: t('step4Btn'),
-      image: '/images/semaglutide_vial.jpg'
+      image: '/images/semaglutide_vial.webp'
     }
   ];
 
@@ -203,32 +203,32 @@ function Home({ locale, setQuizOpen }) {
     {
       title: t('feat1Title'),
       desc: t('feat1Desc'),
-      image: "/images/feature_medical_team_1783030032632.jpg"
+      image: "/images/feature_medical_team_1783030032632.webp"
     },
     {
       title: t('feat2Title'),
       desc: t('feat2Desc'),
-      image: "/images/feature_personalized_plan_1783030048726.jpg"
+      image: "/images/feature_personalized_plan_1783030048726.webp"
     },
     {
       title: t('feat3Title'),
       desc: t('feat3Desc'),
-      image: "/images/feature_telehealth_1783030058457.jpg"
+      image: "/images/feature_telehealth_1783030058457.webp"
     },
     {
       title: t('feat4Title'),
       desc: t('feat4Desc'),
-      image: "/images/feature_discreet_shipping_1783030073250.jpg"
+      image: "/images/feature_discreet_shipping_1783030073250.webp"
     },
     {
       title: t('feat5Title'),
       desc: t('feat5Desc'),
-      image: "/images/feature_ongoing_support_1783030084188.jpg"
+      image: "/images/feature_ongoing_support_1783030084188.webp"
     },
     {
       title: t('feat6Title'),
       desc: t('feat6Desc'),
-      image: "/images/feature_science_backed_1783030014752.jpg"
+      image: "/images/feature_science_backed_1783030014752.webp"
     }
   ];
 
@@ -239,7 +239,7 @@ function Home({ locale, setQuizOpen }) {
         ? "Patriot Men's Clinic changed my life. I have more energy, better focus, and my confidence is back."
         : "Patriot Men's Clinic cambió mi vida. Tengo más energía, mejor enfoque y he recuperado mi confianza.",
       author: "Mike R.",
-      avatar: "/images/avatar1.jpg",
+      avatar: "/images/avatar1.webp",
       meta: "45, Dallas, TX"
     },
     {
@@ -248,7 +248,7 @@ function Home({ locale, setQuizOpen }) {
         ? "The process was simple, discreet, and the results have been incredible. Highly recommend."
         : "El proceso fue simple, discreto y los resultados han sido increíbles. Muy recomendable.",
       author: "Jason T.",
-      avatar: "/images/avatar2.jpg",
+      avatar: "/images/avatar2.webp",
       meta: "38, Phoenix, AZ"
     },
     {
@@ -257,7 +257,7 @@ function Home({ locale, setQuizOpen }) {
         ? "Professional care, great results, and outstanding support every step of the way."
         : "Atención profesional, excelentes resultados y un apoyo excepcional en cada paso del camino.",
       author: "Robert L.",
-      avatar: "/images/avatar3.jpg",
+      avatar: "/images/avatar3.webp",
       meta: "52, Nashville, TN"
     }
   ];
@@ -420,7 +420,7 @@ function Home({ locale, setQuizOpen }) {
           <div className="doctors-grid-PMC">
             <div className="doctor-card-PMC">
               <div className="doctor-image-box-PMC">
-                <img src="/images/telehealth_doctor.jpg" alt={t('doctor1Name')} />
+                <img src="/images/telehealth_doctor.webp" alt={t('doctor1Name')} loading="lazy" decoding="async" />
               </div>
               <div className="doctor-content-PMC">
                 <h3 className="doctor-name-PMC">{t('doctor1Name')}</h3>
@@ -437,7 +437,7 @@ function Home({ locale, setQuizOpen }) {
 
             <div className="doctor-card-PMC">
               <div className="doctor-image-box-PMC">
-                <img src="/images/vitality_hero.jpg" alt={t('doctor2Name')} style={{objectPosition: 'top'}} />
+                <img src="/images/vitality_hero.webp" alt={t('doctor2Name')} loading="lazy" decoding="async" style={{objectPosition: 'top'}} />
               </div>
               <div className="doctor-content-PMC">
                 <h3 className="doctor-name-PMC">{t('doctor2Name')}</h3>
@@ -489,16 +489,16 @@ function Home({ locale, setQuizOpen }) {
 
           <div className="gallery-grid">
             <div className="gallery-item">
-              <img src="/images/clinical_lab.jpg" alt="Clinical Laboratory" />
+              <img src="/images/clinical_lab.webp" alt="Clinical Laboratory" loading="lazy" decoding="async" />
             </div>
             <div className="gallery-item">
-              <img src="/images/diagnostic_kit.jpg" alt="Diagnostic Kit" />
+              <img src="/images/diagnostic_kit.webp" alt="Diagnostic Kit" loading="lazy" decoding="async" />
             </div>
             <div className="gallery-item">
-              <img src="/images/discreet_packaging.jpg" alt="Discreet Packaging" />
+              <img src="/images/discreet_packaging.webp" alt="Discreet Packaging" loading="lazy" decoding="async" />
             </div>
             <div className="gallery-item">
-              <img src="/images/nad_vial.jpg" alt="NAD+ Longevity Vial" />
+              <img src="/images/nad_vial.webp" alt="NAD+ Longevity Vial" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -561,7 +561,7 @@ function Home({ locale, setQuizOpen }) {
             </button>
           </div>
           <div className="cta-banner-image-right-PMC">
-            <img src="/images/cta-transformation.jpg" alt="Transformation man" className="cta-man-img-PMC" />
+            <img src="/images/cta-transformation.webp" alt="Transformation man" className="cta-man-img-PMC" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

@@ -499,7 +499,7 @@ body {
   width: 100%;
   max-width: 1280px;
   min-height: 590px;
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.1) 60%), url('/images/hero-bg.jpg');
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.1) 60%), url('/images/hero-bg.webp');
   background-size: cover;
   background-position: center;
   border: 2px solid var(--color-retro-ink);

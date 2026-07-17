@@ -6,7 +6,7 @@ const treatmentData = {
   trt: {
     title: 'trtTitle',
     desc: 'trtDesc',
-    heroImg: '/images/testosterone_vial.jpg',
+    heroImg: '/images/testosterone_vial.webp',
     benefits: [
       'Increased energy levels',
       'Enhanced libido and sexual function',
@@ -25,7 +25,7 @@ const treatmentData = {
   ed: {
     title: 'edTitle',
     desc: 'edDesc',
-    heroImg: '/images/telehealth_doctor.jpg',
+    heroImg: '/images/telehealth_doctor.webp',
     benefits: [
       'Rapid onset of action',
       'FDA-approved active ingredients',
@@ -44,7 +44,7 @@ const treatmentData = {
   weight: {
     title: 'weightTitle',
     desc: 'weightDesc',
-    heroImg: '/images/semaglutide_vial.jpg',
+    heroImg: '/images/semaglutide_vial.webp',
     benefits: [
       'Significant weight loss',
       'Reduced appetite and cravings',
@@ -63,7 +63,7 @@ const treatmentData = {
   hair: {
     title: 'hairTitle',
     desc: 'hairDesc',
-    heroImg: '/images/hair_dropper.jpg',
+    heroImg: '/images/hair_dropper.webp',
     benefits: [
       'Stimulates new hair growth',
       'Prevents further hair loss',
@@ -82,7 +82,7 @@ const treatmentData = {
   wellness: {
     title: 'wellnessTitle',
     desc: 'wellnessDesc',
-    heroImg: '/images/nad_vial.jpg',
+    heroImg: '/images/nad_vial.webp',
     benefits: [
       'Enhanced cellular energy',
       'Improved cognitive focus',
@@ -101,7 +101,7 @@ const treatmentData = {
   peptide: {
     title: 'peptideTitle',
     desc: 'peptideDesc',
-    heroImg: '/images/diagnostic_kit.jpg',
+    heroImg: '/images/diagnostic_kit.webp',
     benefits: [
       'Accelerated tissue repair',
       'Enhanced muscle recovery',
