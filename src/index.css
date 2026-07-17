@@ -3047,6 +3047,19 @@ main > div > section,
   font-family: var(--font-heading);
 }
 
+/* FAQ section layout */
+.retro-faq-section {
+  padding: 80px 0 100px;
+  background-color: var(--gray-light, #f5f7fa);
+}
+
+.retro-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
 /* FAQ Collapsible Items - Premium Redesign */
 .faqs-list-PMC {
   max-width: 800px;

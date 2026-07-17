@@ -618,7 +618,7 @@ function Home({ locale }) {
                     </svg>
                   </span>
                 </button>
-                <div className="faq-answer-panel-PMC" style={{ maxHeight: openFaq === idx ? '220px' : '0' }}>
+                <div className="faq-answer-panel-PMC" style={{ maxHeight: openFaq === idx ? '800px' : '0' }}>
                   <div className="faq-answer-inner-PMC">
                      <p>{item.answer}</p>
                   </div>

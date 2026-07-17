@@ -27,6 +27,23 @@ function App() {
   }, [location.pathname, closeMenu]);
 
   useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      // Wait for the new page to paint before scrolling to the hash target.
+      const timer = window.setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }, 50);
+      return () => window.clearTimeout(timer);
+    }
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
+
+  useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen);
     return () => document.body.classList.remove('nav-open');
   }, [menuOpen]);
@@ -216,8 +233,8 @@ function App() {
             <div>
               <h4 className="footer-title-PMC">{t('resources')}</h4>
               <ul className="footer-links-PMC">
-                <li><Link to="/">{t('howItWorks')}</Link></li>
-                <li><Link to="/">{t('faq')}</Link></li>
+                <li><Link to="/#how-it-works">{t('howItWorks')}</Link></li>
+                <li><Link to="/#faqs">{t('faq')}</Link></li>
                 <li><Link to="/">{t('blog')}</Link></li>
                 <li><Link to="/">{locale === 'en' ? 'Patient Reviews' : 'Reseñas de Pacientes'}</Link></li>
                 <li><Link to="/">{locale === 'en' ? 'Contact Us' : 'Contáctenos'}</Link></li>

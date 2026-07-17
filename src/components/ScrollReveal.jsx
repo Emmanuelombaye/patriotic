@@ -1,21 +1,4 @@
-import { useEffect, useRef } from 'react';
-
-const observers = new Map();
-
-function getObserver(options) {
-  const key = JSON.stringify(options);
-  if (!observers.has(key)) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      });
-    }, options);
-    observers.set(key, observer);
-  }
-  return observers.get(key);
-}
+import { useEffect, useRef, useState } from 'react';
 
 export default function ScrollReveal({
   children,
@@ -30,6 +13,7 @@ export default function ScrollReveal({
   ...props
 }) {
   const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
@@ -37,21 +21,28 @@ export default function ScrollReveal({
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion || eager) {
-      node.classList.add('is-visible');
+      setIsVisible(true);
       return undefined;
     }
 
-    const observer = getObserver({ threshold, rootMargin });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          setIsVisible(true);
+          if (once) observer.unobserve(entry.target);
+        });
+      },
+      { threshold, rootMargin },
+    );
+
     observer.observe(node);
 
-    return () => {
-      if (!once) return;
-      observer.unobserve(node);
-    };
+    return () => observer.disconnect();
   }, [once, threshold, rootMargin, eager]);
 
   const delayClass = delay > 0 ? ` reveal-delay-${Math.min(delay, 8)}` : '';
-  const classes = `reveal reveal-${variant}${delayClass}${className ? ` ${className}` : ''}`;
+  const classes = `reveal reveal-${variant}${delayClass}${isVisible ? ' is-visible' : ''}${className ? ` ${className}` : ''}`;
 
   return (
     <Tag ref={ref} className={classes} {...props}>
