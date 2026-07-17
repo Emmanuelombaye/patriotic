@@ -590,11 +590,10 @@ function Home({ locale }) {
           </ScrollReveal>
 
           <ScrollReveal variant="fade-up" delay={2} className="health-standard-collage">
-            <img
-              src="/images/health-standard-collage.png"
-              alt="Efevia health leaders, advocates, and industry recognition"
-              loading="lazy"
-              decoding="async"
+            <ResponsiveImage
+              src="/images/health-standard-collage.webp"
+              alt="Efexia health leaders, advocates, and industry recognition"
+              sizes="(max-width: 767px) 720px, 1200px"
             />
           </ScrollReveal>
         </div>

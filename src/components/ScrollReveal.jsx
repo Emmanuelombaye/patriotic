@@ -13,7 +13,7 @@ export default function ScrollReveal({
   ...props
 }) {
   const ref = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(eager);
 
   useEffect(() => {
     const node = ref.current;

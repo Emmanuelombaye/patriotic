@@ -12,9 +12,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" />
 
-    <!-- Preload the exact responsive hero selected by CSS. -->
+    <!-- Fetch only the two above-the-fold images before React starts. -->
+    <link rel="preload" as="image" type="image/webp" href="/efexia-logo-384.webp" fetchpriority="high" />
     <link rel="preload" as="image" type="image/avif" href="/images/hero-bg-960.avif" media="(max-width: 767px)" fetchpriority="high" />
     <link rel="preload" as="image" type="image/avif" href="/images/hero-bg.avif" media="(min-width: 768px)" fetchpriority="high" />
   </head>

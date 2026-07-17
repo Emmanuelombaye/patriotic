@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ResponsiveImage from '../components/ResponsiveImage';
 import ScrollReveal from '../components/ScrollReveal';
 
 const ArrowIcon = () => (
@@ -111,7 +112,14 @@ function PeptideTreatment({ locale }) {
   return (
     <div className="peptide-page">
       <section className="peptide-hero">
-        <img className="peptide-hero__image" src="/images/efexia-peptide-hero.webp" alt="" fetchPriority="high" />
+        <ResponsiveImage
+          className="peptide-hero__image"
+          src="/images/efexia-peptide-hero.webp"
+          alt=""
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
+        />
         <div className="peptide-hero__veil" aria-hidden="true" />
         <div className="container peptide-hero__inner">
           <ScrollReveal eager variant="fade-up" className="peptide-hero__copy">
@@ -133,7 +141,11 @@ function PeptideTreatment({ locale }) {
       <section className="peptide-section peptide-science">
         <div className="container peptide-split">
           <ScrollReveal variant="slide-left" className="peptide-image-card peptide-image-card--science">
-            <img src="/images/efexia-peptide-science.webp" alt="Abstract visualization of peptide and cellular signaling structures" loading="lazy" />
+            <ResponsiveImage
+              src="/images/efexia-peptide-science.webp"
+              alt="Abstract visualization of peptide and cellular signaling structures"
+              sizes="(max-width: 991px) calc(100vw - 48px), 50vw"
+            />
             <span className="peptide-image-label">Cellular signaling</span>
           </ScrollReveal>
           <ScrollReveal variant="slide-right" className="peptide-copy-block">
@@ -186,7 +198,11 @@ function PeptideTreatment({ locale }) {
       <section className="peptide-section peptide-lifestyle">
         <div className="container peptide-lifestyle__card">
           <div className="peptide-lifestyle__image">
-            <img src="/images/efexia-peptide-recovery.webp" alt="Man stretching as part of a healthy morning routine" loading="lazy" />
+            <ResponsiveImage
+              src="/images/efexia-peptide-recovery.webp"
+              alt="Man stretching as part of a healthy morning routine"
+              sizes="(max-width: 991px) calc(100vw - 48px), 54vw"
+            />
           </div>
           <ScrollReveal variant="slide-right" className="peptide-lifestyle__copy">
             <p className="peptide-kicker">{copy.lifestyleEyebrow}</p>
