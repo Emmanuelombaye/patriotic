@@ -97,8 +97,8 @@ function App() {
               src="/efexia-logo-transparent.png"
               alt="Efexia"
               className="brand-logo"
-              width="518"
-              height="408"
+              width="1536"
+              height="1024"
               decoding="async"
               fetchPriority="high"
             />
@@ -158,8 +158,8 @@ function App() {
                   src="/efexia-logo-transparent.png"
                   alt="Efexia"
                   className="brand-logo brand-logo-footer"
-                  width="518"
-                  height="408"
+                  width="1536"
+                  height="1024"
                   loading="lazy"
                   decoding="async"
                 />
