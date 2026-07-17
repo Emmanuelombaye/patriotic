@@ -1,28 +1,34 @@
 :root {
-  --midnight-navy: #0A1024;
-  --champagne-gold: #D8B36A;
-  --soft-ivory: #F8F7F4;
-  --graphite: #23252D;
+  --brand-background: #F7F9FF;
+  --brand-button: #5A4CFF;
+  --brand-hover: #7B61FF;
+  --brand-highlight: #00D5C8;
+  --brand-text: #0F172A;
+
+  --midnight-navy: var(--brand-text);
+  --champagne-gold: var(--brand-highlight);
+  --soft-ivory: var(--brand-background);
+  --graphite: var(--brand-text);
   --navy-dark: var(--midnight-navy);
-  --navy-light: #242D4A;
+  --navy-light: var(--brand-hover);
   --navy: var(--midnight-navy);
-  --sage: var(--champagne-gold);
-  --sage-dark: #B99045;
-  --red: var(--champagne-gold);
+  --sage: var(--brand-highlight);
+  --sage-dark: var(--brand-hover);
+  --red: var(--brand-button);
   --white: #FFFFFF;
   --black: var(--graphite);
   
   /* Efexia luxury palette */
-  --cream-bg: var(--soft-ivory);
-  --gray-light: #F0EEE9;
-  --gray-border: #DED9CF;
+  --cream-bg: var(--brand-background);
+  --gray-light: #EEF1FF;
+  --gray-border: #DDE3F5;
   --text-dark: var(--graphite);
-  --text-muted: #65666D;
+  --text-muted: #526079;
   
   /* Supporting brand colors */
-  --color-sky: #394361;
-  --color-orange: var(--champagne-gold);
-  --color-purple: #857653;
+  --color-sky: var(--brand-hover);
+  --color-orange: var(--brand-highlight);
+  --color-purple: var(--brand-button);
   
   /* Legacy design tokens mapped to Efexia */
   --color-retro-ink: var(--graphite);
@@ -30,13 +36,13 @@
   --color-retro-shadow: var(--midnight-navy);
   --color-retro-surface: #FFFFFF;
   --color-retro-cream: var(--soft-ivory);
-  --color-retro-orange: var(--champagne-gold);
-  --color-retro-lavender: #E8E2D6;
-  --color-retro-sky-1: #B7BBC7;
-  --color-retro-sky-2: #ECEAE5;
-  --color-retro-green: var(--champagne-gold);
-  --color-retro-yellow: #E5CA91;
-  --color-retro-purple: #857653;
+  --color-retro-orange: var(--brand-highlight);
+  --color-retro-lavender: #E8E6FF;
+  --color-retro-sky-1: #C9D0FF;
+  --color-retro-sky-2: #F0F3FF;
+  --color-retro-green: var(--brand-button);
+  --color-retro-yellow: var(--brand-highlight);
+  --color-retro-purple: var(--brand-hover);
   
   --radius-retro-card: 1.5rem;
   --radius-retro-pill: 999px;
@@ -147,7 +153,7 @@ main > div > section,
 }
 
 .btn-red:hover {
-  background-color: var(--red);
+  background-color: var(--brand-hover);
   color: var(--white);
 }
 
@@ -309,7 +315,7 @@ main > div > section,
   position: sticky;
   top: 0;
   z-index: 99;
-  padding: 15px 0;
+  padding: 8px 0;
   border-bottom: 1.5px solid var(--gray-border);
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.04);
 }
@@ -329,12 +335,15 @@ main > div > section,
 
 .brand-logo {
   display: block;
-  width: 84px;
-  height: 66px;
-  object-fit: cover;
-  border: 1px solid rgba(216, 179, 106, 0.3);
-  border-radius: 16px;
-  box-shadow: 0 9px 24px rgba(10, 16, 36, 0.15);
+  width: 138px;
+  height: auto;
+  aspect-ratio: 560 / 435;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+  filter:
+    drop-shadow(0 1px 1px rgba(10, 16, 36, 0.48))
+    drop-shadow(0 9px 15px rgba(10, 16, 36, 0.12));
 }
 
 .footer-logo-surface {
@@ -342,17 +351,18 @@ main > div > section,
   align-items: center;
   width: fit-content;
   padding: 0;
-  overflow: hidden;
-  background: var(--midnight-navy);
-  border-radius: 24px;
+  overflow: visible;
+  background: transparent;
+  border-radius: 0;
 }
 
 .brand-logo-footer {
-  width: 210px;
-  height: 166px;
+  width: 240px;
+  height: auto;
   border: 0;
-  border-radius: 24px;
+  border-radius: 0;
   box-shadow: none;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.24));
 }
 
 .logo-text-PMC {
@@ -467,6 +477,7 @@ main > div > section,
 }
 
 .nav-cta-pill:hover {
+  background-color: var(--brand-hover);
   transform: translate(2px, 2px);
   box-shadow: var(--brutal-shadow-hover);
 }
@@ -801,6 +812,7 @@ main > div > section,
 }
 
 .retro-home-hero-btn:hover {
+  background-color: var(--brand-hover);
   transform: translate(2px, 3px);
   box-shadow: 0 0 0 0 var(--color-retro-shadow);
 }
@@ -1102,7 +1114,7 @@ main > div > section,
   text-transform: uppercase;
   border-radius: 999px;
   letter-spacing: 0.05em;
-  box-shadow: 0 4px 14px rgba(216, 179, 106, 0.28);
+  box-shadow: 0 4px 14px rgba(90, 76, 255, 0.28);
 }
 
 .accordion-title {
@@ -1296,7 +1308,7 @@ main > div > section,
   font-weight: 800;
   font-size: 1rem;
   margin-bottom: 16px;
-  box-shadow: 0 4px 15px rgba(216, 179, 106, 0.3);
+  box-shadow: 0 4px 15px rgba(90, 76, 255, 0.3);
 }
 
 .sticky-step-title {
@@ -1781,7 +1793,7 @@ main > div > section,
   right: -10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(216, 179, 106, 0.16) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 213, 200, 0.16) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -2032,7 +2044,7 @@ main > div > section,
   height: 32px;
   min-width: 32px;
   border-radius: 50%;
-  background-color: rgba(216, 179, 106, 0.12);
+  background-color: rgba(0, 213, 200, 0.12);
   color: var(--red);
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -2131,12 +2143,12 @@ main > div > section,
   border: none;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  box-shadow: 0 4px 15px rgba(216, 179, 106, 0.22);
+  box-shadow: 0 4px 15px rgba(90, 76, 255, 0.22);
 }
 
 .cta-btn-left-PMC:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(216, 179, 106, 0.34);
+  box-shadow: 0 8px 25px rgba(123, 97, 255, 0.34);
   background-color: var(--sage-dark);
 }
 
@@ -2175,7 +2187,7 @@ main > div > section,
 .gallery-section {
   padding: clamp(84px, 10vw, 144px) 0;
   overflow: hidden;
-  background: #f7f3ea;
+  background: var(--brand-background);
 }
 
 .health-standard {
@@ -2190,7 +2202,7 @@ main > div > section,
 
 .health-standard-heading h2 {
   margin: 0;
-  color: #171714;
+  color: var(--brand-text);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(3rem, 6.5vw, 6.75rem);
   font-weight: 400;
@@ -2200,7 +2212,7 @@ main > div > section,
 
 .health-standard-heading p {
   margin: 24px 0 0;
-  color: #24231f;
+  color: var(--brand-text);
   font-size: clamp(1.15rem, 2vw, 1.65rem);
   letter-spacing: -0.025em;
   line-height: 1.3;
@@ -2969,28 +2981,26 @@ body.nav-open {
 }
 
 /* =============================================
-   EFEXIA MIDNIGHT & CHAMPAGNE FINISH
+   EFEXIA BRAND PALETTE
 ============================================= */
 body {
-  background:
-    radial-gradient(circle at 15% 0%, rgba(216, 179, 106, 0.09), transparent 28rem),
-    var(--soft-ivory);
+  background: var(--brand-background);
 }
 
 .promo-banner {
   background: var(--midnight-navy);
   color: var(--soft-ivory);
-  border-bottom: 1px solid rgba(216, 179, 106, 0.35);
+  border-bottom: 1px solid rgba(0, 213, 200, 0.35);
 }
 
 .promo-link span:last-child {
-  color: var(--champagne-gold);
-  text-decoration-color: rgba(216, 179, 106, 0.65);
+  color: var(--brand-highlight);
+  text-decoration-color: rgba(0, 213, 200, 0.65);
 }
 
 .trust-bar,
 .navbar {
-  background-color: rgba(248, 247, 244, 0.96);
+  background-color: rgba(247, 249, 255, 0.96);
 }
 
 .navbar {
@@ -3001,13 +3011,12 @@ body {
 
 .footer-logo-surface {
   padding: 0;
-  background: var(--midnight-navy);
-  border: 1px solid rgba(216, 179, 106, 0.38);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .btn-red,
-.btn-red:hover,
 .nav-cta-pill,
 .accordion-badge,
 .sticky-step-number,
@@ -3015,43 +3024,45 @@ body {
 .quiz-progress-fill,
 .quiz-option-card.selected .quiz-option-number,
 .treatment-tag-badge {
-  color: var(--midnight-navy);
-  background: linear-gradient(135deg, #E4C98F 0%, var(--champagne-gold) 52%, #C99F51 100%);
+  color: var(--white);
+  background: var(--brand-button);
   border-color: rgba(10, 16, 36, 0.16);
-  box-shadow: 0 10px 26px rgba(216, 179, 106, 0.22);
+  box-shadow: 0 10px 26px rgba(90, 76, 255, 0.22);
 }
 
 .btn-red:hover,
 .nav-cta-pill:hover,
 .quiz-footer .btn-primary:hover {
-  box-shadow: 0 14px 34px rgba(216, 179, 106, 0.34);
+  color: var(--white);
+  background: var(--brand-hover);
+  box-shadow: 0 14px 34px rgba(123, 97, 255, 0.34);
 }
 
 .quiz-close-btn:hover,
 .faq-item-PMC:hover .faq-icon-PMC,
 .faq-item-PMC.open .faq-icon-PMC {
-  color: var(--midnight-navy);
-  background: var(--champagne-gold);
+  color: var(--brand-text);
+  background: var(--brand-highlight);
 }
 
 .accordion-link:hover {
-  color: var(--midnight-navy);
-  background: var(--champagne-gold);
-  border-color: var(--champagne-gold);
+  color: var(--brand-text);
+  background: var(--brand-highlight);
+  border-color: var(--brand-highlight);
 }
 
 .section-tag,
 .retro-tag,
 .doctor-subtitle-PMC,
 .footer-links-PMC a:hover {
-  color: #A77E34;
+  color: var(--brand-highlight);
 }
 
 .section-title-wrapper::after {
   height: 3px;
   border: 0;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, var(--champagne-gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--brand-highlight), transparent);
 }
 
 .accordion-gradient-overlay {
@@ -3067,7 +3078,7 @@ body {
 .reviews-section-luxury,
 .footer-PMC {
   background:
-    radial-gradient(circle at 85% 10%, rgba(216, 179, 106, 0.1), transparent 26rem),
+    radial-gradient(circle at 85% 10%, rgba(0, 213, 200, 0.1), transparent 26rem),
     var(--midnight-navy);
 }
 
@@ -3075,9 +3086,9 @@ body {
   padding: 44px 0;
   color: var(--soft-ivory);
   background:
-    linear-gradient(90deg, rgba(216, 179, 106, 0.08), transparent 28%, transparent 72%, rgba(216, 179, 106, 0.08)),
+    linear-gradient(90deg, rgba(0, 213, 200, 0.08), transparent 28%, transparent 72%, rgba(0, 213, 200, 0.08)),
     var(--midnight-navy);
-  border-block: 1px solid rgba(216, 179, 106, 0.32);
+  border-block: 1px solid rgba(0, 213, 200, 0.32);
 }
 
 .retro-stats-bar .stat-number-PMC {
@@ -3090,7 +3101,7 @@ body {
 }
 
 .footer-PMC {
-  border-top: 1px solid rgba(216, 179, 106, 0.4);
+  border-top: 1px solid rgba(0, 213, 200, 0.4);
 }
 
 .footer-title-PMC {
@@ -3100,15 +3111,15 @@ body {
 .social-icon-PMC {
   background: transparent;
   color: var(--champagne-gold);
-  border-color: rgba(216, 179, 106, 0.65);
+  border-color: rgba(0, 213, 200, 0.65);
   box-shadow: none;
 }
 
 .social-icon-PMC:hover {
-  color: var(--midnight-navy);
-  background: var(--champagne-gold);
-  border-color: var(--champagne-gold);
-  box-shadow: 0 8px 22px rgba(216, 179, 106, 0.24);
+  color: var(--brand-text);
+  background: var(--brand-highlight);
+  border-color: var(--brand-highlight);
+  box-shadow: 0 8px 22px rgba(0, 213, 200, 0.24);
 }
 
 .premium-feature-card,
@@ -3126,25 +3137,25 @@ body {
 }
 
 ::selection {
-  color: var(--midnight-navy);
-  background: var(--champagne-gold);
+  color: var(--brand-text);
+  background: var(--brand-highlight);
 }
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 10px 0;
+    padding: 7px 0;
   }
 
   .brand-logo {
-    width: 69px;
-    height: 54px;
-    border-radius: 13px;
+    width: 112px;
+    height: auto;
+    border-radius: 0;
   }
 
   .brand-logo-footer {
-    width: 178px;
-    height: 140px;
-    border-radius: 20px;
+    width: 210px;
+    height: auto;
+    border-radius: 0;
   }
 
   .gallery-section {

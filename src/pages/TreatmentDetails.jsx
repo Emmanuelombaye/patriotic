@@ -262,8 +262,8 @@ function TreatmentDetails({ locale }) {
         }
         .treatment-tag-badge {
           display: inline-block;
-          background: linear-gradient(135deg, #E4C98F 0%, var(--champagne-gold) 52%, #C99F51 100%);
-          color: var(--midnight-navy);
+          background: var(--brand-highlight);
+          color: var(--brand-text);
           padding: 6px 12px;
           border-radius: 4px;
           font-family: var(--font-heading);

@@ -97,9 +97,10 @@ function App() {
               src="/newlogo.webp"
               alt="Efexia"
               className="brand-logo"
-              width="789"
-              height="622"
+              width="560"
+              height="435"
               decoding="async"
+              fetchPriority="high"
             />
           </Link>
 
@@ -157,8 +158,8 @@ function App() {
                   src="/newlogo.webp"
                   alt="Efexia"
                   className="brand-logo brand-logo-footer"
-                  width="789"
-                  height="622"
+                  width="560"
+                  height="435"
                   loading="lazy"
                   decoding="async"
                 />

@@ -63,7 +63,7 @@ const TYPER_WORDS = {
   es: ['Pérdida de Peso', 'Terapia TRT', 'Cuidado de DE', 'Crecimiento Capilar', 'Bienestar'],
 };
 
-const TYPER_COLORS = ['#F8F7F4', '#D8B36A', '#E8D3A7', '#B7BBC7', '#FFFFFF'];
+const TYPER_COLORS = ['#F7F9FF', '#00D5C8', '#7B61FF', '#5A4CFF', '#FFFFFF'];
 
 function Home({ locale }) {
   const [openFaq, setOpenFaq] = useState(null);
