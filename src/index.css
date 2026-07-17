@@ -336,7 +336,7 @@ main > div > section,
 .brand-logo {
   display: block;
   width: auto;
-  height: 68px;
+  height: 78px;
   aspect-ratio: 1536 / 1024;
   object-fit: contain;
   border: 0;
@@ -355,7 +355,7 @@ main > div > section,
 }
 
 .brand-logo-footer {
-  width: 220px;
+  width: 242px;
   height: auto;
   border: 0;
   border-radius: 0;
@@ -3298,13 +3298,13 @@ body {
   }
 
   .brand-logo {
-    width: 140px;
+    width: 154px;
     height: auto;
     border-radius: 0;
   }
 
   .brand-logo-footer {
-    width: 256px;
+    width: 280px;
     height: auto;
     border-radius: 0;
   }

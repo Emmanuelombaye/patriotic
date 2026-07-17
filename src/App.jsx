@@ -95,6 +95,8 @@ function App() {
           <Link to="/" className="logo-wrapper-PMC" style={{textDecoration: 'none'}} onClick={closeMenu}>
             <img
               src="/efexia-logo-transparent.png"
+              srcSet="/efexia-logo-384.webp 384w, /efexia-logo-768.webp 768w"
+              sizes="(max-width: 768px) 154px, 117px"
               alt="Efexia"
               className="brand-logo"
               width="1536"
@@ -156,6 +158,8 @@ function App() {
               <div className="footer-logo-surface">
                 <img
                   src="/efexia-logo-transparent.png"
+                  srcSet="/efexia-logo-384.webp 384w, /efexia-logo-768.webp 768w"
+                  sizes="(max-width: 768px) 280px, 242px"
                   alt="Efexia"
                   className="brand-logo brand-logo-footer"
                   width="1536"
