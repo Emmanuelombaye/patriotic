@@ -1,10 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { translations } from '../translations';
+import ResponsiveImage from '../components/ResponsiveImage';
+import ScrollReveal from '../components/ScrollReveal';
 
 const faqItemsEn = [
   {
-    question: 'How does Patriot Men\'s Health telehealth work?',
+    question: 'What does Efexia mean?',
+    answer: 'Efexia is the Greek word for wellness, wellbeing, or the state of good condition. Our telehealth clinic helps men reach that state through personalized, physician-guided care — from a brief online questionnaire and medical review to discreet home delivery of your treatment.'
+  },
+  {
+    question: 'How does Efexia telehealth work?',
     answer: 'It\'s simple and fully virtual. First, you complete a brief online health questionnaire sharing your goals and history. Next, one of our licensed U.S. physicians reviews your intake. If eligible, they prescribe a personalized treatment protocol. Finally, our partner compounding pharmacy ships your medications directly to your door in discreet packaging.'
   },
   {
@@ -27,7 +33,11 @@ const faqItemsEn = [
 
 const faqItemsEs = [
   {
-    question: '¿Cómo funciona la telemedicina de Patriot Men\'s Health?',
+    question: '¿Qué significa Efexia?',
+    answer: 'Efexia es la palabra griega para bienestar, salud o el estado de buena condición. Nuestra clínica de telemedicina ayuda a los hombres a alcanzar ese estado mediante una atención personalizada y guiada por médicos — desde un breve cuestionario en línea y una revisión médica hasta la entrega discreta de su tratamiento en casa.'
+  },
+  {
+    question: '¿Cómo funciona la telemedicina de Efexia?',
     answer: 'Es simple y totalmente virtual. Primero, complete un breve cuestionario de salud en línea compartiendo sus objetivos e historial. Luego, uno de nuestros médicos con licencia en EE. UU. revisa su información. Si califica, le recetará un protocolo de tratamiento personalizado. Finalmente, nuestra farmacia de compuestos asociada envía sus medicamentos directamente a su puerta en un empaque discreto.'
   },
   {
@@ -48,7 +58,14 @@ const faqItemsEs = [
   }
 ];
 
-function Home({ locale, setQuizOpen }) {
+const TYPER_WORDS = {
+  en: ['Weight Loss', 'TRT Therapy', 'ED Care', 'Hair Growth', 'Wellness'],
+  es: ['Pérdida de Peso', 'Terapia TRT', 'Cuidado de DE', 'Crecimiento Capilar', 'Bienestar'],
+};
+
+const TYPER_COLORS = ['#AFC3CC', '#7FA68A', '#D5C99C', '#6E8798', '#91B39A'];
+
+function Home({ locale }) {
   const [openFaq, setOpenFaq] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
   
@@ -56,13 +73,7 @@ function Home({ locale, setQuizOpen }) {
   const [wordIndex, setWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [typeSpeed, setTypeSpeed] = useState(70);
-
-  const typerWords = locale === 'en'
-    ? ["Weight Loss", "TRT Therapy", "ED Care", "Hair Growth", "Wellness"]
-    : ["Pérdida de Peso", "Terapia TRT", "Cuidado de DE", "Crecimiento Capilar", "Bienestar"];
-
-  const typerColors = ["#B9A9FE", "#81C777", "#FFBC7D", "#86ceff", "#ffb400"];
+  const typerWords = TYPER_WORDS[locale];
 
   useEffect(() => {
     // Intersection Observer for Sticky Scroll steps
@@ -90,32 +101,26 @@ function Home({ locale, setQuizOpen }) {
   }, [locale]); // re-run if language changes because DOM might refresh
 
   useEffect(() => {
-    let timer;
     const currentWord = typerWords[wordIndex];
-    
-    if (isDeleting) {
-      setTypeSpeed(40);
-      timer = setTimeout(() => {
-        setCurrentText(currentWord.substring(0, currentText.length - 1));
-      }, typeSpeed);
-    } else {
-      setTypeSpeed(70);
-      timer = setTimeout(() => {
-        setCurrentText(currentWord.substring(0, currentText.length + 1));
-      }, typeSpeed);
+    if (!isDeleting && currentText === currentWord) {
+      const timer = setTimeout(() => setIsDeleting(true), 1500);
+      return () => clearTimeout(timer);
     }
 
-    if (!isDeleting && currentText === currentWord) {
-      timer = setTimeout(() => {
-        setIsDeleting(true);
-      }, 1500);
-    } else if (isDeleting && currentText === '') {
+    if (isDeleting && currentText === '') {
       setIsDeleting(false);
       setWordIndex((prev) => (prev + 1) % typerWords.length);
+      return undefined;
     }
 
+    const nextLength = currentText.length + (isDeleting ? -1 : 1);
+    const timer = setTimeout(
+      () => setCurrentText(currentWord.substring(0, nextLength)),
+      isDeleting ? 40 : 70,
+    );
+
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, wordIndex, locale]);
+  }, [currentText, isDeleting, wordIndex, typerWords]);
 
   const t = (key) => translations[locale][key] || key;
 
@@ -236,8 +241,8 @@ function Home({ locale, setQuizOpen }) {
     {
       stars: 5,
       quote: locale === 'en' 
-        ? "Patriot Men's Clinic changed my life. I have more energy, better focus, and my confidence is back."
-        : "Patriot Men's Clinic cambió mi vida. Tengo más energía, mejor enfoque y he recuperado mi confianza.",
+        ? "Efexia changed my life. I have more energy, better focus, and my confidence is back."
+        : "Efexia cambió mi vida. Tengo más energía, mejor enfoque y he recuperado mi confianza.",
       author: "Mike R.",
       avatar: "/images/avatar1.webp",
       meta: "45, Dallas, TX"
@@ -266,35 +271,44 @@ function Home({ locale, setQuizOpen }) {
     <>
       {/* Hero Section */}
       <section className="retro-home-hero-section">
-        <div className="retro-home-hero-card">
+        <ScrollReveal variant="scale-in" eager className="retro-home-hero-card">
           <div className="retro-home-hero-contain">
             <div className="retro-home-hero-wrap">
               <div className="retro-home-hero-top">
                 <h1 className="sr-only">{locale === 'en' ? "Men's health treatment that works" : "Tratamiento de salud masculina que funciona"}</h1>
                 <div className="retro-home-hero-heading">
-                  <span className="italic" style={{ color: typerColors[wordIndex] }}>{currentText}</span>
+                  <span className="italic" style={{ color: TYPER_COLORS[wordIndex] }}>{currentText}</span>
                   <span className="typer-cursor">|</span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
-      {/* Treatments Section */}
       <section id="treatments" className="retro-section">
         <div className="retro-container">
-          <div className="retro-section-head">
+          <ScrollReveal variant="fade-up" className="retro-section-head">
             <span className="retro-tag">{t('ourTreatments')}</span>
             <h2 className="retro-h2">{t('treatmentTitle')}</h2>
             <p className="retro-sub">{locale === 'en' ? 'Personalized protocols, delivered to your door.' : 'Protocolos personalizados, entregados a tu puerta.'}</p>
-          </div>
+          </ScrollReveal>
 
           <div className="accordion-gallery-PMC">
-            {treatmentItems.map((item) => (
-              <div key={item.id} className="accordion-item-PMC">
+            {treatmentItems.map((item, index) => (
+              <ScrollReveal
+                key={item.id}
+                variant={index % 2 === 0 ? 'slide-left' : 'slide-right'}
+                delay={(index % 4) + 1}
+                className={`accordion-item-PMC hover-lift`}
+              >
                 <div className="accordion-bg-wrapper">
-                  <img src={item.image} alt={item.title} className="treatment-image" loading="lazy" decoding="async" />
+                  <ResponsiveImage
+                    src={item.image}
+                    alt={item.title}
+                    className="treatment-image"
+                    sizes="(max-width: 991px) calc(100vw - 48px), 40vw"
+                  />
                   <div className="accordion-gradient-overlay"></div>
                 </div>
                 <div className="accordion-content">
@@ -307,120 +321,144 @@ function Home({ locale, setQuizOpen }) {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      {/* How It Works - Sticky Scroll */}
       <section id="how-it-works" className="retro-dark-section how-it-works-sticky">
         <div className="retro-container">
-          <div className="retro-section-head retro-section-head--light">
-            <span className="retro-tag" style={{color: '#ff9f43'}}>{t('howItWorksTag')}</span>
+          <ScrollReveal variant="fade-up" className="retro-section-head retro-section-head--light">
+            <span className="retro-tag" style={{color: 'var(--sage-dark)'}}>{t('howItWorksTag')}</span>
             <h2 className="retro-h2" style={{color: '#fff'}}>{t('howItWorksTitle')}</h2>
-          </div>
+          </ScrollReveal>
 
           <div className="sticky-scroll-wrapper">
             {/* Left Sticky Column (Images) */}
             <div className="sticky-image-container">
-              {steps.map((step, index) => (
-                <div 
-                  key={step.number} 
-                  className={`sticky-image-slide ${activeStep === index ? 'active' : ''}`}
-                >
-                  <img src={step.image} alt={step.title} loading="lazy" decoding="async" />
-                </div>
-              ))}
+              <div className="sticky-image-slide active" key={steps[activeStep].number}>
+                <ResponsiveImage
+                  src={steps[activeStep].image}
+                  alt={steps[activeStep].title}
+                  sizes="500px"
+                />
+              </div>
             </div>
 
             {/* Right Scrolling Column (Text Steps) */}
             <div className="sticky-steps-container">
               {steps.map((step, index) => (
-                <div 
-                  key={step.number} 
+                <ScrollReveal
+                  key={step.number}
+                  as="div"
                   data-index={index}
-                  className={`sticky-step-card ${activeStep === index ? 'active' : ''}`}
-                  onClick={() => window.location.href = '/start'}
+                  variant={index % 2 === 0 ? 'slide-right' : 'slide-left'}
+                  delay={(index % 3) + 1}
+                  className={`sticky-step-card ${activeStep === index ? 'active' : ''} hover-lift`}
+                  onClick={() => { window.location.href = '/start'; }}
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="sticky-step-number">{step.number}</div>
                   <h3 className="sticky-step-title">{step.title}</h3>
                   <p className="sticky-step-desc">{step.desc}</p>
                   <div className="sticky-mobile-img">
-                     <img src={step.image} alt={step.title} loading="lazy" decoding="async" />
+                    <ResponsiveImage
+                      src={step.image}
+                      alt={step.title}
+                      sizes="calc(100vw - 96px)"
+                    />
                   </div>
                   <button className="sticky-step-link">{step.btnText}</button>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Patriot */}
       <section id="about-us" className="retro-section why-choose-premium">
         <div className="retro-container">
-          <div className="retro-section-head">
+          <ScrollReveal variant="fade-up" className="retro-section-head">
             <span className="retro-tag">{t('whyChooseTag')}</span>
             <h2 className="retro-h2">{t('whyChooseTitle')}</h2>
-          </div>
+          </ScrollReveal>
 
           <div className="premium-features-grid">
             {features.map((feat, idx) => (
-              <div key={idx} className="premium-feature-card">
+              <ScrollReveal
+                key={idx}
+                variant={idx % 2 === 0 ? 'slide-left' : 'slide-right'}
+                delay={(idx % 4) + 1}
+                className="premium-feature-card hover-lift"
+              >
                 <div className="feature-circle-image">
-                  <img src={feat.image} alt={feat.title} loading="lazy" decoding="async" />
+                  <ResponsiveImage
+                    src={feat.image}
+                    alt={feat.title}
+                    sizes="(max-width: 767px) 180px, 240px"
+                  />
                 </div>
                 <div className="feature-content-wrapper">
                   <h3 className="premium-feature-title">{feat.title}</h3>
                   <p className="premium-feature-desc">{feat.desc}</p>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Patient Reviews */}
       <section id="reviews" className="reviews-section-luxury">
         <div className="container">
-          <div className="section-title-wrapper">
+          <ScrollReveal variant="fade-up" className="section-title-wrapper">
             <span className="section-tag">{t('successTag')}</span>
             <h2 className="section-title" style={{color: 'var(--white)'}}>{t('successTitle')}</h2>
-          </div>
+          </ScrollReveal>
 
           <div className="reviews-row-PMC">
             {testimonials.map((test, idx) => (
-              <div key={idx} className="review-card-PMC">
+              <ScrollReveal
+                key={idx}
+                variant="push-in"
+                delay={idx + 1}
+                className="review-card-PMC hover-lift"
+              >
                 <div className="review-stars-PMC">{'★'.repeat(test.stars)}</div>
                 <p className="review-quote-PMC">"{test.quote}"</p>
                 <div className="review-footer-PMC">
-                  <img src={test.avatar} alt={test.author} className="review-avatar-PMC" loading="lazy" decoding="async" />
+                  <ResponsiveImage
+                    src={test.avatar}
+                    alt={test.author}
+                    className="review-avatar-PMC"
+                    sizes="60px"
+                  />
                   <div>
                     <h4 className="review-author-PMC">{test.author}</h4>
                     <span className="review-meta-PMC">{test.meta}</span>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Our Doctors Section */}
       <section className="doctors-section-PMC">
         <div className="container">
-          <div className="section-title-wrapper">
+          <ScrollReveal variant="fade-up" className="section-title-wrapper">
             <span className="section-tag">{t('doctorsTag')}</span>
             <h2 className="section-title">{t('doctorsTitle')}</h2>
-          </div>
+          </ScrollReveal>
 
           <div className="doctors-grid-PMC">
-            <div className="doctor-card-PMC">
+            <ScrollReveal variant="slide-left" delay={1} className="doctor-card-PMC hover-lift">
               <div className="doctor-image-box-PMC">
-                <img src="/images/telehealth_doctor.webp" alt={t('doctor1Name')} loading="lazy" decoding="async" />
+                <ResponsiveImage
+                  src="/images/telehealth_doctor.webp"
+                  alt={t('doctor1Name')}
+                  sizes="(max-width: 767px) calc(100vw - 48px), 480px"
+                />
               </div>
               <div className="doctor-content-PMC">
                 <h3 className="doctor-name-PMC">{t('doctor1Name')}</h3>
@@ -433,11 +471,16 @@ function Home({ locale, setQuizOpen }) {
                   <span className="doctor-school-PMC">{t('doctor1School')}</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="doctor-card-PMC">
+            <ScrollReveal variant="slide-right" delay={2} className="doctor-card-PMC hover-lift">
               <div className="doctor-image-box-PMC">
-                <img src="/images/vitality_hero.webp" alt={t('doctor2Name')} loading="lazy" decoding="async" style={{objectPosition: 'top'}} />
+                <ResponsiveImage
+                  src="/images/vitality_hero.webp"
+                  alt={t('doctor2Name')}
+                  sizes="(max-width: 767px) calc(100vw - 48px), 480px"
+                  style={{objectPosition: 'top'}}
+                />
               </div>
               <div className="doctor-content-PMC">
                 <h3 className="doctor-name-PMC">{t('doctor2Name')}</h3>
@@ -450,119 +493,106 @@ function Home({ locale, setQuizOpen }) {
                   <span className="doctor-school-PMC">{t('doctor2School')}</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <div className="retro-stats-bar">
+      <ScrollReveal variant="fade-up" as="div" className="retro-stats-bar">
         <div className="retro-container">
           <div className="stats-grid-PMC">
-            <div className="stat-item-PMC">
-              <span className="stat-number-PMC">10,000+</span>
-              <span className="stat-label-PMC">{t('statPatients')}</span>
-            </div>
-            <div className="stat-item-PMC">
-              <span className="stat-number-PMC">98%</span>
-              <span className="stat-label-PMC">{t('statSatisfaction')}</span>
-            </div>
-            <div className="stat-item-PMC">
-              <span className="stat-number-PMC">50</span>
-              <span className="stat-label-PMC">{t('statProviders')}</span>
-            </div>
-            <div className="stat-item-PMC">
-              <span className="stat-number-PMC">2–4 Days</span>
-              <span className="stat-label-PMC">{t('statDelivery')}</span>
-            </div>
+            {[
+              { value: '10,000+', label: t('statPatients') },
+              { value: '98%', label: t('statSatisfaction') },
+              { value: '50', label: t('statProviders') },
+              { value: '2–4 Days', label: t('statDelivery') },
+            ].map((stat, idx) => (
+              <ScrollReveal key={stat.label} variant="scale-in" delay={idx + 1} className="stat-item-PMC">
+                <span className="stat-number-PMC">{stat.value}</span>
+                <span className="stat-label-PMC">{stat.label}</span>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
-      </div>
+      </ScrollReveal>
 
-      {/* Gallery */}
       <section id="gallery" className="gallery-section">
         <div className="container">
-          <div className="section-title-wrapper">
+          <ScrollReveal variant="fade-up" className="section-title-wrapper">
             <span className="section-tag">{locale === 'en' ? 'CLINICAL GALLERY & PRODUCT DISPATCH' : 'GALERÍA CLÍNICA Y DESPACHO DE PRODUCTOS'}</span>
             <h2 className="section-title">{locale === 'en' ? 'Our Facilities & Clinical Assets' : 'Nuestras Instalaciones y Activos Clínicos'}</h2>
-          </div>
+          </ScrollReveal>
 
           <div className="gallery-grid">
-            <div className="gallery-item">
-              <img src="/images/clinical_lab.webp" alt="Clinical Laboratory" loading="lazy" decoding="async" />
-            </div>
-            <div className="gallery-item">
-              <img src="/images/diagnostic_kit.webp" alt="Diagnostic Kit" loading="lazy" decoding="async" />
-            </div>
-            <div className="gallery-item">
-              <img src="/images/discreet_packaging.webp" alt="Discreet Packaging" loading="lazy" decoding="async" />
-            </div>
-            <div className="gallery-item">
-              <img src="/images/nad_vial.webp" alt="NAD+ Longevity Vial" loading="lazy" decoding="async" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section id="faqs" className="retro-faq-section">
-        <div className="retro-container">
-          <div className="retro-section-head">
-            <span className="retro-tag">{t('faq')}</span>
-            <h2 className="retro-h2">{locale === 'en' ? 'Frequently Asked Questions' : 'Preguntas Frecuentes'}</h2>
-          </div>
-
-          <div className="faqs-list-PMC">
-            {locale === 'en' ? faqItemsEn.map((item, idx) => (
-              <div key={idx} className={`faq-item-PMC ${openFaq === idx ? 'open' : ''}`}>
-                <button className="faq-question-btn-PMC" onClick={() => toggleFaq(idx)}>
-                  <span className="faq-question-PMC">{item.question}</span>
-                  <span className="faq-icon-PMC">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </span>
-                </button>
-                <div className="faq-answer-panel-PMC" style={{ maxHeight: openFaq === idx ? '220px' : '0' }}>
-                  <div className="faq-answer-inner-PMC">
-                     <p>{item.answer}</p>
-                  </div>
-                </div>
-              </div>
-            )) : faqItemsEs.map((item, idx) => (
-              <div key={idx} className={`faq-item-PMC ${openFaq === idx ? 'open' : ''}`}>
-                <button className="faq-question-btn-PMC" onClick={() => toggleFaq(idx)}>
-                  <span className="faq-question-PMC">{item.question}</span>
-                  <span className="faq-icon-PMC">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </span>
-                </button>
-                <div className="faq-answer-panel-PMC" style={{ maxHeight: openFaq === idx ? '220px' : '0' }}>
-                  <div className="faq-answer-inner-PMC">
-                     <p>{item.answer}</p>
-                  </div>
-                </div>
-              </div>
+            {[
+              { src: '/images/clinical_lab.webp', alt: 'Clinical Laboratory' },
+              { src: '/images/diagnostic_kit.webp', alt: 'Diagnostic Kit' },
+              { src: '/images/discreet_packaging.webp', alt: 'Discreet Packaging' },
+              { src: '/images/nad_vial.webp', alt: 'NAD+ Longevity Vial' },
+            ].map((item, idx) => (
+              <ScrollReveal
+                key={item.src}
+                variant={idx % 2 === 0 ? 'slide-left' : 'slide-right'}
+                delay={(idx % 3) + 1}
+                className="gallery-item hover-lift"
+              >
+                <ResponsiveImage
+                  src={item.src}
+                  alt={item.alt}
+                  sizes="(max-width: 767px) calc(100vw - 48px), 50vw"
+                />
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pre-Footer Call to Action Banner */}
+      <section id="faqs" className="retro-faq-section">
+        <div className="retro-container">
+          <ScrollReveal variant="fade-up" className="retro-section-head">
+            <span className="retro-tag">{t('faq')}</span>
+            <h2 className="retro-h2">{locale === 'en' ? 'Frequently Asked Questions' : 'Preguntas Frecuentes'}</h2>
+          </ScrollReveal>
+
+          <div className="faqs-list-PMC">
+            {(locale === 'en' ? faqItemsEn : faqItemsEs).map((item, idx) => (
+              <ScrollReveal key={idx} variant="fade-up" delay={(idx % 4) + 1} className={`faq-item-PMC ${openFaq === idx ? 'open' : ''}`}>
+                <button className="faq-question-btn-PMC" onClick={() => toggleFaq(idx)}>
+                  <span className="faq-question-PMC">{item.question}</span>
+                  <span className="faq-icon-PMC">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </span>
+                </button>
+                <div className="faq-answer-panel-PMC" style={{ maxHeight: openFaq === idx ? '220px' : '0' }}>
+                  <div className="faq-answer-inner-PMC">
+                     <p>{item.answer}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <div id="contact" className="cta-banner-PMC">
         <div className="container cta-banner-container-PMC">
-          <div className="cta-banner-content-left-PMC">
+          <ScrollReveal variant="slide-left" className="cta-banner-content-left-PMC">
             <h2 className="cta-banner-title-PMC">{t('preFooterTitle')}</h2>
             <p className="cta-banner-desc-PMC">{t('preFooterSub')}</p>
             <button className="btn btn-red cta-btn-left-PMC" onClick={() => window.location.href = '/start'}>
               {t('beginConsultation')}
             </button>
-          </div>
-          <div className="cta-banner-image-right-PMC">
-            <img src="/images/cta-transformation.webp" alt="Transformation man" className="cta-man-img-PMC" loading="lazy" decoding="async" />
-          </div>
+          </ScrollReveal>
+          <ScrollReveal variant="slide-right" delay={2} className="cta-banner-image-right-PMC">
+            <ResponsiveImage
+              src="/images/cta-transformation.webp"
+              alt="Transformation man"
+              className="cta-man-img-PMC"
+              sizes="(max-width: 767px) calc(100vw - 48px), 50vw"
+            />
+          </ScrollReveal>
         </div>
       </div>
     </>

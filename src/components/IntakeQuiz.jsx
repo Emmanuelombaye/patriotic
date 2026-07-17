@@ -84,7 +84,7 @@ export default function IntakeQuiz({ isOpen, onClose, locale = 'en' }) {
           };
         default:
           return {
-            title: 'Patriot Wellness Consultation',
+            title: 'Efexia Wellness Consultation',
             subtitle: 'Personalized Clinical Intake Review',
             price: '$99',
             features: [
@@ -160,7 +160,7 @@ export default function IntakeQuiz({ isOpen, onClose, locale = 'en' }) {
           };
         default:
           return {
-            title: 'Consulta de Bienestar Patriot',
+            title: 'Consulta de Bienestar Efexia',
             subtitle: 'Revisión Médica Personalizada',
             price: '$99',
             features: [
@@ -195,7 +195,7 @@ export default function IntakeQuiz({ isOpen, onClose, locale = 'en' }) {
 
   // Translations
   const txt = {
-    title: locale === 'en' ? 'Patriot Health Assessment' : 'Evaluación de Salud Patriot',
+    title: locale === 'en' ? 'Efexia Health Assessment' : 'Evaluación de Salud Efexia',
     back: locale === 'en' ? 'Back' : 'Atrás',
     continue: locale === 'en' ? 'Continue' : 'Continuar',
     getRec: locale === 'en' ? 'Get Recommendation' : 'Obtener Recomendación',

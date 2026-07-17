@@ -12,15 +12,15 @@ export const translations = {
     promo: "Save up to $400 on your first prescription order — Limited time offer",
     claimOffer: "CLAIM OFFER",
     reviews: "Patient Reviews",
-    allRightsReserved: "Patriot Men's Clinic. All rights reserved.",
+    allRightsReserved: "Efexia Wellness. All rights reserved.",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     
     // Hero
-    premiumHealthcare: "PREMIUM MEN'S HEALTHCARE",
-    heroTitlePre: "Regain Your Confidence and Take Control of ",
-    heroTitleSpan: "Your Health.",
-    heroDesc: "Personalized men's health treatments delivered discreetly by licensed medical professionals.",
+    premiumHealthcare: "EFEXIA — THE STATE OF GOOD CONDITION",
+    heroTitlePre: "Wellness, Wellbeing, and ",
+    heroTitleSpan: "Good Condition.",
+    heroDesc: "Efexia is the Greek word for wellness, wellbeing, and the state of good condition. Personalized men's health treatments delivered discreetly by licensed medical professionals.",
     startConsultation: "START YOUR ONLINE CONSULTATION",
     seeTreatments: "SEE TREATMENTS",
     licensedProviders: "Licensed Providers",
@@ -65,8 +65,8 @@ export const translations = {
     step4Btn: "LEARN ABOUT SHIPPING",
     
     // Why Choose
-    whyChooseTag: "WHY CHOOSE PATRIOT",
-    whyChooseTitle: "Men's Health, Your Way",
+    whyChooseTag: "WHY CHOOSE EFEXIA",
+    whyChooseTitle: "Built for Wellness and Good Condition",
     feat1Title: "Licensed Medical Experts",
     feat1Desc: "Board-certified providers with extensive experience in men's health.",
     feat2Title: "Personalized Treatment Plans",
@@ -83,7 +83,7 @@ export const translations = {
     // Success Stories
     successTag: "PATIENT SUCCESS STORIES",
     successTitle: "Real Results. Real Men. Real Confidence.",
-    testimonial1: "Patriot Men's Clinic changed my life. I have more energy, better focus, and my confidence is back.",
+    testimonial1: "Efexia changed my life. I have more energy, better focus, and my confidence is back.",
     testimonial2: "The process was simple, discreet, and the results have been incredible. Highly recommend.",
     testimonial3: "Professional care, great results, and outstanding support every step of the way.",
     
@@ -126,14 +126,14 @@ export const translations = {
     weightFeat4: "Regular Check-ins",
     
     // Pre-Footer
-    preFooterTitle: "Start Your Health Transformation Today",
-    preFooterSub: "Take the first step toward a healthier, stronger, more confident you.",
+    preFooterTitle: "Begin Your Path to Good Condition",
+    preFooterSub: "Efexia means wellness, wellbeing, and the state of good condition. Take the first step toward a healthier, stronger, more confident you.",
     beginConsultation: "BEGIN CONSULTATION",
     
     // Footer
-    footerBrand: "PATRIOT",
-    footerBrandSub: "MEN'S CLINIC",
-    footerAbout: "Making men's health simple, accessible, and effective through personalized care and modern medicine.",
+    footerBrand: "EFEXIA",
+    footerBrandSub: "WELLNESS",
+    footerAbout: "Efexia is the Greek word for wellness, wellbeing, or the state of good condition. We make men's health simple, accessible, and effective through personalized care and modern medicine.",
     resources: "Resources",
     company: "Company",
     contactUs: "Contact Us"
@@ -151,15 +151,15 @@ export const translations = {
     promo: "Ahorre hasta $400 en su primer pedido de receta — Oferta por tiempo limitado",
     claimOffer: "RECLAMAR OFERTA",
     reviews: "Reseñas de Pacientes",
-    allRightsReserved: "Patriot Men's Clinic. Todos los derechos reservados.",
+    allRightsReserved: "Efexia Wellness. Todos los derechos reservados.",
     privacyPolicy: "Política de Privacidad",
     termsOfService: "Términos de Servicio",
     
     // Hero
-    premiumHealthcare: "ATENCIÓN MÉDICA PREMIUM PARA HOMBRES",
-    heroTitlePre: "Recupere su Confianza y Tome el Control de ",
-    heroTitleSpan: "su Salud.",
-    heroDesc: "Tratamientos personalizados para la salud del hombre entregados discretamente por profesionales médicos autorizados.",
+    premiumHealthcare: "EFEXIA — EL ESTADO DE BUENA CONDICIÓN",
+    heroTitlePre: "Bienestar, Salud y ",
+    heroTitleSpan: "Buena Condición.",
+    heroDesc: "Efexia es la palabra griega para bienestar, salud y el estado de buena condición. Tratamientos personalizados para la salud del hombre entregados discretamente por profesionales médicos autorizados.",
     startConsultation: "INICIE SU CONSULTA EN LÍNEA",
     seeTreatments: "VER TRATAMIENTOS",
     licensedProviders: "Proveedores Autorizados",
@@ -204,8 +204,8 @@ export const translations = {
     step4Btn: "INFORMACIÓN DE ENVÍO",
     
     // Why Choose
-    whyChooseTag: "POR QUÉ ELEGIR PATRIOT",
-    whyChooseTitle: "Salud Masculina, a su Manera",
+    whyChooseTag: "POR QUÉ ELEGIR EFEXIA",
+    whyChooseTitle: "Diseñado para el Bienestar y la Buena Condición",
     feat1Title: "Expertos Médicos Autorizados",
     feat1Desc: "Proveedores certificados con amplia experiencia en la salud del hombre.",
     feat2Title: "Planes de Tratamiento Personalizados",
@@ -222,7 +222,7 @@ export const translations = {
     // Success Stories
     successTag: "HISTORIAS DE ÉXITO DE PACIENTES",
     successTitle: "Resultados Reales. Hombres Reales. Confianza Real.",
-    testimonial1: "Patriot Men's Clinic cambió mi vida. Tengo más energía, mejor enfoque y he recuperado mi confianza.",
+    testimonial1: "Efexia cambió mi vida. Tengo más energía, mejor enfoque y he recuperado mi confianza.",
     testimonial2: "El proceso fue simple, discreto y los resultados han sido increíbles. Muy recomendable.",
     testimonial3: "Atención profesional, excelentes resultados y un apoyo excepcional en cada paso del camino.",
     
@@ -265,14 +265,14 @@ export const translations = {
     weightFeat4: "Controles Regulares",
     
     // Pre-Footer
-    preFooterTitle: "Comience su Transformación de Salud Hoy",
-    preFooterSub: "Dé el primer paso hacia una versión más saludable, fuerte y segura de usted mismo.",
+    preFooterTitle: "Comience su Camino hacia la Buena Condición",
+    preFooterSub: "Efexia significa bienestar, salud y el estado de buena condición. Dé el primer paso hacia una versión más saludable, fuerte y segura de usted mismo.",
     beginConsultation: "INICIAR CONSULTA",
     
     // Footer
-    footerBrand: "PATRIOT",
-    footerBrandSub: "MEN'S CLINIC",
-    footerAbout: "Haciendo la salud del hombre simple, accesible y efectiva a través de una atención personalizada y medicina moderna.",
+    footerBrand: "EFEXIA",
+    footerBrandSub: "WELLNESS",
+    footerAbout: "Efexia es la palabra griega para bienestar, salud o el estado de buena condición. Hacemos la salud del hombre simple, accesible y efectiva a través de una atención personalizada y medicina moderna.",
     resources: "Recursos",
     company: "Compañía",
     contactUs: "Contáctenos"

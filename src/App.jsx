@@ -1,25 +1,62 @@
-import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import IntakeQuiz from './components/IntakeQuiz';
 import StartPage from './pages/StartPage';
 import { translations } from './translations';
 import Home from './pages/Home';
 import TreatmentDetails from './pages/TreatmentDetails';
+import ScrollReveal from './components/ScrollReveal';
 
 function App() {
-  const [locale, setLocale] = useState('en'); // 'en' or 'es'
+  const [locale, setLocale] = useState('en');
   const [quizOpen, setQuizOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   const t = (key) => translations[locale][key] || key;
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   const toggleLocale = () => {
     setLocale(locale === 'en' ? 'es' : 'en');
   };
 
+  useEffect(() => {
+    closeMenu();
+  }, [location.pathname, closeMenu]);
+
+  useEffect(() => {
+    document.body.classList.toggle('nav-open', menuOpen);
+    return () => document.body.classList.remove('nav-open');
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') closeMenu();
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [menuOpen, closeMenu]);
+
   return (
     <>
-      {/* Promo Header Banner */}
+      <div
+        className={`mobile-nav-backdrop ${menuOpen ? 'is-open' : ''}`}
+        onClick={closeMenu}
+        aria-hidden={!menuOpen}
+      />
+
       <div className="promo-banner">
         <button className="promo-link" onClick={() => setQuizOpen(true)}>
           <span>{locale === 'en' ? 'Save up to $400 on your first prescription order!' : 'Ahorra hasta $400 en tu primer pedido de receta!'}</span>
@@ -27,25 +64,24 @@ function App() {
         </button>
       </div>
 
-      {/* Trustproof Banner */}
       <div className="trust-bar">
         <div className="container">
           <div className="trust-track">
             <div className="trust-item">
-              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: '#38bdf8'}}>
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: 'var(--navy-light)'}}>
                 <path d="M4.166 8.269C4.166 12.312 7.703 15.656 9.269 16.938c.224.183.337.276.504.323.13.037.322.037.452 0 .168-.047.28-.139.505-.322C12.296 15.656 15.833 12.313 15.833 8.27a5.834 5.834 0 10-11.667 0z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M8.333 7.5a1.667 1.667 0 103.334 0 1.667 1.667 0 00-3.334 0z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <span>{locale === 'en' ? 'U.S. Licensed Pharmacies' : 'Farmacias Autorizadas en EE. UU.'}</span>
             </div>
             <div className="trust-item">
-              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: '#fb923c'}}>
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: 'var(--sage)'}}>
                 <path d="M7.5 12.5H3.125a.625.625 0 01-.625-.625v-3.75c0-.345.28-.625.625-.625H7.5V3.125c0-.345.28-.625.625-.625h3.75c.345 0 .625.28.625.625V7.5h4.375c.345 0 .625.28.625.625v3.75a.625.625 0 01-.625.625H12.5v4.375a.625.625 0 01-.625.625h-3.75a.625.625 0 01-.625-.625V12.5z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <span>{locale === 'en' ? 'Licensed Providers in all 50 States' : 'Proveedores con Licencia en los 50 Estados'}</span>
             </div>
             <div className="trust-item">
-              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: '#a78bfa'}}>
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: 'var(--color-purple)'}}>
                 <path d="M17.5 10l-15-6.25v5l7.5 1.25-7.5 1.25v5L17.5 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <span>{locale === 'en' ? 'Free Expedited Shipment' : 'Envío Exprés Gratuito'}</span>
@@ -54,71 +90,78 @@ function App() {
         </div>
       </div>
 
-      {/* Navigation Bar */}
-      <nav className="navbar">
+      <nav className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="container nav-container">
-          <Link to="/" className="logo-wrapper-PMC" style={{textDecoration: 'none'}}>
-            <div className="logo-text-PMC">
-              <div className="logo-top-row-PMC">
-                <span className="logo-brand-PMC">{t('footerBrand')}</span>
-                <div className="logo-stripes-PMC">
-                  <div className="logo-stripe-PMC"></div>
-                  <div className="logo-stripe-PMC"></div>
-                  <div className="logo-stripe-PMC"></div>
-                </div>
-              </div>
-              <span className="logo-subtext-PMC">{t('footerBrandSub')}</span>
-            </div>
+          <Link to="/" className="logo-wrapper-PMC" style={{textDecoration: 'none'}} onClick={closeMenu}>
+            <img
+              src="/efexia-logo.webp"
+              alt="Efexia"
+              className="brand-logo"
+              width="600"
+              height="161"
+              decoding="async"
+            />
           </Link>
-          
-          <ul className={`nav-links ${menuOpen ? 'mobile-open' : ''}`}>
-            <li><a href="/#treatments" onClick={() => setMenuOpen(false)}>{t('treatments')}</a></li>
-            <li><a href="/#how-it-works" onClick={() => setMenuOpen(false)}>{t('howItWorks')}</a></li>
-            <li><Link to="/treatment/peptide" onClick={() => setMenuOpen(false)}>{locale === 'en' ? 'Regenerative Therapy' : 'Terapia Regenerativa'}</Link></li>
+
+          <ul
+            className={`nav-links ${menuOpen ? 'mobile-open' : ''}`}
+            id="primary-navigation"
+          >
+            <li><a href="/#treatments" onClick={closeMenu}>{t('treatments')}</a></li>
+            <li><a href="/#how-it-works" onClick={closeMenu}>{t('howItWorks')}</a></li>
+            <li><Link to="/treatment/peptide" onClick={closeMenu}>{locale === 'en' ? 'Regenerative Therapy' : 'Terapia Regenerativa'}</Link></li>
           </ul>
 
           <div className="nav-actions">
-            <button className="nav-lang-btn" onClick={toggleLocale}>
+            <button className="nav-lang-btn" onClick={toggleLocale} type="button">
               🌐 {locale.toUpperCase()}
             </button>
-            <button className="nav-login-pill" onClick={() => setMenuOpen(false)}>
+            <button className="nav-login-pill" onClick={closeMenu} type="button">
               {locale === 'en' ? 'Log In' : 'Entrar'}
             </button>
-            <Link to="/start" className="nav-cta-pill" onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none' }}>
+            <Link to="/start" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
               {locale === 'en' ? 'Get Started' : 'Comenzar'}
             </Link>
-            <button className="burger-menu-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle Menu">
-              {menuOpen ? '✕' : '☰'}
+            <button
+              className={`burger-menu-btn ${menuOpen ? 'is-open' : ''}`}
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              aria-controls="primary-navigation"
+              type="button"
+            >
+              <span className="burger-icon" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
             </button>
           </div>
         </div>
       </nav>
 
-      <main>
+      <main className="page-enter" key={location.pathname}>
         <Routes>
-          <Route path="/" element={<Home locale={locale} setQuizOpen={setQuizOpen} />} />
-          <Route path="/treatment/:id" element={<TreatmentDetails locale={locale} setQuizOpen={setQuizOpen} />} />
+          <Route path="/" element={<Home locale={locale} />} />
+          <Route path="/treatment/:id" element={<TreatmentDetails locale={locale} />} />
           <Route path="/start" element={<StartPage locale={locale} />} />
         </Routes>
       </main>
 
-      {/* Footer Section */}
       <footer className="footer-PMC">
         <div className="container">
-          <div className="footer-grid-PMC">
+          <ScrollReveal variant="fade-up" className="footer-grid-PMC">
             <div className="footer-brand-PMC">
-              <div className="logo-wrapper-PMC">
-                <div className="logo-text-PMC">
-                  <div className="logo-top-row-PMC">
-                    <span className="logo-brand-PMC" style={{ color: '#fff' }}>{t('footerBrand')}</span>
-                    <div className="logo-stripes-PMC">
-                      <div className="logo-stripe-PMC"></div>
-                      <div className="logo-stripe-PMC"></div>
-                      <div className="logo-stripe-PMC"></div>
-                    </div>
-                  </div>
-                  <span className="logo-subtext-PMC" style={{ color: '#fff', borderTopColor: 'var(--red)', borderBottomColor: 'var(--red)' }}>{t('footerBrandSub')}</span>
-                </div>
+              <div className="footer-logo-surface">
+                <img
+                  src="/efexia-logo.webp"
+                  alt="Efexia"
+                  className="brand-logo brand-logo-footer"
+                  width="600"
+                  height="161"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <p className="footer-about-PMC">{t('footerAbout')}</p>
               <div className="footer-socials-PMC">
@@ -186,23 +229,23 @@ function App() {
                   <span>📞</span> (833) 123-4567
                 </li>
                 <li className="footer-contact-item-PMC">
-                  <span>✉️</span> info@patriotmensclinic.com
+                  <span>✉️</span> info@efexiawellness.com
                 </li>
                 <li className="footer-contact-item-PMC">
                   <span>📍</span> 123 Freedom Way, Suite 100, Nashville, TN 37203
                 </li>
               </ul>
             </div>
-          </div>
+          </ScrollReveal>
 
-          <div className="footer-disclaimers-PMC">
+          <ScrollReveal variant="fade-up" delay={2} className="footer-disclaimers-PMC">
             <p className="disclaimer-text-PMC">
               <strong>{locale === 'en' ? 'Medical Disclaimer:' : 'Descargo de Responsabilidad Médica:'}</strong> The content on this website is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Compounded prescription drug preparations are customized formulations prescribed by U.S.-licensed practitioners based on individual patient medical evaluations. Compounded medications are not FDA-approved, meaning the FDA does not verify their safety, effectiveness, or quality prior to marketing.
             </p>
             <p className="disclaimer-text-PMC">
               <strong>{locale === 'en' ? 'Telehealth Services:' : 'Servicios de Telemedicina:'}</strong> Telehealth consultations are provided by independent, U.S.-licensed physicians and nurse practitioners contracted with clinical groups. Prescription eligibility is subject to physician evaluation, clinical protocol guidelines, and lab test results when required. Services are cash-pay; insurance is not billed.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="footer-bottom-PMC">
             <p>&copy; 2024 {t('allRightsReserved')}</p>
@@ -214,7 +257,6 @@ function App() {
         </div>
       </footer>
 
-      {/* Intake Quiz Modal */}
       <IntakeQuiz isOpen={quizOpen} onClose={() => setQuizOpen(false)} locale={locale} />
     </>
   );

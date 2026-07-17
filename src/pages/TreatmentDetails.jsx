@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { translations } from '../translations';
+import ResponsiveImage from '../components/ResponsiveImage';
+import ScrollReveal from '../components/ScrollReveal';
 
 const treatmentData = {
   trt: {
@@ -119,7 +121,7 @@ const treatmentData = {
   }
 };
 
-function TreatmentDetails({ locale, setQuizOpen }) {
+function TreatmentDetails({ locale }) {
   const { id } = useParams();
   const treatment = treatmentData[id];
   const t = (key) => translations[locale][key] || key;
@@ -144,43 +146,60 @@ function TreatmentDetails({ locale, setQuizOpen }) {
   return (
     <div className="treatment-details-page">
       {/* Cinematic Hero */}
-      <div className="treatment-hero" style={{ 
-        backgroundImage: `linear-gradient(to right, rgba(13, 46, 98, 0.95) 0%, rgba(13, 46, 98, 0.7) 50%, transparent 100%), url(${treatment.heroImg})`
-      }}>
+      <div className="treatment-hero">
+        <ResponsiveImage
+          src={treatment.heroImg}
+          alt=""
+          className="treatment-hero-image"
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
+        />
+        <div className="treatment-hero-overlay" aria-hidden="true" />
         <div className="container treatment-hero-content">
-          <Link to="/" className="back-link">
-            ← {locale === 'en' ? 'Back to All Treatments' : 'Volver a Todos los Tratamientos'}
-          </Link>
-          <span className="treatment-tag-badge">Premium Protocol</span>
-          <h1 className="treatment-hero-title">{t(treatment.title)}</h1>
-          <p className="treatment-hero-desc">{t(treatment.desc)}</p>
-          <button className="btn btn-red" onClick={() => window.location.href = '/start'} style={{ marginTop: '24px', padding: '16px 32px', fontSize: '1.1rem' }}>
-            {t('beginConsultation')}
-          </button>
+          <ScrollReveal variant="fade-up" eager delay={1}>
+            <Link to="/" className="back-link">
+              ← {locale === 'en' ? 'Back to All Treatments' : 'Volver a Todos los Tratamientos'}
+            </Link>
+          </ScrollReveal>
+          <ScrollReveal variant="fade-up" eager delay={2}>
+            <span className="treatment-tag-badge">Premium Protocol</span>
+          </ScrollReveal>
+          <ScrollReveal variant="slide-right" eager delay={2}>
+            <h1 className="treatment-hero-title">{t(treatment.title)}</h1>
+          </ScrollReveal>
+          <ScrollReveal variant="fade-up" eager delay={3}>
+            <p className="treatment-hero-desc">{t(treatment.desc)}</p>
+          </ScrollReveal>
+          <ScrollReveal variant="scale-in" eager delay={4}>
+            <button className="btn btn-red" onClick={() => window.location.href = '/start'} style={{ marginTop: '24px', padding: '16px 32px', fontSize: '1.1rem' }}>
+              {t('beginConsultation')}
+            </button>
+          </ScrollReveal>
         </div>
       </div>
 
       {/* Main Content Layout */}
       <div className="container treatment-main-layout">
-        <div className="treatment-content-left">
+        <ScrollReveal variant="slide-left" className="treatment-content-left">
           <h2 className="treatment-section-h2">{locale === 'en' ? 'How It Works' : 'Cómo Funciona'}</h2>
           <p className="treatment-detailed-text">{detailedText}</p>
           
           <h2 className="treatment-section-h2" style={{ marginTop: '48px' }}>{locale === 'en' ? 'Key Benefits' : 'Beneficios Clave'}</h2>
           <ul className="treatment-benefits-list">
             {benefitsList.map((benefit, idx) => (
-              <li key={idx}>
+              <ScrollReveal key={idx} as="li" variant="fade-up" delay={(idx % 4) + 1}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
                 {benefit}
-              </li>
+              </ScrollReveal>
             ))}
           </ul>
-        </div>
+        </ScrollReveal>
         
         <div className="treatment-sidebar-right">
-          <div className="treatment-sticky-card">
+          <ScrollReveal variant="slide-right" delay={2} className="treatment-sticky-card hover-lift">
             <h3 className="sticky-card-title">{locale === 'en' ? 'Ready to optimize your health?' : '¿Listo para optimizar tu salud?'}</h3>
             <p className="sticky-card-desc">
               {locale === 'en' 
@@ -195,7 +214,7 @@ function TreatmentDetails({ locale, setQuizOpen }) {
             <button className="btn btn-red" style={{ width: '100%', marginTop: '20px' }} onClick={() => window.location.href = '/start'}>
               {locale === 'en' ? 'Start Intake Quiz' : 'Comenzar Cuestionario'}
             </button>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
 
@@ -204,14 +223,26 @@ function TreatmentDetails({ locale, setQuizOpen }) {
         .treatment-hero {
           height: 60vh;
           min-height: 500px;
-          background-size: cover;
-          background-position: center;
           display: flex;
           align-items: center;
           position: relative;
+          overflow: hidden;
           color: white;
           margin-top: -80px; /* pull up under transparent nav */
           padding-top: 80px;
+        }
+        .treatment-hero-image {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+        .treatment-hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to right, rgba(23, 50, 77, 0.95) 0%, rgba(23, 50, 77, 0.7) 50%, transparent 100%);
         }
         .treatment-hero-content {
           position: relative;
