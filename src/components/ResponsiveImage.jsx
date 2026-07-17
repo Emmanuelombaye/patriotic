@@ -57,6 +57,7 @@ export default function ResponsiveImage({
   sizes = '100vw',
   loading = 'lazy',
   decoding = 'async',
+  className = '',
   ...props
 }) {
   const metadata = imageMetadata[src];
@@ -68,18 +69,25 @@ export default function ResponsiveImage({
         alt={alt}
         loading={loading}
         decoding={decoding}
+        className={className || undefined}
         {...props}
       />
     );
   }
 
   const [width, height] = metadata;
+  const pictureClassName = ['responsive-picture', className].filter(Boolean).join(' ');
 
   return (
-    <picture className="responsive-picture">
+    <picture className={pictureClassName}>
       <source
         type="image/avif"
         srcSet={getSrcSet(src, 'avif')}
+        sizes={sizes}
+      />
+      <source
+        type="image/webp"
+        srcSet={getSrcSet(src, 'webp')}
         sizes={sizes}
       />
       <img
@@ -91,6 +99,7 @@ export default function ResponsiveImage({
         alt={alt}
         loading={loading}
         decoding={decoding}
+        className={className || undefined}
         {...props}
       />
     </picture>

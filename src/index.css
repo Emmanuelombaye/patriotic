@@ -3332,11 +3332,19 @@ main > div > section,
   width: 100%;
 }
 
-.health-standard-collage img {
+.health-standard-collage .responsive-picture {
   display: block;
   width: 100%;
+}
+
+.health-standard-collage img,
+.health-standard-collage__image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   border-radius: 22px;
+  background: #eef1ff;
 }
 
 /* Footer Section */
@@ -4346,7 +4354,9 @@ body {
     display: none;
   }
 
-  .health-standard-collage img {
+  .health-standard-collage .responsive-picture,
+  .health-standard-collage img,
+  .health-standard-collage__image {
     width: 720px;
     max-width: none;
     border-radius: 0;

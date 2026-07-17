@@ -589,11 +589,15 @@ function Home({ locale }) {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal variant="fade-up" delay={2} className="health-standard-collage">
+          <ScrollReveal variant="fade-up" eager className="health-standard-collage">
             <ResponsiveImage
               src="/images/health-standard-collage.webp"
               alt="Efexia health leaders, advocates, and industry recognition"
-              sizes="(max-width: 767px) 720px, 1200px"
+              className="health-standard-collage__image"
+              sizes="(max-width: 767px) 720px, min(1200px, 100vw)"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
           </ScrollReveal>
         </div>
