@@ -1019,7 +1019,160 @@ main > div > section,
   .retro-home-hero-badges-mobile {
     margin-top: 1rem;
   }
-}/* Unique Interactive Accordion Treatments */
+}
+
+/* Continuous care-standard marquee */
+.care-marquee {
+  --marquee-gap: clamp(52px, 7vw, 112px);
+  background: #f8f5ec;
+  color: #343434;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 48px) 0;
+  border-block: 1px solid rgba(23, 37, 84, 0.08);
+}
+
+.care-marquee__viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.care-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: care-marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.care-marquee__group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--marquee-gap);
+  padding-right: var(--marquee-gap);
+}
+
+.care-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: currentColor;
+  font-size: clamp(1.35rem, 2.5vw, 2.65rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.care-marquee__mark {
+  display: grid;
+  place-items: center;
+  width: clamp(42px, 4.5vw, 58px);
+  height: clamp(42px, 4.5vw, 58px);
+  flex: 0 0 auto;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font-family: var(--font-heading);
+  font-size: clamp(0.9rem, 1.3vw, 1.2rem);
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.care-marquee__wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.care-marquee__wordmark strong {
+  font: inherit;
+  line-height: 0.85;
+}
+
+.care-marquee__wordmark small {
+  font-family: var(--font-heading);
+  font-size: clamp(0.55rem, 0.7vw, 0.72rem);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.66;
+}
+
+.care-marquee__item.marquee-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+}
+
+.care-marquee__item.marquee-modern {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+
+.care-marquee__item.marquee-grotesk {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1rem, 1.9vw, 2rem);
+  letter-spacing: -0.055em;
+}
+
+.care-marquee__item.marquee-editorial {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.care-marquee__item.marquee-wide {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: clamp(0.95rem, 1.7vw, 1.75rem);
+}
+
+.care-marquee__item:nth-child(2n) .care-marquee__mark {
+  border-radius: 12px;
+  background: #343434;
+  color: #f8f5ec;
+}
+
+.care-marquee__item:nth-child(3n) .care-marquee__mark {
+  border-radius: 4px 50% 50%;
+}
+
+.care-marquee:hover .care-marquee__track,
+.care-marquee:focus-within .care-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes care-marquee-scroll {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-width: 600px) {
+  .care-marquee {
+    --marquee-gap: 44px;
+    padding: 26px 0;
+  }
+
+  .care-marquee__track {
+    animation-duration: 22s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .care-marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+/* Unique Interactive Accordion Treatments */
 .accordion-gallery-PMC {
   display: flex;
   gap: 12px;

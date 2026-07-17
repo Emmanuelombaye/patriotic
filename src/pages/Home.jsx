@@ -65,6 +65,15 @@ const TYPER_WORDS = {
 
 const TYPER_COLORS = ['#F7F9FF', '#00D5C8', '#7B61FF', '#5A4CFF', '#FFFFFF'];
 
+const CARE_MARQUEE_ITEMS = [
+  { mark: 'E+', label: 'Efexia Clinical', detail: 'Care Network', className: 'marquee-serif' },
+  { mark: 'Rx', label: 'Pharmacy', detail: 'Network', className: 'marquee-modern' },
+  { mark: 'MD', label: 'Licensed', detail: 'Providers', className: 'marquee-grotesk' },
+  { mark: '◈', label: 'Secure', detail: 'Telehealth', className: 'marquee-editorial' },
+  { mark: '→', label: 'Discreet', detail: 'Fulfillment', className: 'marquee-wide' },
+  { mark: '24', label: 'Patient', detail: 'Support', className: 'marquee-serif' },
+];
+
 function Home({ locale }) {
   const [openFaq, setOpenFaq] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
@@ -284,6 +293,26 @@ function Home({ locale }) {
             </div>
           </div>
         </ScrollReveal>
+      </section>
+
+      <section className="care-marquee" aria-label={locale === 'en' ? 'Efexia care standards' : 'Estándares de atención de Efexia'}>
+        <div className="care-marquee__viewport">
+          <div className="care-marquee__track">
+            {[0, 1].map((copy) => (
+              <div className="care-marquee__group" aria-hidden={copy === 1} key={copy}>
+                {CARE_MARQUEE_ITEMS.map((item) => (
+                  <span className={`care-marquee__item ${item.className}`} key={`${copy}-${item.label}`}>
+                    <span className="care-marquee__mark" aria-hidden="true">{item.mark}</span>
+                    <span className="care-marquee__wordmark">
+                      <strong>{item.label}</strong>
+                      <small>{item.detail}</small>
+                    </span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section id="treatments" className="retro-section">
