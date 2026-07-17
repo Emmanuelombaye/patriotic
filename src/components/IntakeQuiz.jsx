@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function IntakeQuiz({ isOpen, onClose, locale = 'en' }) {
+export default function IntakeQuiz({ isOpen, onClose, locale = 'en', dismissible = true }) {
   const [step, setStep] = useState(1);
   const [goal, setGoal] = useState('');
   const [symptoms, setSymptoms] = useState([]);
   const [age, setAge] = useState('');
+
+  useEffect(() => {
+    if (!isOpen || !dismissible) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isOpen, dismissible, onClose]);
 
   if (!isOpen) return null;
 
@@ -216,10 +227,18 @@ export default function IntakeQuiz({ isOpen, onClose, locale = 'en' }) {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="quiz-modal">
-        <button className="quiz-close-btn" onClick={onClose} aria-label="Close Quiz">×</button>
-        
+    <div
+      className="modal-overlay"
+      onClick={dismissible ? onClose : undefined}
+      role="presentation"
+    >
+      <div
+        className="quiz-modal"
+        onClick={(event) => event.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={txt.title}
+      >
         <div className="quiz-header">
           <h3 style={{ fontSize: '18px', color: 'var(--navy)' }}>{txt.title}</h3>
           <div className="quiz-progress-bar">

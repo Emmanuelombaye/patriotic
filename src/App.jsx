@@ -19,8 +19,22 @@ function App() {
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   const toggleLocale = () => {
-    setLocale(locale === 'en' ? 'es' : 'en');
+    setLocale((prev) => (prev === 'en' ? 'es' : 'en'));
   };
+
+  const goToSection = useCallback((sectionId) => {
+    closeMenu();
+    if (location.pathname !== '/') {
+      window.location.hash = '';
+      // Navigate via hash href on Link/a still works; this helper is for same-page.
+    }
+    const el = document.getElementById(sectionId);
+    if (el) {
+      window.requestAnimationFrame(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }, [closeMenu, location.pathname]);
 
   useEffect(() => {
     closeMenu();
@@ -45,8 +59,12 @@ function App() {
 
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen);
-    return () => document.body.classList.remove('nav-open');
-  }, [menuOpen]);
+    document.body.classList.toggle('quiz-open', quizOpen);
+    return () => {
+      document.body.classList.remove('nav-open');
+      document.body.classList.remove('quiz-open');
+    };
+  }, [menuOpen, quizOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -131,9 +149,71 @@ function App() {
               <span>{locale === 'en' ? 'Explore Efexia' : 'Explora Efexia'}</span>
               <small>{locale === 'en' ? 'Personalized care, wherever you are.' : 'Atención personalizada, estés donde estés.'}</small>
             </li>
-            <li><a href="/#treatments" onClick={closeMenu}>{t('treatments')}</a></li>
-            <li><a href="/#how-it-works" onClick={closeMenu}>{t('howItWorks')}</a></li>
-            <li><Link to="/treatment/peptide" onClick={closeMenu}>{locale === 'en' ? 'Regenerative Therapy' : 'Terapia Regenerativa'}</Link></li>
+            <li>
+              <a
+                href="/#treatments"
+                onClick={(event) => {
+                  if (location.pathname === '/') {
+                    event.preventDefault();
+                    goToSection('treatments');
+                  } else {
+                    closeMenu();
+                  }
+                }}
+              >
+                {t('treatments')}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/#how-it-works"
+                onClick={(event) => {
+                  if (location.pathname === '/') {
+                    event.preventDefault();
+                    goToSection('how-it-works');
+                  } else {
+                    closeMenu();
+                  }
+                }}
+              >
+                {t('howItWorks')}
+              </a>
+            </li>
+            <li>
+              <Link to="/treatment/peptide" onClick={closeMenu}>
+                {locale === 'en' ? 'Regenerative Therapy' : 'Terapia Regenerativa'}
+              </Link>
+            </li>
+            <li className="nav-mobile-only">
+              <a
+                href="/#reviews"
+                onClick={(event) => {
+                  if (location.pathname === '/') {
+                    event.preventDefault();
+                    goToSection('reviews');
+                  } else {
+                    closeMenu();
+                  }
+                }}
+              >
+                {locale === 'en' ? 'Reviews' : 'Reseñas'}
+              </a>
+            </li>
+            <li className="nav-mobile-only">
+              <a
+                href="/#faqs"
+                onClick={(event) => {
+                  if (location.pathname === '/') {
+                    event.preventDefault();
+                    goToSection('faqs');
+                  } else {
+                    closeMenu();
+                  }
+                }}
+              >
+                {t('faq')}
+              </a>
+            </li>
             <li className="nav-mobile-actions">
               <Link to="/start" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
               <button onClick={closeMenu} type="button">{locale === 'en' ? 'Log In' : 'Entrar'}</button>
@@ -141,8 +221,14 @@ function App() {
           </ul>
 
           <div className="nav-actions">
-            <button className="nav-lang-btn" onClick={toggleLocale} type="button">
-              🌐 {locale.toUpperCase()}
+            <button
+              className="nav-lang-btn"
+              onClick={toggleLocale}
+              type="button"
+              aria-label={locale === 'en' ? 'Switch to Spanish' : 'Cambiar a inglés'}
+              data-locale={locale}
+            >
+              {locale.toUpperCase()}
             </button>
             <button className="nav-login-pill" onClick={closeMenu} type="button">
               {locale === 'en' ? 'Log In' : 'Entrar'}
