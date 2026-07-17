@@ -110,9 +110,17 @@ function App() {
             className={`nav-links ${menuOpen ? 'mobile-open' : ''}`}
             id="primary-navigation"
           >
+            <li className="nav-mobile-heading">
+              <span>{locale === 'en' ? 'Explore Efexia' : 'Explora Efexia'}</span>
+              <small>{locale === 'en' ? 'Personalized care, wherever you are.' : 'Atención personalizada, estés donde estés.'}</small>
+            </li>
             <li><a href="/#treatments" onClick={closeMenu}>{t('treatments')}</a></li>
             <li><a href="/#how-it-works" onClick={closeMenu}>{t('howItWorks')}</a></li>
             <li><Link to="/treatment/peptide" onClick={closeMenu}>{locale === 'en' ? 'Regenerative Therapy' : 'Terapia Regenerativa'}</Link></li>
+            <li className="nav-mobile-actions">
+              <Link to="/start" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
+              <button onClick={closeMenu} type="button">{locale === 'en' ? 'Log In' : 'Entrar'}</button>
+            </li>
           </ul>
 
           <div className="nav-actions">

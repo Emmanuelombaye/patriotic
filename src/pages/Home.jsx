@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { translations } from '../translations';
 import ResponsiveImage from '../components/ResponsiveImage';
 import ScrollReveal from '../components/ScrollReveal';
+import GoalTreatments from '../components/GoalTreatments';
 
 const faqItemsEn = [
   {
@@ -356,6 +357,8 @@ function Home({ locale }) {
         </div>
       </section>
 
+      <GoalTreatments locale={locale} />
+
       <section id="how-it-works" className="retro-dark-section how-it-works-sticky">
         <div className="retro-container">
           <ScrollReveal variant="fade-up" className="retro-section-head retro-section-head--light">
@@ -563,7 +566,7 @@ function Home({ locale }) {
           <ScrollReveal variant="fade-up" delay={2} className="health-standard-collage">
             <img
               src="/images/health-standard-collage.png"
-              alt="Health leaders, advocates, and industry recognition"
+              alt="Efevia health leaders, advocates, and industry recognition"
               loading="lazy"
               decoding="async"
             />

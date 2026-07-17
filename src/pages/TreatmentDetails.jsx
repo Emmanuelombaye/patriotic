@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { translations } from '../translations';
 import ResponsiveImage from '../components/ResponsiveImage';
 import ScrollReveal from '../components/ScrollReveal';
+import PeptideTreatment from './PeptideTreatment';
 
 const treatmentData = {
   trt: {
@@ -130,6 +131,10 @@ function TreatmentDetails({ locale }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
+  if (id === 'peptide') {
+    return <PeptideTreatment locale={locale} />;
+  }
 
   if (!treatment) {
     return (
