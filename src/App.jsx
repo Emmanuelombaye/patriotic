@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import IntakeQuiz from './components/IntakeQuiz';
 import StartPage from './pages/StartPage';
@@ -12,6 +12,8 @@ function App() {
   const [quizOpen, setQuizOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigationRef = useRef(null);
+  const menuButtonRef = useRef(null);
   const location = useLocation();
 
   const t = (key) => translations[locale][key] || key;
@@ -76,8 +78,29 @@ function App() {
   useEffect(() => {
     if (!menuOpen) return undefined;
 
+    const navigation = navigationRef.current;
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusable = Array.from(navigation?.querySelectorAll(focusableSelector) || []);
+    const firstFocusable = focusable[0];
+    const lastFocusable = focusable[focusable.length - 1];
+
+    window.requestAnimationFrame(() => firstFocusable?.focus());
+
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') closeMenu();
+      if (event.key === 'Escape') {
+        closeMenu();
+        menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== 'Tab' || focusable.length === 0) return;
+      if (event.shiftKey && document.activeElement === firstFocusable) {
+        event.preventDefault();
+        lastFocusable.focus();
+      } else if (!event.shiftKey && document.activeElement === lastFocusable) {
+        event.preventDefault();
+        firstFocusable.focus();
+      }
     };
 
     document.addEventListener('keydown', onKeyDown);
@@ -144,6 +167,8 @@ function App() {
           <ul
             className={`nav-links ${menuOpen ? 'mobile-open' : ''}`}
             id="primary-navigation"
+            ref={navigationRef}
+            aria-label={locale === 'en' ? 'Primary navigation' : 'Navegación principal'}
           >
             <li className="nav-mobile-heading">
               <span>{locale === 'en' ? 'Explore Efexia' : 'Explora Efexia'}</span>
@@ -216,7 +241,7 @@ function App() {
             </li>
             <li className="nav-mobile-actions">
               <Link to="/start" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
-              <button onClick={closeMenu} type="button">{locale === 'en' ? 'Log In' : 'Entrar'}</button>
+              <a href="/#contact" onClick={closeMenu}>{locale === 'en' ? 'Contact' : 'Contacto'}</a>
             </li>
           </ul>
 
@@ -230,9 +255,9 @@ function App() {
             >
               {locale.toUpperCase()}
             </button>
-            <button className="nav-login-pill" onClick={closeMenu} type="button">
-              {locale === 'en' ? 'Log In' : 'Entrar'}
-            </button>
+            <a href="/#contact" className="nav-login-pill" onClick={closeMenu}>
+              {locale === 'en' ? 'Contact' : 'Contacto'}
+            </a>
             <Link to="/start" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
               {locale === 'en' ? 'Get Started' : 'Comenzar'}
             </Link>
@@ -243,6 +268,7 @@ function App() {
               aria-expanded={menuOpen}
               aria-controls="primary-navigation"
               type="button"
+              ref={menuButtonRef}
             >
               <span className="burger-icon" aria-hidden="true">
                 <span />

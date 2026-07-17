@@ -589,6 +589,10 @@ function Home({ locale }) {
             </p>
           </ScrollReveal>
 
+          <p className="health-standard-swipe-hint" aria-hidden="true">
+            {locale === 'en' ? 'Swipe to explore' : 'Desliza para explorar'} <span>→</span>
+          </p>
+
           <ScrollReveal variant="fade-up" eager className="health-standard-collage">
             <ResponsiveImage
               src="/images/health-standard-collage.webp"

@@ -85,6 +85,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+#treatments,
+#how-it-works,
+#reviews,
+#faqs,
+#contact {
+  scroll-margin-top: 88px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -468,10 +476,14 @@ main > div > section,
   color: var(--navy-dark);
   border: none;
   padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
+  text-decoration: none;
   white-space: nowrap;
   transition: opacity 0.2s ease;
 }
@@ -1381,7 +1393,9 @@ main > div > section,
   z-index: 1;
 }
 
-.accordion-img {
+.accordion-img,
+.accordion-bg-wrapper img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1389,7 +1403,10 @@ main > div > section,
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.accordion-item-PMC:hover .accordion-img, .accordion-item-PMC:focus-visible .accordion-img {
+.accordion-item-PMC:hover .accordion-img,
+.accordion-item-PMC:focus-visible .accordion-img,
+.accordion-item-PMC:hover .accordion-bg-wrapper img,
+.accordion-item-PMC:focus-visible .accordion-bg-wrapper img {
   opacity: 1;
   transform: scale(1.05);
 }
@@ -1499,13 +1516,50 @@ main > div > section,
 
 @media (max-width: 991px) {
   .accordion-gallery-PMC {
-    flex-direction: column;
-    height: 1000px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    height: auto;
+  }
+
+  .accordion-item-PMC {
+    min-height: 420px;
+  }
+
+  .accordion-item-PMC:hover,
+  .accordion-item-PMC:focus-visible {
+    flex: none;
   }
 
   .accordion-content-inner {
     transform: translateY(0);
     opacity: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .accordion-gallery-PMC {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .accordion-item-PMC {
+    min-height: 365px;
+    border-radius: 20px;
+  }
+
+  .accordion-content {
+    padding: 24px 22px;
+  }
+
+  .accordion-title {
+    font-size: 1.8rem;
+  }
+
+  .accordion-desc {
+    max-width: 100%;
+    font-size: 0.96rem;
   }
 }
 
@@ -3306,6 +3360,10 @@ main > div > section,
   gap: clamp(40px, 6vw, 76px);
 }
 
+.health-standard-swipe-hint {
+  display: none;
+}
+
 .health-standard-heading {
   max-width: 920px;
 }
@@ -3722,6 +3780,7 @@ main > div > section,
 body.nav-open,
 body.quiz-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .reveal {
@@ -3932,6 +3991,8 @@ body.quiz-open {
 .mobile-nav-backdrop {
   position: fixed;
   inset: 0;
+  padding: 0;
+  border: 0;
   background: rgba(10, 16, 36, 0.58);
   backdrop-filter: blur(4px);
   opacity: 0;
@@ -4018,8 +4079,10 @@ body.quiz-open {
 
   .nav-links a,
   .nav-links li a {
-    display: block;
-    padding: 14px 0;
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    padding: 12px 0;
     color: rgba(255, 255, 255, 0.92);
     font-size: 1.08rem;
     font-weight: 650;
@@ -4045,6 +4108,7 @@ body.quiz-open {
   .burger-menu-btn {
     position: relative;
     z-index: 102;
+    touch-action: manipulation;
   }
 
   .burger-menu-btn.is-open {
@@ -4330,7 +4394,7 @@ body {
   }
 
   .health-standard {
-    gap: 36px;
+    gap: 28px;
   }
 
   .health-standard-heading h2 {
@@ -4340,6 +4404,23 @@ body {
   .health-standard-heading p {
     margin-top: 18px;
     font-size: 1.08rem;
+  }
+
+  .health-standard-swipe-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: -10px;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .health-standard-swipe-hint span {
+    color: var(--brand-button);
+    font-size: 1rem;
   }
 
   .health-standard-collage {
@@ -5025,6 +5106,12 @@ body {
     background: var(--brand-highlight) !important;
   }
 
+  .nav-mobile-actions a:last-child {
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    color: #fff !important;
+    background: transparent !important;
+  }
+
   .peptide-hero {
     min-height: 720px;
   }
@@ -5069,19 +5156,22 @@ body {
 
 @media (max-width: 600px) {
   .promo-link {
-    min-height: 38px;
-    padding: 6px 14px;
-    font-size: 0.7rem;
+    min-height: 34px;
+    padding: 4px 12px;
+    gap: 6px;
+    font-size: 0.66rem;
     line-height: 1.25;
   }
 
   .trust-bar {
-    padding: 8px 0;
+    padding: 6px 0;
   }
 
   .trust-bar .container {
     overflow-x: auto;
     scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-inline: contain;
   }
 
   .trust-bar .container::-webkit-scrollbar {
@@ -5091,12 +5181,19 @@ body {
   .trust-track {
     width: max-content;
     justify-content: flex-start;
-    gap: 22px;
+    gap: 18px;
     padding: 0 4px;
   }
 
   .trust-item {
-    font-size: 0.72rem;
+    min-height: 28px;
+    font-size: 0.67rem;
+    scroll-snap-align: start;
+  }
+
+  .trust-item svg {
+    width: 16px;
+    height: 16px;
   }
 
   .nav-container {
@@ -5105,7 +5202,7 @@ body {
   }
 
   .brand-logo {
-    width: 126px;
+    width: 116px;
   }
 
   .nav-actions {
@@ -5113,7 +5210,9 @@ body {
   }
 
   .nav-lang-btn {
-    padding: 7px 8px;
+    min-width: 42px;
+    min-height: 42px;
+    padding: 6px 7px;
   }
 
   .burger-menu-btn {
@@ -5128,7 +5227,7 @@ body {
 
   .nav-links {
     width: min(92vw, 360px);
-    padding: calc(78px + env(safe-area-inset-top, 0px)) 24px calc(24px + env(safe-area-inset-bottom, 0px));
+    padding: calc(72px + env(safe-area-inset-top, 0px)) 24px calc(20px + env(safe-area-inset-bottom, 0px));
   }
 
   .peptide-hero {
