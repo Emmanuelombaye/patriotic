@@ -94,11 +94,11 @@ function App() {
         <div className="container nav-container">
           <Link to="/" className="logo-wrapper-PMC" style={{textDecoration: 'none'}} onClick={closeMenu}>
             <img
-              src="/newlogo.webp"
+              src="/efexia-logo-transparent.png"
               alt="Efexia"
               className="brand-logo"
-              width="560"
-              height="435"
+              width="518"
+              height="408"
               decoding="async"
               fetchPriority="high"
             />
@@ -155,11 +155,11 @@ function App() {
             <div className="footer-brand-PMC">
               <div className="footer-logo-surface">
                 <img
-                  src="/newlogo.webp"
+                  src="/efexia-logo-transparent.png"
                   alt="Efexia"
                   className="brand-logo brand-logo-footer"
-                  width="560"
-                  height="435"
+                  width="518"
+                  height="408"
                   loading="lazy"
                   decoding="async"
                 />

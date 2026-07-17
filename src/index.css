@@ -335,15 +335,13 @@ main > div > section,
 
 .brand-logo {
   display: block;
-  width: 176px;
-  height: auto;
-  aspect-ratio: 560 / 435;
+  width: auto;
+  height: 68px;
+  aspect-ratio: 518 / 408;
   object-fit: contain;
   border: 0;
   border-radius: 0;
-  filter:
-    drop-shadow(0 1px 1px rgba(10, 16, 36, 0.48))
-    drop-shadow(0 9px 15px rgba(10, 16, 36, 0.12));
+  filter: drop-shadow(0 4px 8px rgba(10, 16, 36, 0.12));
 }
 
 .footer-logo-surface {
@@ -357,7 +355,7 @@ main > div > section,
 }
 
 .brand-logo-footer {
-  width: 300px;
+  width: 220px;
   height: auto;
   border: 0;
   border-radius: 0;
