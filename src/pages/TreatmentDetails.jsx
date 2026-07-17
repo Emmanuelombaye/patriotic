@@ -242,7 +242,7 @@ function TreatmentDetails({ locale }) {
         .treatment-hero-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to right, rgba(23, 50, 77, 0.95) 0%, rgba(23, 50, 77, 0.7) 50%, transparent 100%);
+          background: linear-gradient(to right, rgba(10, 16, 36, 0.96) 0%, rgba(10, 16, 36, 0.74) 50%, transparent 100%);
         }
         .treatment-hero-content {
           position: relative;
@@ -262,7 +262,8 @@ function TreatmentDetails({ locale }) {
         }
         .treatment-tag-badge {
           display: inline-block;
-          background-color: var(--red);
+          background: linear-gradient(135deg, #E4C98F 0%, var(--champagne-gold) 52%, #C99F51 100%);
+          color: var(--midnight-navy);
           padding: 6px 12px;
           border-radius: 4px;
           font-family: var(--font-heading);

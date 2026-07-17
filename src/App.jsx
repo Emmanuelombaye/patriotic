@@ -72,19 +72,19 @@ function App() {
                 <path d="M4.166 8.269C4.166 12.312 7.703 15.656 9.269 16.938c.224.183.337.276.504.323.13.037.322.037.452 0 .168-.047.28-.139.505-.322C12.296 15.656 15.833 12.313 15.833 8.27a5.834 5.834 0 10-11.667 0z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M8.333 7.5a1.667 1.667 0 103.334 0 1.667 1.667 0 00-3.334 0z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>{locale === 'en' ? 'U.S. Licensed Pharmacies' : 'Farmacias Autorizadas en EE. UU.'}</span>
+              <span>{locale === 'en' ? 'Trusted Pharmacy Partners' : 'Farmacias Asociadas de Confianza'}</span>
             </div>
             <div className="trust-item">
-              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: 'var(--sage)'}}>
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: 'var(--champagne-gold)'}}>
                 <path d="M7.5 12.5H3.125a.625.625 0 01-.625-.625v-3.75c0-.345.28-.625.625-.625H7.5V3.125c0-.345.28-.625.625-.625h3.75c.345 0 .625.28.625.625V7.5h4.375c.345 0 .625.28.625.625v3.75a.625.625 0 01-.625.625H12.5v4.375a.625.625 0 01-.625.625h-3.75a.625.625 0 01-.625-.625V12.5z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>{locale === 'en' ? 'Licensed Providers in all 50 States' : 'Proveedores con Licencia en los 50 Estados'}</span>
+              <span>{locale === 'en' ? 'Qualified Healthcare Providers' : 'Profesionales de Salud Calificados'}</span>
             </div>
             <div className="trust-item">
               <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: 'var(--color-purple)'}}>
                 <path d="M17.5 10l-15-6.25v5l7.5 1.25-7.5 1.25v5L17.5 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span>{locale === 'en' ? 'Free Expedited Shipment' : 'Envío Exprés Gratuito'}</span>
+              <span>{locale === 'en' ? 'Private, Discreet Delivery' : 'Entrega Privada y Discreta'}</span>
             </div>
           </div>
         </div>
@@ -94,11 +94,11 @@ function App() {
         <div className="container nav-container">
           <Link to="/" className="logo-wrapper-PMC" style={{textDecoration: 'none'}} onClick={closeMenu}>
             <img
-              src="/efexia-logo.webp"
+              src="/newlogo.webp"
               alt="Efexia"
               className="brand-logo"
-              width="600"
-              height="161"
+              width="789"
+              height="622"
               decoding="async"
             />
           </Link>
@@ -154,11 +154,11 @@ function App() {
             <div className="footer-brand-PMC">
               <div className="footer-logo-surface">
                 <img
-                  src="/efexia-logo.webp"
+                  src="/newlogo.webp"
                   alt="Efexia"
                   className="brand-logo brand-logo-footer"
-                  width="600"
-                  height="161"
+                  width="789"
+                  height="622"
                   loading="lazy"
                   decoding="async"
                 />
