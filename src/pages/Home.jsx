@@ -284,12 +284,38 @@ function Home({ locale }) {
         <ScrollReveal variant="scale-in" eager className="retro-home-hero-card">
           <div className="retro-home-hero-contain">
             <div className="retro-home-hero-wrap">
-              <div className="retro-home-hero-top">
-                <h1 className="sr-only">{locale === 'en' ? "Men's health treatment that works" : "Tratamiento de salud masculina que funciona"}</h1>
-                <div className="retro-home-hero-heading">
-                  <span className="italic" style={{ color: TYPER_COLORS[wordIndex] }}>{currentText}</span>
-                  <span className="typer-cursor">|</span>
+              <div className="retro-home-hero-copy">
+                <div className="retro-home-hero-eyebrow">
+                  <span className="retro-home-hero-eyebrow-dot" aria-hidden="true" />
+                  <span>{locale === 'en' ? 'Personalized care for' : 'Atención personalizada para'}</span>
+                  <span className="retro-home-hero-rotating" style={{ color: TYPER_COLORS[wordIndex] }}>
+                    {currentText}
+                    <span className="typer-cursor" aria-hidden="true">|</span>
+                  </span>
                 </div>
+                <h1 className="retro-home-hero-title">
+                  {locale === 'en' ? 'Beyond Health.' : 'Más allá de la salud.'}
+                </h1>
+                <p className="retro-home-hero-subtitle">
+                  {locale === 'en'
+                    ? 'Designed for longevity, performance, and prevention.'
+                    : 'Diseñado para la longevidad, el rendimiento y la prevención.'}
+                </p>
+                <div className="retro-home-hero-actions">
+                  <Link to="/start" className="retro-home-hero-action retro-home-hero-action--primary">
+                    <span>{locale === 'en' ? 'Get Started' : 'Comenzar'}</span>
+                    <span className="retro-home-hero-action-icon" aria-hidden="true">→</span>
+                  </Link>
+                  <a href="#treatments" className="retro-home-hero-action retro-home-hero-action--secondary">
+                    <span>{locale === 'en' ? 'Discover Efexia' : 'Descubre Efexia'}</span>
+                    <span className="retro-home-hero-action-icon" aria-hidden="true">↓</span>
+                  </a>
+                </div>
+                <p className="retro-home-hero-note">
+                  {locale === 'en'
+                    ? 'Licensed providers · Personalized protocols · Discreet delivery'
+                    : 'Proveedores autorizados · Protocolos personalizados · Entrega discreta'}
+                </p>
               </div>
             </div>
           </div>
