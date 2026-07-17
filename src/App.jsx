@@ -1,20 +1,24 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import IntakeQuiz from './components/IntakeQuiz';
 import StartPage from './pages/StartPage';
 import { translations } from './translations';
 import Home from './pages/Home';
 import TreatmentDetails from './pages/TreatmentDetails';
 import ScrollReveal from './components/ScrollReveal';
+import { scrollToSection, updateSectionHash } from './utils/scrollToSection';
 
 function App() {
   const [locale, setLocale] = useState('en');
   const [quizOpen, setQuizOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollRequestId, setScrollRequestId] = useState(0);
   const navigationRef = useRef(null);
   const menuButtonRef = useRef(null);
+  const pendingSectionRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const t = (key) => translations[locale][key] || key;
 
@@ -25,38 +29,48 @@ function App() {
   };
 
   const goToSection = useCallback((sectionId) => {
+    pendingSectionRef.current = sectionId;
+    updateSectionHash(sectionId);
     closeMenu();
+    setScrollRequestId((value) => value + 1);
+
     if (location.pathname !== '/') {
-      window.location.hash = '';
-      // Navigate via hash href on Link/a still works; this helper is for same-page.
+      navigate(`/#${sectionId}`);
     }
-    const el = document.getElementById(sectionId);
-    if (el) {
-      window.requestAnimationFrame(() => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-  }, [closeMenu, location.pathname]);
+  }, [closeMenu, location.pathname, navigate]);
 
   useEffect(() => {
     closeMenu();
   }, [location.pathname, closeMenu]);
 
   useEffect(() => {
+    if (menuOpen) return undefined;
+
+    const sectionId = pendingSectionRef.current;
+    if (!sectionId) return undefined;
+
+    const timer = window.setTimeout(() => {
+      if (scrollToSection(sectionId, { behavior: 'auto' })) {
+        pendingSectionRef.current = null;
+      }
+    }, 64);
+
+    return () => window.clearTimeout(timer);
+  }, [menuOpen, location.pathname, scrollRequestId]);
+
+  useEffect(() => {
+    if (pendingSectionRef.current) return undefined;
+
     if (location.hash) {
-      const id = location.hash.slice(1);
-      // Wait for the new page to paint before scrolling to the hash target.
+      const sectionId = location.hash.slice(1);
       const timer = window.setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          window.scrollTo(0, 0);
-        }
-      }, 50);
+        scrollToSection(sectionId, { behavior: 'auto' });
+      }, 100);
       return () => window.clearTimeout(timer);
     }
+
     window.scrollTo(0, 0);
+    return undefined;
   }, [location.pathname, location.hash]);
 
   useEffect(() => {
@@ -241,7 +255,19 @@ function App() {
             </li>
             <li className="nav-mobile-actions">
               <Link to="/start" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
-              <a href="/#contact" onClick={closeMenu}>{locale === 'en' ? 'Contact' : 'Contacto'}</a>
+              <a
+                href="/#contact"
+                onClick={(event) => {
+                  if (location.pathname === '/') {
+                    event.preventDefault();
+                    goToSection('contact');
+                  } else {
+                    closeMenu();
+                  }
+                }}
+              >
+                {locale === 'en' ? 'Contact' : 'Contacto'}
+              </a>
             </li>
           </ul>
 
@@ -255,7 +281,18 @@ function App() {
             >
               {locale.toUpperCase()}
             </button>
-            <a href="/#contact" className="nav-login-pill" onClick={closeMenu}>
+            <a
+              href="/#contact"
+              className="nav-login-pill"
+              onClick={(event) => {
+                if (location.pathname === '/') {
+                  event.preventDefault();
+                  goToSection('contact');
+                } else {
+                  closeMenu();
+                }
+              }}
+            >
               {locale === 'en' ? 'Contact' : 'Contacto'}
             </a>
             <Link to="/start" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>

@@ -87,10 +87,13 @@ body {
 
 #treatments,
 #how-it-works,
+#about-us,
 #reviews,
 #faqs,
 #contact {
-  scroll-margin-top: 88px;
+  content-visibility: visible;
+  contain-intrinsic-block-size: auto;
+  scroll-margin-top: calc(var(--sticky-nav-offset, 88px) + 8px);
 }
 
 .sr-only {
@@ -111,8 +114,6 @@ body {
   min-height: 100vh;
 }
 
-main > section:not(:first-child),
-main > div > section,
 .footer-PMC {
   content-visibility: auto;
   contain-intrinsic-block-size: auto 800px;
