@@ -517,81 +517,28 @@ function Home({ locale }) {
       </ScrollReveal>
 
       <section id="gallery" className="gallery-section">
-        <div className="container clinical-showcase">
-          <div className="clinical-showcase-intro">
-            <ScrollReveal variant="slide-left" className="clinical-showcase-heading">
-              <span className="clinical-showcase-index">04 / The Efexia Standard</span>
-              <span className="section-tag">{locale === 'en' ? 'BEHIND YOUR CARE' : 'DETRÁS DE SU ATENCIÓN'}</span>
-              <h2 className="clinical-showcase-title">
-                {locale === 'en'
-                  ? <>Precision at every <em>touchpoint.</em></>
-                  : <>Precisión en cada <em>etapa.</em></>}
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal variant="slide-right" delay={2} className="clinical-showcase-copy">
-              <p>
-                {locale === 'en'
-                  ? 'From clinical review to discreet delivery, every detail is designed around quality, privacy, and confidence.'
-                  : 'Desde la revisión clínica hasta la entrega discreta, cada detalle está diseñado en torno a la calidad, la privacidad y la confianza.'}
-              </p>
-              <div className="clinical-showcase-rule" aria-hidden="true">
-                <span />
-              </div>
-            </ScrollReveal>
-          </div>
+        <div className="container health-standard">
+          <ScrollReveal variant="fade-up" className="health-standard-heading">
+            <h2>
+              {locale === 'en'
+                ? 'The new standard for health'
+                : 'El nuevo estándar para la salud'}
+            </h2>
+            <p>
+              {locale === 'en'
+                ? 'Health for a new, discerning generation'
+                : 'Salud para una nueva generación exigente'}
+            </p>
+          </ScrollReveal>
 
-          <div className="gallery-grid gallery-grid-editorial">
-            {[
-              {
-                src: '/images/clinical_lab.webp',
-                alt: 'Clinical Laboratory',
-                eyebrow: locale === 'en' ? '01 — Clinical review' : '01 — Revisión clínica',
-                title: locale === 'en' ? 'Quality without compromise' : 'Calidad sin concesiones',
-                detail: locale === 'en' ? 'Carefully reviewed protocols' : 'Protocolos cuidadosamente revisados',
-              },
-              {
-                src: '/images/diagnostic_kit.webp',
-                alt: 'Diagnostic Kit',
-                eyebrow: locale === 'en' ? '02 — Insight' : '02 — Evaluación',
-                title: locale === 'en' ? 'Clarity before action' : 'Claridad antes de actuar',
-                detail: locale === 'en' ? 'Personalized health assessment' : 'Evaluación de salud personalizada',
-              },
-              {
-                src: '/images/discreet_packaging.webp',
-                alt: 'Discreet Packaging',
-                eyebrow: locale === 'en' ? '03 — Privacy' : '03 — Privacidad',
-                title: locale === 'en' ? 'Designed for discretion' : 'Diseñado con discreción',
-                detail: locale === 'en' ? 'Secure, private packaging' : 'Embalaje seguro y privado',
-              },
-              {
-                src: '/images/nad_vial.webp',
-                alt: 'Wellness Treatment',
-                eyebrow: locale === 'en' ? '04 — Wellness' : '04 — Bienestar',
-                title: locale === 'en' ? 'Made for good condition' : 'Creado para su bienestar',
-                detail: locale === 'en' ? 'Modern physician-guided care' : 'Atención moderna guiada por médicos',
-              },
-            ].map((item, idx) => (
-              <ScrollReveal
-                key={item.src}
-                variant={idx % 2 === 0 ? 'slide-left' : 'slide-right'}
-                delay={(idx % 3) + 1}
-                className={`gallery-item gallery-item-${idx + 1} hover-lift`}
-              >
-                <ResponsiveImage
-                  src={item.src}
-                  alt={item.alt}
-                  sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1100px) 50vw, 60vw"
-                />
-                <div className="gallery-item-scrim" aria-hidden="true" />
-                <div className="gallery-item-copy">
-                  <span>{item.eyebrow}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.detail}</p>
-                </div>
-                <span className="gallery-corner-mark" aria-hidden="true">↗</span>
-              </ScrollReveal>
-            ))}
-          </div>
+          <ScrollReveal variant="fade-up" delay={2} className="health-standard-collage">
+            <img
+              src="/images/health-standard-collage.png"
+              alt="Health leaders, advocates, and industry recognition"
+              loading="lazy"
+              decoding="async"
+            />
+          </ScrollReveal>
         </div>
       </section>
 
