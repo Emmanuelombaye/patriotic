@@ -3,7 +3,7 @@
   --brand-button: #5A4CFF;
   --brand-hover: #7B61FF;
   --brand-highlight: #00D5C8;
-  --brand-text: #0F172A;
+  --brand-text: #172554;
 
   --midnight-navy: var(--brand-text);
   --champagne-gold: var(--brand-highlight);
@@ -335,7 +335,7 @@ main > div > section,
 
 .brand-logo {
   display: block;
-  width: 138px;
+  width: 176px;
   height: auto;
   aspect-ratio: 560 / 435;
   object-fit: contain;
@@ -357,7 +357,7 @@ main > div > section,
 }
 
 .brand-logo-footer {
-  width: 240px;
+  width: 300px;
   height: auto;
   border: 0;
   border-radius: 0;
@@ -3147,13 +3147,13 @@ body {
   }
 
   .brand-logo {
-    width: 112px;
+    width: 140px;
     height: auto;
     border-radius: 0;
   }
 
   .brand-logo-footer {
-    width: 210px;
+    width: 256px;
     height: auto;
     border-radius: 0;
   }
