@@ -9,7 +9,7 @@ const SECTION_IDS = new Set([
 
 let scrollToken = 0;
 
-export function getStickyHeaderOffset() {
+export function getStickyHeaderOffset(): number {
   const navbar = document.querySelector('.navbar');
   if (!navbar) return 88;
 
@@ -19,12 +19,12 @@ export function getStickyHeaderOffset() {
   return offset;
 }
 
-function lockSectionLayout(el) {
+function lockSectionLayout(el: HTMLElement) {
   el.style.contentVisibility = 'visible';
   el.style.containIntrinsicBlockSize = 'auto';
 }
 
-export function scrollToSection(sectionId, { behavior: _behavior = 'auto' } = {}) {
+export function scrollToSection(sectionId: string, { behavior: _behavior = 'auto' }: { behavior?: ScrollBehavior } = {}): boolean {
   if (!SECTION_IDS.has(sectionId)) return false;
 
   const el = document.getElementById(sectionId);
@@ -57,7 +57,7 @@ export function scrollToSection(sectionId, { behavior: _behavior = 'auto' } = {}
   return true;
 }
 
-export function updateSectionHash(sectionId) {
+export function updateSectionHash(sectionId: string): void {
   if (!SECTION_IDS.has(sectionId)) return;
   const nextHash = `#${sectionId}`;
   if (window.location.hash !== nextHash) {

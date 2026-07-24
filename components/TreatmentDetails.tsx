@@ -1,11 +1,25 @@
-import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { translations } from '../translations';
-import ResponsiveImage from '../components/ResponsiveImage';
-import ScrollReveal from '../components/ScrollReveal';
-import PeptideTreatment from './PeptideTreatment';
+'use client';
 
-const treatmentData = {
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { translations } from '@/lib/translations';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import ScrollReveal from '@/components/ScrollReveal';
+import PeptideTreatment from '@/components/PeptideTreatment';
+import type { Locale } from '@/lib/types';
+
+type TreatmentInfo = {
+  title: string;
+  desc: string;
+  heroImg: string;
+  benefits: string[];
+  benefitsEs: string[];
+  details: string;
+  detailsEs: string;
+};
+
+const treatmentData: Record<string, TreatmentInfo> = {
   trt: {
     title: 'trtTitle',
     desc: 'trtDesc',
@@ -122,10 +136,13 @@ const treatmentData = {
   }
 };
 
-function TreatmentDetails({ locale }) {
-  const { id } = useParams();
-  const treatment = treatmentData[id];
-  const t = (key) => translations[locale][key] || key;
+type TreatmentDetailsProps = { locale: Locale };
+
+function TreatmentDetails({ locale }: TreatmentDetailsProps) {
+  const params = useParams();
+  const id = typeof params.id === 'string' ? params.id : Array.isArray(params.id) ? params.id[0] : undefined;
+  const treatment = id ? treatmentData[id] : undefined;
+  const t = (key: string) => translations[locale][key] || key;
 
   // Scroll to top on mount
   useEffect(() => {
@@ -140,7 +157,7 @@ function TreatmentDetails({ locale }) {
     return (
       <div className="retro-container" style={{ padding: '100px 0', textAlign: 'center' }}>
         <h2>Treatment Not Found</h2>
-        <Link to="/" className="btn btn-red" style={{ marginTop: '20px' }}>Return Home</Link>
+        <Link href="/" className="btn btn-red" style={{ marginTop: '20px' }}>Return Home</Link>
       </div>
     );
   }
@@ -163,7 +180,7 @@ function TreatmentDetails({ locale }) {
         <div className="treatment-hero-overlay" aria-hidden="true" />
         <div className="container treatment-hero-content">
           <ScrollReveal variant="fade-up" eager delay={1}>
-            <Link to="/" className="back-link">
+            <Link href="/" className="back-link">
               ← {locale === 'en' ? 'Back to All Treatments' : 'Volver a Todos los Tratamientos'}
             </Link>
           </ScrollReveal>

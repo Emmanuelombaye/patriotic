@@ -1,4 +1,6 @@
-export const translations = {
+import type { Locale } from './types';
+
+export const translations: Record<Locale, Record<string, string>> = {
   en: {
     // Nav & General
     treatments: "Treatments",

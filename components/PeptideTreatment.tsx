@@ -1,7 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ResponsiveImage from '../components/ResponsiveImage';
-import ScrollReveal from '../components/ScrollReveal';
+'use client';
+
+import Link from 'next/link';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import ScrollReveal from '@/components/ScrollReveal';
+import type { Locale } from '@/lib/types';
+
+type PeptideTreatmentProps = { locale: Locale };
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -106,7 +110,7 @@ const content = {
   }
 };
 
-function PeptideTreatment({ locale }) {
+function PeptideTreatment({ locale }: PeptideTreatmentProps) {
   const copy = content[locale] || content.en;
 
   return (
@@ -123,12 +127,12 @@ function PeptideTreatment({ locale }) {
         <div className="peptide-hero__veil" aria-hidden="true" />
         <div className="container peptide-hero__inner">
           <ScrollReveal eager variant="fade-up" className="peptide-hero__copy">
-            <Link to="/#treatments" className="peptide-back"><span>←</span> {copy.back}</Link>
+            <Link href="/#treatments" className="peptide-back"><span>←</span> {copy.back}</Link>
             <p className="peptide-kicker">{copy.eyebrow}</p>
             <h1>{copy.title}</h1>
             <p className="peptide-hero__intro">{copy.intro}</p>
             <div className="peptide-actions">
-              <Link to="/start" className="peptide-button peptide-button--primary">{copy.primary}<ArrowIcon /></Link>
+              <Link href="/start" className="peptide-button peptide-button--primary">{copy.primary}<ArrowIcon /></Link>
               <a href="#peptide-process" className="peptide-button peptide-button--glass">{copy.secondary}</a>
             </div>
           </ScrollReveal>
@@ -190,7 +194,7 @@ function PeptideTreatment({ locale }) {
             ))}
           </div>
           <ScrollReveal variant="scale-in" className="peptide-process__action">
-            <Link to="/start" className="peptide-button peptide-button--teal">{copy.primary}<ArrowIcon /></Link>
+            <Link href="/start" className="peptide-button peptide-button--teal">{copy.primary}<ArrowIcon /></Link>
           </ScrollReveal>
         </div>
       </section>
@@ -235,7 +239,7 @@ function PeptideTreatment({ locale }) {
             <p className="peptide-kicker">{copy.ctaEyebrow}</p>
             <h2>{copy.ctaTitle}</h2>
             <p>{copy.ctaBody}</p>
-            <Link to="/start" className="peptide-button peptide-button--teal">{copy.primary}<ArrowIcon /></Link>
+            <Link href="/start" className="peptide-button peptide-button--teal">{copy.primary}<ArrowIcon /></Link>
             <small>{copy.disclaimer}</small>
           </ScrollReveal>
         </div>

@@ -1,7 +1,10 @@
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import ResponsiveImage from './ResponsiveImage';
-import ScrollReveal from './ScrollReveal';
+'use client';
+
+import { useRef, useState, type KeyboardEvent } from 'react';
+import Link from 'next/link';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import ScrollReveal from '@/components/ScrollReveal';
+import type { Locale } from '@/lib/types';
 
 const COPY = {
   en: {
@@ -174,7 +177,7 @@ const COPY = {
   },
 };
 
-function GoalIcon({ type }) {
+function GoalIcon({ type }: { type: string }) {
   if (type === 'strength') {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -198,19 +201,23 @@ function GoalIcon({ type }) {
   );
 }
 
-export default function GoalTreatments({ locale }) {
+type GoalTreatmentsProps = {
+  locale: Locale;
+};
+
+export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
   const copy = COPY[locale] || COPY.en;
   const [activeIndex, setActiveIndex] = useState(0);
-  const tabsRef = useRef([]);
+  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const activeGoal = copy.goals[activeIndex];
 
-  const selectTab = (index) => {
+  const selectTab = (index: number) => {
     setActiveIndex(index);
     tabsRef.current[index]?.focus();
   };
 
-  const handleTabKeyDown = (event, index) => {
-    let nextIndex;
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let nextIndex: number | undefined;
 
     if (event.key === 'ArrowRight') nextIndex = (index + 1) % copy.goals.length;
     if (event.key === 'ArrowLeft') nextIndex = (index - 1 + copy.goals.length) % copy.goals.length;
@@ -264,7 +271,7 @@ export default function GoalTreatments({ locale }) {
           id={`goal-panel-${activeGoal.id}`}
           className="goal-treatments__stage"
           role="tabpanel"
-          tabIndex="0"
+          tabIndex={0}
           aria-labelledby={`goal-tab-${activeGoal.id}`}
         >
           <div className="goal-treatments__visual">
@@ -304,7 +311,7 @@ export default function GoalTreatments({ locale }) {
                     <p>{treatment.description}</p>
                   </div>
                   <Link
-                    to={`/treatment/${treatment.id}`}
+                    href={`/treatment/${treatment.id}`}
                     className="goal-treatments__option-link"
                     aria-label={`${copy.explore}: ${treatment.title}`}
                   >
@@ -316,7 +323,7 @@ export default function GoalTreatments({ locale }) {
             </div>
 
             <div className="goal-treatments__actions">
-              <Link to="/start" className="goal-treatments__primary-action">
+              <Link href="/start" className="goal-treatments__primary-action">
                 {copy.qualify}
                 <span aria-hidden="true">→</span>
               </Link>

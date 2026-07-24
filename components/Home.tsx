@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { translations } from '../translations';
-import ResponsiveImage from '../components/ResponsiveImage';
-import ScrollReveal from '../components/ScrollReveal';
-import GoalTreatments from '../components/GoalTreatments';
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { translations } from '@/lib/translations';
+import ResponsiveImage from '@/components/ResponsiveImage';
+import ScrollReveal from '@/components/ScrollReveal';
+import GoalTreatments from '@/components/GoalTreatments';
+import type { Locale } from '@/lib/types';
+
+type HomeProps = { locale: Locale };
 
 const faqItemsEn = [
   {
@@ -75,8 +80,8 @@ const CARE_MARQUEE_ITEMS = [
   { mark: '24', label: 'Patient', detail: 'Support', className: 'marquee-serif' },
 ];
 
-function Home({ locale }) {
-  const [openFaq, setOpenFaq] = useState(null);
+function Home({ locale }: HomeProps) {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeStep, setActiveStep] = useState(0);
   
   // Rotating header typer effect
@@ -132,9 +137,9 @@ function Home({ locale }) {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, wordIndex, typerWords]);
 
-  const t = (key) => translations[locale][key] || key;
+  const t = (key: string) => translations[locale][key] || key;
 
-  const toggleFaq = (index) => {
+  const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
@@ -302,7 +307,7 @@ function Home({ locale }) {
                     : 'Diseñado para la longevidad, el rendimiento y la prevención.'}
                 </p>
                 <div className="retro-home-hero-actions">
-                  <Link to="/start" className="retro-home-hero-action retro-home-hero-action--primary">
+                  <Link href="/start" className="retro-home-hero-action retro-home-hero-action--primary">
                     <span>{locale === 'en' ? 'Get Started' : 'Comenzar'}</span>
                     <span className="retro-home-hero-action-icon" aria-hidden="true">→</span>
                   </Link>
@@ -372,7 +377,7 @@ function Home({ locale }) {
                     <span className="accordion-badge">{item.badge}</span>
                     <h3 className="accordion-title">{item.title}</h3>
                     <p className="accordion-desc">{item.desc}</p>
-                    <Link to={`/treatment/${item.id}`} className="accordion-link">
+                    <Link href={`/treatment/${item.id}`} className="accordion-link">
                       {t('learnMore')} <span className="accordion-arrow">→</span>
                     </Link>
                   </div>

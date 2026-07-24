@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from 'react';
+'use client';
 
-export default function IntakeQuiz({ isOpen, onClose, locale = 'en', dismissible = true }) {
+import { useEffect, useState } from 'react';
+import type { Locale } from '@/lib/types';
+
+type IntakeQuizProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  locale?: Locale;
+  dismissible?: boolean;
+};
+
+export default function IntakeQuiz({ isOpen, onClose, locale = 'en', dismissible = true }: IntakeQuizProps) {
   const [step, setStep] = useState(1);
   const [goal, setGoal] = useState('');
-  const [symptoms, setSymptoms] = useState([]);
+  const [symptoms, setSymptoms] = useState<string[]>([]);
   const [age, setAge] = useState('');
 
   useEffect(() => {
     if (!isOpen || !dismissible) return undefined;
 
-    const onKeyDown = (event) => {
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
     };
 
@@ -22,7 +32,7 @@ export default function IntakeQuiz({ isOpen, onClose, locale = 'en', dismissible
   const totalSteps = 4;
   const progressPercent = Math.min((step / totalSteps) * 100, 100);
 
-  const toggleSymptom = (symptom) => {
+  const toggleSymptom = (symptom: string) => {
     if (symptoms.includes(symptom)) {
       setSymptoms(symptoms.filter(s => s !== symptom));
     } else {

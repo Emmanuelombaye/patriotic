@@ -1,4 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+'use client';
+
+import { useEffect, useRef, useState, type ElementType, type HTMLAttributes, type ReactNode } from 'react';
+
+type ScrollRevealProps = {
+  children: ReactNode;
+  as?: ElementType;
+  className?: string;
+  variant?: string;
+  delay?: number;
+  once?: boolean;
+  eager?: boolean;
+  threshold?: number;
+  rootMargin?: string;
+} & HTMLAttributes<HTMLElement>;
 
 export default function ScrollReveal({
   children,
@@ -11,8 +25,8 @@ export default function ScrollReveal({
   threshold = 0.15,
   rootMargin = '0px 0px -8% 0px',
   ...props
-}) {
-  const ref = useRef(null);
+}: ScrollRevealProps) {
+  const ref = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(eager);
 
   useEffect(() => {
@@ -44,9 +58,11 @@ export default function ScrollReveal({
   const delayClass = delay > 0 ? ` reveal-delay-${Math.min(delay, 8)}` : '';
   const classes = `reveal reveal-${variant}${delayClass}${isVisible ? ' is-visible' : ''}${className ? ` ${className}` : ''}`;
 
+  const Component = Tag as ElementType;
+
   return (
-    <Tag ref={ref} className={classes} {...props}>
+    <Component ref={ref} className={classes} {...props}>
       {children}
-    </Tag>
+    </Component>
   );
 }

@@ -1,4 +1,15 @@
-const imageMetadata = {
+import type { ImgHTMLAttributes } from 'react';
+
+type ResponsiveImageProps = ImgHTMLAttributes<HTMLImageElement> & {
+  src: string;
+  alt: string;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  className?: string;
+};
+
+const imageMetadata: Record<string, [number, number]> = {
   '/images/avatar1.webp': [60, 60],
   '/images/avatar2.webp': [60, 60],
   '/images/avatar3.webp': [60, 60],
@@ -30,15 +41,15 @@ const imageMetadata = {
 
 const candidateWidths = [320, 640, 960];
 
-function imagePath(src, width, format) {
-  const [intrinsicWidth] = imageMetadata[src];
+function imagePath(src: string, width: number, format: string): string {
+  const [intrinsicWidth] = imageMetadata[src]!;
   const stem = src.replace(/\.webp$/, '');
   return width === intrinsicWidth
     ? `${stem}.${format}`
     : `${stem}-${width}.${format}`;
 }
 
-function getSrcSet(src, format) {
+function getSrcSet(src: string, format: string): string | undefined {
   const metadata = imageMetadata[src];
   if (!metadata) return undefined;
 
@@ -59,7 +70,7 @@ export default function ResponsiveImage({
   decoding = 'async',
   className = '',
   ...props
-}) {
+}: ResponsiveImageProps) {
   const metadata = imageMetadata[src];
 
   if (!metadata) {

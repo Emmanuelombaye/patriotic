@@ -1,47 +1,47 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import IntakeQuiz from './components/IntakeQuiz';
-import StartPage from './pages/StartPage';
-import { translations } from './translations';
-import Home from './pages/Home';
-import TreatmentDetails from './pages/TreatmentDetails';
-import ScrollReveal from './components/ScrollReveal';
-import { scrollToSection, updateSectionHash } from './utils/scrollToSection';
+'use client';
 
-function App() {
-  const [locale, setLocale] = useState('en');
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import IntakeQuiz from '@/components/IntakeQuiz';
+import ScrollReveal from '@/components/ScrollReveal';
+import { useLocale } from '@/context/LocaleContext';
+import { scrollToSection, updateSectionHash } from '@/lib/scrollToSection';
+
+export default function SiteShell({ children }: { children: ReactNode }) {
+  const { locale, toggleLocale, t } = useLocale();
   const [quizOpen, setQuizOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollRequestId, setScrollRequestId] = useState(0);
-  const navigationRef = useRef(null);
-  const menuButtonRef = useRef(null);
-  const pendingSectionRef = useRef(null);
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const t = (key) => translations[locale][key] || key;
+  const navigationRef = useRef<HTMLUListElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const pendingSectionRef = useRef<string | null>(null);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-  const toggleLocale = () => {
-    setLocale((prev) => (prev === 'en' ? 'es' : 'en'));
-  };
-
-  const goToSection = useCallback((sectionId) => {
+  const goToSection = useCallback((sectionId: string) => {
     pendingSectionRef.current = sectionId;
     updateSectionHash(sectionId);
     closeMenu();
     setScrollRequestId((value) => value + 1);
 
-    if (location.pathname !== '/') {
-      navigate(`/#${sectionId}`);
+    if (pathname !== '/') {
+      router.push(`/#${sectionId}`);
     }
-  }, [closeMenu, location.pathname, navigate]);
+  }, [closeMenu, pathname, router]);
 
   useEffect(() => {
     closeMenu();
-  }, [location.pathname, closeMenu]);
+  }, [pathname, closeMenu]);
 
   useEffect(() => {
     if (menuOpen) return undefined;
@@ -56,13 +56,14 @@ function App() {
     }, 64);
 
     return () => window.clearTimeout(timer);
-  }, [menuOpen, location.pathname, scrollRequestId]);
+  }, [menuOpen, pathname, scrollRequestId]);
 
   useEffect(() => {
     if (pendingSectionRef.current) return undefined;
 
-    if (location.hash) {
-      const sectionId = location.hash.slice(1);
+    const hash = window.location.hash;
+    if (hash) {
+      const sectionId = hash.slice(1);
       const timer = window.setTimeout(() => {
         scrollToSection(sectionId, { behavior: 'auto' });
       }, 100);
@@ -71,7 +72,19 @@ function App() {
 
     window.scrollTo(0, 0);
     return undefined;
-  }, [location.pathname, location.hash]);
+  }, [pathname]);
+
+  useEffect(() => {
+    const onHashChange = () => {
+      if (pendingSectionRef.current) return;
+      const hash = window.location.hash;
+      if (!hash) return;
+      scrollToSection(hash.slice(1), { behavior: 'auto' });
+    };
+
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen);
@@ -94,13 +107,13 @@ function App() {
 
     const navigation = navigationRef.current;
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-    const focusable = Array.from(navigation?.querySelectorAll(focusableSelector) || []);
+    const focusable = Array.from(navigation?.querySelectorAll<HTMLElement>(focusableSelector) || []);
     const firstFocusable = focusable[0];
     const lastFocusable = focusable[focusable.length - 1];
 
     window.requestAnimationFrame(() => firstFocusable?.focus());
 
-    const onKeyDown = (event) => {
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         closeMenu();
         menuButtonRef.current?.focus();
@@ -164,7 +177,7 @@ function App() {
 
       <nav className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="container nav-container">
-          <Link to="/" className="logo-wrapper-PMC" style={{textDecoration: 'none'}} onClick={closeMenu}>
+          <Link href="/" className="logo-wrapper-PMC" style={{textDecoration: 'none'}} onClick={closeMenu}>
             <img
               src="/efexia-logo-transparent.png"
               srcSet="/efexia-logo-384.webp 384w, /efexia-logo-768.webp 768w"
@@ -192,7 +205,7 @@ function App() {
               <a
                 href="/#treatments"
                 onClick={(event) => {
-                  if (location.pathname === '/') {
+                  if (pathname === '/') {
                     event.preventDefault();
                     goToSection('treatments');
                   } else {
@@ -207,7 +220,7 @@ function App() {
               <a
                 href="/#how-it-works"
                 onClick={(event) => {
-                  if (location.pathname === '/') {
+                  if (pathname === '/') {
                     event.preventDefault();
                     goToSection('how-it-works');
                   } else {
@@ -219,7 +232,7 @@ function App() {
               </a>
             </li>
             <li>
-              <Link to="/treatment/peptide" onClick={closeMenu}>
+              <Link href="/treatment/peptide" onClick={closeMenu}>
                 {locale === 'en' ? 'Regenerative Therapy' : 'Terapia Regenerativa'}
               </Link>
             </li>
@@ -227,7 +240,7 @@ function App() {
               <a
                 href="/#reviews"
                 onClick={(event) => {
-                  if (location.pathname === '/') {
+                  if (pathname === '/') {
                     event.preventDefault();
                     goToSection('reviews');
                   } else {
@@ -242,7 +255,7 @@ function App() {
               <a
                 href="/#faqs"
                 onClick={(event) => {
-                  if (location.pathname === '/') {
+                  if (pathname === '/') {
                     event.preventDefault();
                     goToSection('faqs');
                   } else {
@@ -254,11 +267,11 @@ function App() {
               </a>
             </li>
             <li className="nav-mobile-actions">
-              <Link to="/start" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
+              <Link href="/start" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
               <a
                 href="/#contact"
                 onClick={(event) => {
-                  if (location.pathname === '/') {
+                  if (pathname === '/') {
                     event.preventDefault();
                     goToSection('contact');
                   } else {
@@ -285,7 +298,7 @@ function App() {
               href="/#contact"
               className="nav-login-pill"
               onClick={(event) => {
-                if (location.pathname === '/') {
+                if (pathname === '/') {
                   event.preventDefault();
                   goToSection('contact');
                 } else {
@@ -295,7 +308,7 @@ function App() {
             >
               {locale === 'en' ? 'Contact' : 'Contacto'}
             </a>
-            <Link to="/start" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
+            <Link href="/start" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
               {locale === 'en' ? 'Get Started' : 'Comenzar'}
             </Link>
             <button
@@ -317,12 +330,8 @@ function App() {
         </div>
       </nav>
 
-      <main className="page-enter" key={location.pathname}>
-        <Routes>
-          <Route path="/" element={<Home locale={locale} />} />
-          <Route path="/treatment/:id" element={<TreatmentDetails locale={locale} />} />
-          <Route path="/start" element={<StartPage locale={locale} />} />
-        </Routes>
+      <main className="page-enter" key={pathname}>
+        {children}
       </main>
 
       <footer className="footer-PMC">
@@ -370,34 +379,34 @@ function App() {
             <div>
               <h4 className="footer-title-PMC">{t('treatments')}</h4>
               <ul className="footer-links-PMC">
-                <li><Link to="/treatment/trt">TRT Therapy</Link></li>
-                <li><Link to="/treatment/ed">ED Treatment</Link></li>
-                <li><Link to="/treatment/weight">Weight Loss</Link></li>
-                <li><Link to="/treatment/hair">Hair Restoration</Link></li>
-                <li><Link to="/treatment/peptide">Regenerative Therapy</Link></li>
-                <li><Link to="/treatment/wellness">Wellness Optimization</Link></li>
+                <li><Link href="/treatment/trt">TRT Therapy</Link></li>
+                <li><Link href="/treatment/ed">ED Treatment</Link></li>
+                <li><Link href="/treatment/weight">Weight Loss</Link></li>
+                <li><Link href="/treatment/hair">Hair Restoration</Link></li>
+                <li><Link href="/treatment/peptide">Regenerative Therapy</Link></li>
+                <li><Link href="/treatment/wellness">Wellness Optimization</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="footer-title-PMC">{t('resources')}</h4>
               <ul className="footer-links-PMC">
-                <li><Link to="/#how-it-works">{t('howItWorks')}</Link></li>
-                <li><Link to="/#faqs">{t('faq')}</Link></li>
-                <li><Link to="/">{t('blog')}</Link></li>
-                <li><Link to="/">{locale === 'en' ? 'Patient Reviews' : 'Reseñas de Pacientes'}</Link></li>
-                <li><Link to="/">{locale === 'en' ? 'Contact Us' : 'Contáctenos'}</Link></li>
+                <li><Link href="/#how-it-works">{t('howItWorks')}</Link></li>
+                <li><Link href="/#faqs">{t('faq')}</Link></li>
+                <li><Link href="/">{t('blog')}</Link></li>
+                <li><Link href="/">{locale === 'en' ? 'Patient Reviews' : 'Reseñas de Pacientes'}</Link></li>
+                <li><Link href="/">{locale === 'en' ? 'Contact Us' : 'Contáctenos'}</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="footer-title-PMC">{t('company')}</h4>
               <ul className="footer-links-PMC">
-                <li><Link to="/">{t('aboutUs')}</Link></li>
-                <li><Link to="/">{locale === 'en' ? 'Our Providers' : 'Nuestros Proveedores'}</Link></li>
-                <li><Link to="/">{locale === 'en' ? 'Careers' : 'Carreras'}</Link></li>
-                <li><Link to="/">{locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</Link></li>
-                <li><Link to="/">{locale === 'en' ? 'Terms of Service' : 'Términos de Servicio'}</Link></li>
+                <li><Link href="/">{t('aboutUs')}</Link></li>
+                <li><Link href="/">{locale === 'en' ? 'Our Providers' : 'Nuestros Proveedores'}</Link></li>
+                <li><Link href="/">{locale === 'en' ? 'Careers' : 'Carreras'}</Link></li>
+                <li><Link href="/">{locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</Link></li>
+                <li><Link href="/">{locale === 'en' ? 'Terms of Service' : 'Términos de Servicio'}</Link></li>
               </ul>
             </div>
 
@@ -440,5 +449,3 @@ function App() {
     </>
   );
 }
-
-export default App;
