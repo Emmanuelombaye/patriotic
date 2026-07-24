@@ -13,7 +13,7 @@ const COPY = {
     intro: 'Choose what you want to improve. Efexia connects you with licensed providers who build a plan around your health, biology, and life.',
     goalLabel: 'Choose your health goal',
     personalized: 'Personalized for you',
-    qualify: 'See if I qualify',
+    qualify: 'View treatment page',
     explore: 'Explore treatment',
     trust: ['Licensed U.S. providers', 'Personalized protocols', 'Private delivery'],
     goals: [
@@ -97,7 +97,7 @@ const COPY = {
     intro: 'Elija lo que desea mejorar. Efexia le conecta con proveedores autorizados que crean un plan según su salud, biología y estilo de vida.',
     goalLabel: 'Elija su objetivo de salud',
     personalized: 'Personalizado para usted',
-    qualify: 'Ver si califico',
+    qualify: 'Ver página del tratamiento',
     explore: 'Explorar tratamiento',
     trust: ['Proveedores autorizados en EE. UU.', 'Protocolos personalizados', 'Entrega privada'],
     goals: [
@@ -323,7 +323,10 @@ export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
             </div>
 
             <div className="goal-treatments__actions">
-              <Link href="/start" className="goal-treatments__primary-action">
+              <Link
+                href={`/treatment/${activeGoal.treatments[0].id}`}
+                className="goal-treatments__primary-action"
+              >
                 {copy.qualify}
                 <span aria-hidden="true">→</span>
               </Link>

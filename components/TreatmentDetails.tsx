@@ -8,6 +8,7 @@ import ResponsiveImage from '@/components/ResponsiveImage';
 import ScrollReveal from '@/components/ScrollReveal';
 import PeptideTreatment from '@/components/PeptideTreatment';
 import type { Locale } from '@/lib/types';
+import { startCheckoutHref } from '@/lib/treatments';
 
 type TreatmentInfo = {
   title: string;
@@ -194,9 +195,13 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
             <p className="treatment-hero-desc">{t(treatment.desc)}</p>
           </ScrollReveal>
           <ScrollReveal variant="scale-in" eager delay={4}>
-            <button className="btn btn-red" onClick={() => window.location.href = '/start'} style={{ marginTop: '24px', padding: '16px 32px', fontSize: '1.1rem' }}>
+            <Link
+              href={startCheckoutHref(id)}
+              className="btn btn-red"
+              style={{ marginTop: '24px', padding: '16px 32px', fontSize: '1.1rem', display: 'inline-flex' }}
+            >
               {t('beginConsultation')}
-            </button>
+            </Link>
           </ScrollReveal>
         </div>
       </div>
@@ -225,17 +230,17 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
             <h3 className="sticky-card-title">{locale === 'en' ? 'Ready to optimize your health?' : '¿Listo para optimizar tu salud?'}</h3>
             <p className="sticky-card-desc">
               {locale === 'en' 
-                ? 'Complete our quick medical intake form to see if you qualify. No commitment required.' 
-                : 'Complete nuestro rápido formulario médico para ver si califica. No se requiere compromiso.'}
+                ? 'Complete the required 4-step compliance qualifier to see if you are eligible. No commitment required.' 
+                : 'Complete el calificador de cumplimiento de 4 pasos para ver si es elegible. No se requiere compromiso.'}
             </p>
             <div className="sticky-card-features">
               <span>✓ {locale === 'en' ? 'U.S. Licensed Physicians' : 'Médicos Licenciados'}</span>
               <span>✓ {locale === 'en' ? 'Discreet Delivery' : 'Entrega Discreta'}</span>
               <span>✓ {locale === 'en' ? 'Ongoing Medical Support' : 'Apoyo Médico Continuo'}</span>
             </div>
-            <button className="btn btn-red" style={{ width: '100%', marginTop: '20px' }} onClick={() => window.location.href = '/start'}>
-              {locale === 'en' ? 'Start Intake Quiz' : 'Comenzar Cuestionario'}
-            </button>
+            <Link href={startCheckoutHref(id)} className="btn btn-red" style={{ width: '100%', marginTop: '20px', display: 'inline-flex', justifyContent: 'center' }}>
+              {locale === 'en' ? 'Start Compliance Checkout' : 'Iniciar Checkout de Cumplimiento'}
+            </Link>
           </ScrollReveal>
         </div>
       </div>

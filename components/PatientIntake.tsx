@@ -12,9 +12,14 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Locale } from '@/lib/types';
+import {
+  getTreatmentLabel,
+  type TreatmentId,
+} from '@/lib/treatments';
 
 type PatientIntakeProps = {
   locale: Locale;
+  treatmentId?: TreatmentId | null;
 };
 
 type SexAtBirth = 'male' | 'female' | '';
@@ -165,7 +170,7 @@ function Field({
   );
 }
 
-export default function PatientIntake({ locale }: PatientIntakeProps) {
+export default function PatientIntake({ locale, treatmentId = null }: PatientIntakeProps) {
   const router = useRouter();
   const formId = useId();
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -233,6 +238,8 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
         successCta: 'Volver al inicio',
         privacy:
           'Esta calificación se usa solo para elegibilidad y cumplimiento clínico. Su información está protegida y solo la revisa el equipo clínico.',
+        selectedTreatment: 'Tratamiento seleccionado',
+        noTreatment: 'Calificación general de elegibilidad',
       };
     }
 
@@ -292,8 +299,12 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
       successCta: 'Back to home',
       privacy:
         'This qualifier is used only for eligibility and clinical compliance. Your information is protected and reviewed only by the clinical team.',
+      selectedTreatment: 'Selected treatment',
+      noTreatment: 'General eligibility qualification',
     };
   }, [locale]);
+
+  const selectedLabel = treatmentId ? getTreatmentLabel(treatmentId, locale) : null;
 
   useEffect(() => {
     headingRef.current?.focus();
@@ -420,6 +431,10 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
           <header className="patient-intake__header">
             <p className="patient-intake__step-label">{copy.stepOf(step)}</p>
             <h2 tabIndex={-1} ref={headingRef}>{copy.steps[step - 1].title}</h2>
+            <div className={`patient-intake__product${selectedLabel ? ' is-selected' : ''}`}>
+              <span>{copy.selectedTreatment}</span>
+              <strong>{selectedLabel || copy.noTreatment}</strong>
+            </div>
             <div className="patient-intake__progress" aria-hidden="true">
               <span style={{ width: `${(step / 4) * 100}%` }} />
             </div>

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import ScrollReveal from '@/components/ScrollReveal';
 import type { Locale } from '@/lib/types';
+import { startCheckoutHref } from '@/lib/treatments';
 
 type PeptideTreatmentProps = { locale: Locale };
 
@@ -132,7 +133,7 @@ function PeptideTreatment({ locale }: PeptideTreatmentProps) {
             <h1>{copy.title}</h1>
             <p className="peptide-hero__intro">{copy.intro}</p>
             <div className="peptide-actions">
-              <Link href="/start" className="peptide-button peptide-button--primary">{copy.primary}<ArrowIcon /></Link>
+              <Link href={startCheckoutHref('peptide')} className="peptide-button peptide-button--primary">{copy.primary}<ArrowIcon /></Link>
               <a href="#peptide-process" className="peptide-button peptide-button--glass">{copy.secondary}</a>
             </div>
           </ScrollReveal>
@@ -194,7 +195,7 @@ function PeptideTreatment({ locale }: PeptideTreatmentProps) {
             ))}
           </div>
           <ScrollReveal variant="scale-in" className="peptide-process__action">
-            <Link href="/start" className="peptide-button peptide-button--teal">{copy.primary}<ArrowIcon /></Link>
+            <Link href={startCheckoutHref('peptide')} className="peptide-button peptide-button--teal">{copy.primary}<ArrowIcon /></Link>
           </ScrollReveal>
         </div>
       </section>
@@ -239,7 +240,7 @@ function PeptideTreatment({ locale }: PeptideTreatmentProps) {
             <p className="peptide-kicker">{copy.ctaEyebrow}</p>
             <h2>{copy.ctaTitle}</h2>
             <p>{copy.ctaBody}</p>
-            <Link href="/start" className="peptide-button peptide-button--teal">{copy.primary}<ArrowIcon /></Link>
+            <Link href={startCheckoutHref('peptide')} className="peptide-button peptide-button--teal">{copy.primary}<ArrowIcon /></Link>
             <small>{copy.disclaimer}</small>
           </ScrollReveal>
         </div>
