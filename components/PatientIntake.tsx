@@ -179,10 +179,15 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
     if (locale === 'es') {
       return {
         brand: 'Efexia',
-        kicker: 'Consulta segura en línea',
-        title: 'Comience su evaluación médica',
-        subtitle: 'Cuatro pasos breves. Revisado por clínicos con licencia en EE. UU.',
-        trust: ['Proveedores licenciados', 'Privado y cifrado', 'Sin compromiso'],
+        kicker: 'Calificación de cumplimiento',
+        title: 'Calificador de elegibilidad',
+        subtitle:
+          'Este formulario breve de 4 pasos es obligatorio para cumplimiento clínico. Confirma identidad, envío, seguridad médica y consentimientos antes de que un clínico pueda revisar su caso.',
+        trust: [
+          'Requerido para elegibilidad de tratamiento',
+          'Revisión clínica con licencia en EE. UU.',
+          'Registros privados y cifrados',
+        ],
         steps: [
           { title: 'Información del paciente', short: 'Paciente' },
           { title: 'Dirección de envío', short: 'Envío' },
@@ -192,7 +197,7 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
         stepOf: (current: number) => `Paso ${current} de 4`,
         back: 'Atrás',
         continue: 'Continuar',
-        submit: 'Enviar evaluación',
+        submit: 'Enviar calificación',
         submitting: 'Enviando…',
         email: 'Correo electrónico',
         firstName: 'Nombre',
@@ -209,7 +214,8 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
         state: 'Estado',
         zip: 'Código postal',
         screeningTitle: '¿Le aplica alguna de las siguientes condiciones?',
-        screeningHint: 'Seleccione con honestidad. Esto ayuda a su clínico a evaluar la seguridad del tratamiento.',
+        screeningHint:
+          'Responda con honestidad. Esta pregunta de cumplimiento ayuda a determinar si el tratamiento puede ser considerado de forma segura.',
         yes: 'Sí, una o más',
         no: 'No, ninguna aplica',
         agreeTerms:
@@ -221,20 +227,26 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
         invalidPhone: 'Ingrese un teléfono válido',
         invalidDob: 'Debe tener al menos 18 años',
         invalidZip: 'Ingrese un código postal válido',
-        successTitle: 'Evaluación recibida',
+        successTitle: 'Calificación enviada',
         successBody:
-          'Gracias. Un clínico afiliado revisará su información de forma segura. Nos pondremos en contacto si se necesita algo más.',
+          'Gracias. Su calificación de cumplimiento fue recibida. Un clínico afiliado revisará su información de forma segura y determinará la elegibilidad.',
         successCta: 'Volver al inicio',
-        privacy: 'Su información está protegida y solo la revisa el equipo clínico.',
+        privacy:
+          'Esta calificación se usa solo para elegibilidad y cumplimiento clínico. Su información está protegida y solo la revisa el equipo clínico.',
       };
     }
 
     return {
       brand: 'Efexia',
-      kicker: 'Secure online intake',
-      title: 'Start your medical assessment',
-      subtitle: 'Four short steps. Reviewed by U.S.-licensed clinicians.',
-      trust: ['Licensed providers', 'Private & encrypted', 'No commitment'],
+      kicker: 'Compliance qualification',
+      title: 'Eligibility qualifier',
+      subtitle:
+        'This required 4-step form is a mini compliance qualifier. It confirms identity, shipping, medical safety screening, and consent before a clinician can review your case.',
+      trust: [
+        'Required for treatment eligibility',
+        'U.S.-licensed clinical review',
+        'Private, encrypted records',
+      ],
       steps: [
         { title: 'Patient Information', short: 'Patient' },
         { title: 'Shipping Address', short: 'Shipping' },
@@ -244,7 +256,7 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
       stepOf: (current: number) => `Step ${current} of 4`,
       back: 'Back',
       continue: 'Continue',
-      submit: 'Submit assessment',
+      submit: 'Submit qualification',
       submitting: 'Submitting…',
       email: 'Email Address',
       firstName: 'First Name',
@@ -261,7 +273,8 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
       state: 'State',
       zip: 'ZIP / Postcode',
       screeningTitle: 'Do any of the following conditions apply to you?',
-      screeningHint: 'Answer honestly. This helps your clinician assess treatment safety.',
+      screeningHint:
+        'Answer honestly. This compliance question helps determine whether treatment can be safely considered.',
       yes: 'Yes, one or more',
       no: 'No, none apply',
       agreeTerms:
@@ -273,11 +286,12 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
       invalidPhone: 'Enter a valid phone number',
       invalidDob: 'You must be at least 18 years old',
       invalidZip: 'Enter a valid ZIP / postcode',
-      successTitle: 'Assessment received',
+      successTitle: 'Qualification submitted',
       successBody:
-        'Thank you. An affiliated clinician will securely review your information. We’ll reach out if anything else is needed.',
+        'Thank you. Your compliance qualification was received. An affiliated clinician will securely review your information and determine eligibility.',
       successCta: 'Back to home',
-      privacy: 'Your information is protected and reviewed only by the clinical team.',
+      privacy:
+        'This qualifier is used only for eligibility and clinical compliance. Your information is protected and reviewed only by the clinical team.',
     };
   }, [locale]);
 
@@ -374,7 +388,8 @@ export default function PatientIntake({ locale }: PatientIntakeProps) {
         <aside className="patient-intake__aside" aria-hidden="false">
           <div className="patient-intake__aside-glow" aria-hidden="true" />
           <p className="patient-intake__kicker">{copy.kicker}</p>
-          <h1 className="patient-intake__brand">{copy.brand}</h1>
+          <p className="patient-intake__brand-mark">{copy.brand}</p>
+          <h1 className="patient-intake__brand">{copy.title}</h1>
           <p className="patient-intake__lede">{copy.subtitle}</p>
           <ul className="patient-intake__trust">
             {copy.trust.map((item) => (

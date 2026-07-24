@@ -9,14 +9,12 @@ import {
 } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import IntakeQuiz from '@/components/IntakeQuiz';
 import ScrollReveal from '@/components/ScrollReveal';
 import { useLocale } from '@/context/LocaleContext';
 import { scrollToSection, updateSectionHash } from '@/lib/scrollToSection';
 
 export default function SiteShell({ children }: { children: ReactNode }) {
   const { locale, toggleLocale, t } = useLocale();
-  const [quizOpen, setQuizOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollRequestId, setScrollRequestId] = useState(0);
@@ -88,12 +86,10 @@ export default function SiteShell({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen);
-    document.body.classList.toggle('quiz-open', quizOpen);
     return () => {
       document.body.classList.remove('nav-open');
-      document.body.classList.remove('quiz-open');
     };
-  }, [menuOpen, quizOpen]);
+  }, [menuOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -143,7 +139,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       />
 
       <div className="promo-banner">
-        <button className="promo-link" onClick={() => setQuizOpen(true)}>
+        <button className="promo-link" type="button" onClick={() => router.push('/start')}>
           <span>{locale === 'en' ? 'Save up to $400 on your first prescription order!' : 'Ahorra hasta $400 en tu primer pedido de receta!'}</span>
           <span>{t('claimOffer')}</span>
         </button>
@@ -445,7 +441,6 @@ export default function SiteShell({ children }: { children: ReactNode }) {
         </div>
       </footer>
 
-      <IntakeQuiz isOpen={quizOpen} onClose={() => setQuizOpen(false)} locale={locale} />
     </>
   );
 }
