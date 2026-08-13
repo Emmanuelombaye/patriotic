@@ -139,13 +139,9 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       />
 
       <div className="promo-banner">
-        <button className="promo-link" type="button" onClick={() => router.push('/start?payment=2')}>
-          <span>
-            {locale === 'en'
-              ? 'Start your $2 clinical intake — provider review required before any prescription.'
-              : 'Inicie su evaluación clínica de $2 — se requiere revisión del proveedor antes de cualquier receta.'}
-          </span>
-          <span>{locale === 'en' ? 'Begin' : 'Comenzar'}</span>
+        <button className="promo-link" type="button" onClick={() => router.push('/start')}>
+          <span>{locale === 'en' ? 'Save up to $400 on your first prescription order!' : 'Ahorra hasta $400 en tu primer pedido de receta!'}</span>
+          <span>{t('claimOffer')}</span>
         </button>
       </div>
 
@@ -267,7 +263,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               </a>
             </li>
             <li className="nav-mobile-actions">
-              <Link href="/start?payment=2" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
+              <Link href="/start" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
               <a
                 href="/#contact"
                 onClick={(event) => {
@@ -308,7 +304,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             >
               {locale === 'en' ? 'Contact' : 'Contacto'}
             </a>
-            <Link href="/start?payment=2" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
+            <Link href="/start" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
               {locale === 'en' ? 'Get Started' : 'Comenzar'}
             </Link>
             <button
