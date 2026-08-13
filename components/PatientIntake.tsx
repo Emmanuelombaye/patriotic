@@ -13,6 +13,12 @@ import {
 import { useRouter } from 'next/navigation';
 import type { Locale } from '@/lib/types';
 import {
+  getActiveScreeningQuestions,
+  isScreeningComplete,
+  questionIsDisqualified,
+} from '@/lib/intake';
+import {
+  COMPLIANCE_PAYMENT,
   getTreatmentLabel,
   type TreatmentId,
 } from '@/lib/treatments';
@@ -32,11 +38,14 @@ type FormData = {
   phone: string;
   dateOfBirth: string;
   sexAtBirth: SexAtBirth;
+  height: string;
+  weight: string;
   street: string;
   apartment: string;
   city: string;
   state: string;
   zip: string;
+  answers: Record<string, string>;
   medicalConditions: ScreeningAnswer;
   agreeTerms: boolean;
   authorizeClinicians: boolean;
@@ -59,34 +68,18 @@ const INITIAL: FormData = {
   phone: '',
   dateOfBirth: '',
   sexAtBirth: '',
+  height: '',
+  weight: '',
   street: '',
   apartment: '',
   city: '',
   state: '',
   zip: '',
+  answers: {},
   medicalConditions: '',
   agreeTerms: false,
   authorizeClinicians: false,
 };
-
-const CONDITIONS = {
-  en: [
-    'History of heart attack, stroke, or uncontrolled heart disease',
-    'Active or prior prostate or breast cancer',
-    'Untreated severe sleep apnea',
-    'Blood clotting disorder or current anticoagulant therapy',
-    'Currently taking nitrates or similar chest-pain medication',
-    'Known allergy to similar medications',
-  ],
-  es: [
-    'Historial de ataque cardíaco, accidente cerebrovascular o enfermedad cardíaca no controlada',
-    'Cáncer de próstata o de mama activo o previo',
-    'Apnea del sueño grave sin tratamiento',
-    'Trastorno de coagulación o terapia anticoagulante actual',
-    'Uso actual de nitratos u otros medicamentos para dolor de pecho',
-    'Alergia conocida a medicamentos similares',
-  ],
-} as const;
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
@@ -221,8 +214,8 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
         screeningTitle: '¿Le aplica alguna de las siguientes condiciones?',
         screeningHint:
           'Responda con honestidad. Esta pregunta de cumplimiento ayuda a determinar si el tratamiento puede ser considerado de forma segura.',
-        yes: 'Sí, una o más',
-        no: 'No, ninguna aplica',
+        yes: 'Sí',
+        no: 'No',
         agreeTerms:
           'Acepto los Términos de Servicio, el formulario de Consentimiento Médico y reconozco el Consentimiento Informado de Telemedicina para protocolos médicos especializados.',
         authorize:
@@ -240,6 +233,9 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
           'Esta calificación se usa solo para elegibilidad y cumplimiento clínico. Su información está protegida y solo la revisa el equipo clínico.',
         selectedTreatment: 'Tratamiento seleccionado',
         noTreatment: 'Calificación general de elegibilidad',
+        height: 'Estatura',
+        weight: 'Peso (lb)',
+        paymentNote: `Verificación de pago: $${COMPLIANCE_PAYMENT}. No hay otro cargo en este calificador.`,
       };
     }
 
@@ -282,8 +278,8 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
       screeningTitle: 'Do any of the following conditions apply to you?',
       screeningHint:
         'Answer honestly. This compliance question helps determine whether treatment can be safely considered.',
-      yes: 'Yes, one or more',
-      no: 'No, none apply',
+      yes: 'Yes',
+      no: 'No',
       agreeTerms:
         'I agree to the Terms of Service, Medical Consent form, and acknowledge the Telehealth Informed Consent for specialized medical protocols.',
       authorize:
@@ -301,10 +297,24 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
         'This qualifier is used only for eligibility and clinical compliance. Your information is protected and reviewed only by the clinical team.',
       selectedTreatment: 'Selected treatment',
       noTreatment: 'General eligibility qualification',
+      height: 'Height',
+      weight: 'Weight (lbs)',
+      paymentNote: `Verification payment: $${COMPLIANCE_PAYMENT}. No other charge in this qualifier.`,
     };
   }, [locale]);
 
   const selectedLabel = treatmentId ? getTreatmentLabel(treatmentId, locale) : null;
+  const screeningIntake = useMemo(
+    () => ({
+      answers: data.answers,
+      sexAtBirth: data.sexAtBirth === 'female' ? 'Female' : data.sexAtBirth === 'male' ? 'Male' : '',
+    }),
+    [data.answers, data.sexAtBirth],
+  );
+  const screeningQuestions = useMemo(
+    () => getActiveScreeningQuestions(screeningIntake),
+    [screeningIntake],
+  );
 
   useEffect(() => {
     headingRef.current?.focus();
@@ -333,6 +343,8 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
       if (!data.dateOfBirth) nextErrors.dateOfBirth = copy.required;
       else if (!isAdult(data.dateOfBirth)) nextErrors.dateOfBirth = copy.invalidDob;
       if (!data.sexAtBirth) nextErrors.sexAtBirth = copy.required;
+      if (!data.height.trim()) nextErrors.height = copy.required;
+      if (!data.weight.trim()) nextErrors.weight = copy.required;
     }
 
     if (current === 2) {
@@ -344,7 +356,10 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
     }
 
     if (current === 3) {
-      if (!data.medicalConditions) nextErrors.medicalConditions = copy.required;
+      const blocked = screeningQuestions.some((q) => questionIsDisqualified(q, data.answers[q.id]));
+      if (blocked || !isScreeningComplete(screeningIntake)) {
+        nextErrors.medicalConditions = copy.required;
+      }
     }
 
     if (current === 4) {
@@ -354,7 +369,7 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
 
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
-  }, [copy, data]);
+  }, [copy, data, screeningIntake, screeningQuestions]);
 
   const goNext = useCallback(() => {
     if (!validateStep(step)) return;
@@ -522,6 +537,27 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                   </div>
                   {errors.sexAtBirth ? <span className="patient-field__error" role="alert">{errors.sexAtBirth}</span> : null}
                 </fieldset>
+
+                <div className="patient-intake__row">
+                  <Field label={copy.height} htmlFor={`${formId}-height`} error={errors.height}>
+                    <input
+                      id={`${formId}-height`}
+                      type="text"
+                      value={data.height}
+                      onChange={(event) => update('height', event.target.value)}
+                      placeholder="5ft 10in"
+                    />
+                  </Field>
+                  <Field label={copy.weight} htmlFor={`${formId}-weight`} error={errors.weight}>
+                    <input
+                      id={`${formId}-weight`}
+                      type="number"
+                      inputMode="numeric"
+                      value={data.weight}
+                      onChange={(event) => update('weight', event.target.value)}
+                    />
+                  </Field>
+                </div>
               </div>
             )}
 
@@ -590,29 +626,57 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                 <fieldset className={`patient-screening${errors.medicalConditions ? ' has-error' : ''}`}>
                   <legend>{copy.screeningTitle} <span aria-hidden="true">*</span></legend>
                   <p className="patient-screening__hint">{copy.screeningHint}</p>
-                  <ul className="patient-screening__list">
-                    {CONDITIONS[locale].map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                  <div className="patient-choice__options patient-choice__options--stack">
-                    <button
-                      type="button"
-                      className={data.medicalConditions === 'yes' ? 'is-selected' : ''}
-                      onClick={() => update('medicalConditions', 'yes')}
-                      aria-pressed={data.medicalConditions === 'yes'}
-                    >
-                      {copy.yes}
-                    </button>
-                    <button
-                      type="button"
-                      className={data.medicalConditions === 'no' ? 'is-selected' : ''}
-                      onClick={() => update('medicalConditions', 'no')}
-                      aria-pressed={data.medicalConditions === 'no'}
-                    >
-                      {copy.no}
-                    </button>
-                  </div>
+                  {screeningQuestions.map((q) => {
+                    const value = data.answers[q.id] || '';
+                    const blocked = questionIsDisqualified(q, value);
+                    return (
+                      <div key={q.id} className={`patient-q${blocked ? ' has-error' : ''}`}>
+                        <p className="patient-screening__hint">{q.question}</p>
+                        {q.type === 'boolean' ? (
+                          <div className="patient-choice__options patient-choice__options--stack">
+                            <button
+                              type="button"
+                              className={value === 'yes' ? 'is-selected' : ''}
+                              onClick={() =>
+                                update('answers', { ...data.answers, [q.id]: 'yes' })
+                              }
+                            >
+                              {copy.yes}
+                            </button>
+                            <button
+                              type="button"
+                              className={value === 'no' ? 'is-selected' : ''}
+                              onClick={() =>
+                                update('answers', { ...data.answers, [q.id]: 'no' })
+                              }
+                            >
+                              {copy.no}
+                            </button>
+                          </div>
+                        ) : q.type === 'select' ? (
+                          <select
+                            value={value}
+                            onChange={(event) =>
+                              update('answers', { ...data.answers, [q.id]: event.target.value })
+                            }
+                          >
+                            <option value="">—</option>
+                            {(q.options || []).map((opt) => (
+                              <option key={opt} value={opt}>{opt}</option>
+                            ))}
+                          </select>
+                        ) : (
+                          <input
+                            type={q.type === 'number' ? 'number' : 'text'}
+                            value={value}
+                            onChange={(event) =>
+                              update('answers', { ...data.answers, [q.id]: event.target.value })
+                            }
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
                   {errors.medicalConditions ? (
                     <span className="patient-field__error" role="alert">{errors.medicalConditions}</span>
                   ) : null}
@@ -645,6 +709,7 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                 ) : null}
 
                 <p className="patient-intake__privacy">{copy.privacy}</p>
+                <p className="patient-intake__privacy">{copy.paymentNote}</p>
               </div>
             )}
           </form>

@@ -46,9 +46,13 @@ export function getTreatmentLabel(id: TreatmentId, locale: Locale): string {
   return LABELS[id][locale] || LABELS[id].en;
 }
 
+/** Peak / compliance checkout — payment mode 2 only. */
+export const COMPLIANCE_PAYMENT = 2;
+
 export function startCheckoutHref(treatmentId?: TreatmentId | string | null): string {
+  const params = new URLSearchParams({ payment: String(COMPLIANCE_PAYMENT) });
   if (treatmentId && isTreatmentId(treatmentId)) {
-    return `/start?treatment=${treatmentId}`;
+    params.set('treatment', treatmentId);
   }
-  return '/start';
+  return `/start?${params.toString()}`;
 }
