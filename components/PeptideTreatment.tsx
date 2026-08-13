@@ -26,7 +26,7 @@ const content = {
     title: <>Support your body’s <em>next chapter.</em></>,
     intro: 'Personalized peptide protocols designed around your goals, health history, and ongoing clinical support.',
     back: 'All treatments',
-    primary: 'See if I qualify',
+    primary: 'Start $2 clinical intake',
     secondary: 'Explore the process',
     proof: ['100% online intake', 'U.S.-licensed providers', 'Private home delivery'],
     scienceEyebrow: 'A more precise approach',
@@ -62,7 +62,7 @@ const content = {
     ],
     ctaEyebrow: 'Your next step',
     ctaTitle: 'A stronger tomorrow can start today.',
-    ctaBody: 'Take the private online assessment. There is no commitment, and a provider will determine whether you are a candidate.',
+    ctaBody: 'The $2 intake starts your provider review. Completing it does not guarantee a prescription.',
     disclaimer: 'Prescription treatment requires an online medical evaluation. Results vary. Compounded medications are not FDA-approved and are prescribed only when clinically appropriate.'
   },
   es: {
@@ -70,7 +70,7 @@ const content = {
     title: <>Apoya el <em>próximo capítulo</em> de tu cuerpo.</>,
     intro: 'Protocolos de péptidos personalizados según tus objetivos, historial médico y apoyo clínico continuo.',
     back: 'Todos los tratamientos',
-    primary: 'Ver si califico',
+    primary: 'Iniciar evaluación clínica de $2',
     secondary: 'Explorar el proceso',
     proof: ['Evaluación 100% en línea', 'Proveedores licenciados en EE. UU.', 'Entrega privada a domicilio'],
     scienceEyebrow: 'Un enfoque más preciso',
@@ -106,7 +106,7 @@ const content = {
     ],
     ctaEyebrow: 'Tu próximo paso',
     ctaTitle: 'Un mañana más fuerte puede comenzar hoy.',
-    ctaBody: 'Completa la evaluación privada en línea. No hay compromiso y un proveedor determinará si eres candidato.',
+    ctaBody: 'La evaluación de $2 inicia la revisión del proveedor. Completarla no garantiza una receta.',
     disclaimer: 'El tratamiento con receta requiere una evaluación médica en línea. Los resultados varían. Los medicamentos compuestos no están aprobados por la FDA.'
   }
 };
