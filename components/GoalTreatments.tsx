@@ -5,201 +5,174 @@ import Link from 'next/link';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import ScrollReveal from '@/components/ScrollReveal';
 import type { Locale } from '@/lib/types';
+import { startCheckoutHref } from '@/lib/treatments';
 
 const COPY = {
   en: {
-    eyebrow: 'Care designed around you',
-    title: 'Personalized treatments to help achieve your goals',
-    intro: 'Choose what you want to improve. Efexia connects you with licensed providers who build a plan around your health, biology, and life.',
-    goalLabel: 'Choose your health goal',
-    personalized: 'Personalized for you',
-    qualify: 'View treatment page',
-    explore: 'Explore treatment',
-    trust: ['Licensed U.S. providers', 'Personalized protocols', 'Private delivery'],
+    eyebrow: 'Treatments',
+    title: (
+      <>
+        Choose the category that matches your <em>goals.</em>
+      </>
+    ),
+    intro:
+      'Browse physician-guided care by category. Every path starts with a $2 clinical intake and provider review — completing intake does not guarantee a prescription.',
+    goalLabel: 'Treatment categories',
+    explore: 'View treatment',
+    start: 'Start $2 intake',
+    note: 'Licensed U.S. providers · Private delivery · Compounded meds only when clinically appropriate',
     goals: [
       {
         id: 'strength',
         tab: 'Strength & metabolism',
-        number: '01',
-        kicker: 'Strength starts from within',
-        title: 'Build energy that keeps up with your ambition.',
-        description: 'Physician-guided programs designed to support healthier weight, balanced hormones, and sustained everyday performance.',
+        kicker: 'Energy & body composition',
+        title: 'Hormone and metabolic support',
+        description:
+          'TRT and GLP-1 options considered when a licensed provider determines they fit your history and goals.',
         image: '/images/efexia-goal-strength.webp',
-        imageAlt: 'Confident man in a premium Efexia wellness setting',
+        imageAlt: 'Man focused on strength and metabolic wellness',
         treatments: [
           {
             id: 'trt',
-            eyebrow: 'Hormone health',
-            title: 'Testosterone Replacement Therapy',
-            description: 'A clinically guided protocol built around your symptoms, goals, and lab results.',
+            title: 'Testosterone (TRT)',
+            description: 'Clinician-reviewed hormone care with monitoring when prescribed.',
           },
           {
             id: 'weight',
-            eyebrow: 'Metabolic health',
-            title: 'Weight Management',
-            description: 'Personalized GLP-1 options paired with ongoing medical oversight.',
+            title: 'Weight management',
+            description: 'GLP-1 pathways discussed only after clinical eligibility review.',
           },
         ],
       },
       {
         id: 'confidence',
         tab: 'Confidence & appearance',
-        number: '02',
-        kicker: 'Feel like yourself again',
-        title: 'Restore confidence in the moments that matter.',
-        description: 'Discreet, evidence-based care for sexual health and hair restoration, designed around your comfort and goals.',
+        kicker: 'Sexual health & hair',
+        title: 'Private care for confidence',
+        description:
+          'Discreet ED and hair protocols — prescribed only when clinically appropriate.',
         image: '/images/efexia-goal-confidence.webp',
-        imageAlt: 'Man preparing confidently in a refined wellness space',
+        imageAlt: 'Man preparing with quiet confidence',
         treatments: [
           {
             id: 'ed',
-            eyebrow: 'Sexual wellness',
-            title: 'Erectile Dysfunction Care',
-            description: 'Private, physician-guided treatment with personalized dosing options.',
+            title: 'Erectile dysfunction',
+            description: 'Private evaluation and provider-directed options.',
           },
           {
             id: 'hair',
-            eyebrow: 'Hair health',
-            title: 'Hair Restoration',
-            description: 'Targeted topical and oral options designed to support healthier growth.',
+            title: 'Hair restoration',
+            description: 'Topical or oral plans guided by clinical judgment.',
           },
         ],
       },
       {
         id: 'longevity',
         tab: 'Longevity & recovery',
-        number: '03',
-        kicker: 'Invest in the years ahead',
-        title: 'Recover smarter. Age with intention.',
-        description: 'Advanced wellness and regenerative protocols built to support cellular energy, recovery, and long-term vitality.',
+        kicker: 'Cellular wellness',
+        title: 'Recovery and longevity-minded care',
+        description:
+          'NAD+ and regenerative options considered under licensed provider oversight.',
         image: '/images/efexia-goal-longevity.webp',
-        imageAlt: 'Healthy mature man relaxing in an Efexia wellness environment',
+        imageAlt: 'Calm longevity-focused wellness setting',
         treatments: [
           {
             id: 'wellness',
-            eyebrow: 'Cellular wellness',
-            title: 'Wellness Optimization',
-            description: 'NAD+ and antioxidant protocols focused on energy, focus, and resilience.',
+            title: 'Wellness optimization',
+            description: 'Cellular support discussed in clinical context.',
           },
           {
             id: 'peptide',
-            eyebrow: 'Recovery',
-            title: 'Regenerative Therapy',
-            description: 'Targeted therapies designed to support recovery, sleep, and healthy aging.',
+            title: 'Regenerative therapy',
+            description: 'Peptide protocols only when a provider finds them appropriate.',
           },
         ],
       },
     ],
   },
   es: {
-    eyebrow: 'Atención diseñada para usted',
-    title: 'Tratamientos personalizados para ayudarle a alcanzar sus objetivos',
-    intro: 'Elija lo que desea mejorar. Efexia le conecta con proveedores autorizados que crean un plan según su salud, biología y estilo de vida.',
-    goalLabel: 'Elija su objetivo de salud',
-    personalized: 'Personalizado para usted',
-    qualify: 'Ver página del tratamiento',
-    explore: 'Explorar tratamiento',
-    trust: ['Proveedores autorizados en EE. UU.', 'Protocolos personalizados', 'Entrega privada'],
+    eyebrow: 'Tratamientos',
+    title: (
+      <>
+        Elija la categoría que coincide con sus <em>objetivos.</em>
+      </>
+    ),
+    intro:
+      'Explore el cuidado guiado por médicos por categoría. Cada camino comienza con una evaluación clínica de $2 y revisión del proveedor — completar la evaluación no garantiza una receta.',
+    goalLabel: 'Categorías de tratamiento',
+    explore: 'Ver tratamiento',
+    start: 'Iniciar evaluación de $2',
+    note: 'Proveedores licenciados en EE. UU. · Entrega privada · Medicamentos compuestos solo cuando sea clínicamente apropiado',
     goals: [
       {
         id: 'strength',
         tab: 'Fuerza y metabolismo',
-        number: '01',
-        kicker: 'La fuerza comienza desde dentro',
-        title: 'Desarrolle una energía a la altura de su ambición.',
-        description: 'Programas guiados por médicos para apoyar un peso saludable, hormonas equilibradas y un rendimiento diario sostenido.',
+        kicker: 'Energía y composición corporal',
+        title: 'Apoyo hormonal y metabólico',
+        description:
+          'Opciones de TRT y GLP-1 consideradas cuando un proveedor determina que encajan con su historial.',
         image: '/images/efexia-goal-strength.webp',
-        imageAlt: 'Hombre seguro en un entorno premium de bienestar Efexia',
+        imageAlt: 'Hombre enfocado en fuerza y bienestar metabólico',
         treatments: [
           {
             id: 'trt',
-            eyebrow: 'Salud hormonal',
-            title: 'Terapia de Reemplazo de Testosterona',
-            description: 'Un protocolo clínico basado en sus síntomas, objetivos y resultados de laboratorio.',
+            title: 'Testosterona (TRT)',
+            description: 'Cuidado hormonal con revisión clínica y monitoreo si se receta.',
           },
           {
             id: 'weight',
-            eyebrow: 'Salud metabólica',
-            title: 'Control de Peso',
-            description: 'Opciones GLP-1 personalizadas con supervisión médica continua.',
+            title: 'Control de peso',
+            description: 'Vías GLP-1 solo tras revisión de elegibilidad clínica.',
           },
         ],
       },
       {
         id: 'confidence',
         tab: 'Confianza y apariencia',
-        number: '02',
-        kicker: 'Vuelva a sentirse usted mismo',
-        title: 'Recupere la confianza en los momentos importantes.',
-        description: 'Atención discreta y basada en evidencia para la salud sexual y la restauración capilar, diseñada según su comodidad y objetivos.',
+        kicker: 'Salud sexual y cabello',
+        title: 'Cuidado privado para la confianza',
+        description:
+          'Protocolos discretos de DE y cabello — recetados solo cuando son clínicamente apropiados.',
         image: '/images/efexia-goal-confidence.webp',
-        imageAlt: 'Hombre preparándose con confianza en un espacio refinado',
+        imageAlt: 'Hombre preparándose con confianza',
         treatments: [
           {
             id: 'ed',
-            eyebrow: 'Bienestar sexual',
-            title: 'Cuidado de la Disfunción Eréctil',
-            description: 'Tratamiento privado guiado por médicos con opciones de dosis personalizadas.',
+            title: 'Disfunción eréctil',
+            description: 'Evaluación privada y opciones dirigidas por el proveedor.',
           },
           {
             id: 'hair',
-            eyebrow: 'Salud capilar',
-            title: 'Restauración Capilar',
-            description: 'Opciones tópicas y orales dirigidas a favorecer un crecimiento más saludable.',
+            title: 'Restauración capilar',
+            description: 'Planes tópicos u orales con criterio clínico.',
           },
         ],
       },
       {
         id: 'longevity',
         tab: 'Longevidad y recuperación',
-        number: '03',
-        kicker: 'Invierta en los años que vienen',
-        title: 'Recupérese mejor. Envejezca con intención.',
-        description: 'Protocolos avanzados de bienestar y regeneración para apoyar la energía celular, la recuperación y la vitalidad a largo plazo.',
+        kicker: 'Bienestar celular',
+        title: 'Cuidado de recuperación y longevidad',
+        description:
+          'Opciones de NAD+ y regeneración bajo supervisión de proveedores con licencia.',
         image: '/images/efexia-goal-longevity.webp',
-        imageAlt: 'Hombre maduro saludable en un entorno de bienestar Efexia',
+        imageAlt: 'Entorno de bienestar centrado en longevidad',
         treatments: [
           {
             id: 'wellness',
-            eyebrow: 'Bienestar celular',
-            title: 'Optimización del Bienestar',
-            description: 'Protocolos de NAD+ y antioxidantes enfocados en energía, concentración y resiliencia.',
+            title: 'Optimización del bienestar',
+            description: 'Apoyo celular en contexto clínico.',
           },
           {
             id: 'peptide',
-            eyebrow: 'Recuperación',
-            title: 'Terapia Regenerativa',
-            description: 'Terapias dirigidas para apoyar la recuperación, el sueño y el envejecimiento saludable.',
+            title: 'Terapia regenerativa',
+            description: 'Protocolos de péptidos solo cuando el proveedor lo considera apropiado.',
           },
         ],
       },
     ],
   },
 };
-
-function GoalIcon({ type }: { type: string }) {
-  if (type === 'strength') {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 14h3l2-5 4 10 2-5h5" />
-      </svg>
-    );
-  }
-
-  if (type === 'confidence') {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10Z" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 3v18M5.6 6.5l12.8 11M18.4 6.5l-12.8 11M3 12h18" />
-    </svg>
-  );
-}
 
 type GoalTreatmentsProps = {
   locale: Locale;
@@ -218,49 +191,43 @@ export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
 
   const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     let nextIndex: number | undefined;
-
     if (event.key === 'ArrowRight') nextIndex = (index + 1) % copy.goals.length;
     if (event.key === 'ArrowLeft') nextIndex = (index - 1 + copy.goals.length) % copy.goals.length;
     if (event.key === 'Home') nextIndex = 0;
     if (event.key === 'End') nextIndex = copy.goals.length - 1;
-
     if (nextIndex === undefined) return;
     event.preventDefault();
     selectTab(nextIndex);
   };
 
   return (
-    <section className="goal-treatments" aria-labelledby="goal-treatments-title">
-      <div className="goal-treatments__orb goal-treatments__orb--one" aria-hidden="true" />
-      <div className="goal-treatments__orb goal-treatments__orb--two" aria-hidden="true" />
-
-      <div className="retro-container goal-treatments__container">
-        <ScrollReveal variant="fade-up" className="goal-treatments__header">
-          <span className="goal-treatments__eyebrow">{copy.eyebrow}</span>
-          <h2 id="goal-treatments-title">{copy.title}</h2>
-          <p>{copy.intro}</p>
+    <section id="treatments" className="tx-cat" aria-labelledby="tx-cat-title">
+      <div className="tx-cat__shell">
+        <ScrollReveal variant="fade-up" className="tx-cat__header">
+          <p className="tx-cat__eyebrow">{copy.eyebrow}</p>
+          <h2 id="tx-cat-title">{copy.title}</h2>
+          <p className="tx-cat__intro">{copy.intro}</p>
         </ScrollReveal>
 
-        <ScrollReveal variant="fade-up" delay={1} className="goal-treatments__tabs-shell">
-          <span className="sr-only">{copy.goalLabel}</span>
-          <div className="goal-treatments__tabs" role="tablist" aria-label={copy.goalLabel}>
+        <ScrollReveal variant="fade-up" delay={1} className="tx-cat__tabs-wrap">
+          <div className="tx-cat__tabs" role="tablist" aria-label={copy.goalLabel}>
             {copy.goals.map((goal, index) => (
               <button
                 key={goal.id}
-                ref={(node) => { tabsRef.current[index] = node; }}
-                id={`goal-tab-${goal.id}`}
-                className={`goal-treatments__tab${activeIndex === index ? ' is-active' : ''}`}
+                ref={(node) => {
+                  tabsRef.current[index] = node;
+                }}
+                id={`tx-tab-${goal.id}`}
                 type="button"
                 role="tab"
                 aria-selected={activeIndex === index}
-                aria-controls={`goal-panel-${goal.id}`}
+                aria-controls={`tx-panel-${goal.id}`}
                 tabIndex={activeIndex === index ? 0 : -1}
+                className={`tx-cat__tab${activeIndex === index ? ' is-active' : ''}`}
                 onClick={() => setActiveIndex(index)}
                 onKeyDown={(event) => handleTabKeyDown(event, index)}
               >
-                <span className="goal-treatments__tab-icon"><GoalIcon type={goal.id} /></span>
-                <span>{goal.tab}</span>
-                <span className="goal-treatments__tab-number">{goal.number}</span>
+                {goal.tab}
               </button>
             ))}
           </div>
@@ -268,74 +235,44 @@ export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
 
         <div
           key={`${locale}-${activeGoal.id}`}
-          id={`goal-panel-${activeGoal.id}`}
-          className="goal-treatments__stage"
+          id={`tx-panel-${activeGoal.id}`}
+          className="tx-cat__panel"
           role="tabpanel"
-          tabIndex={0}
-          aria-labelledby={`goal-tab-${activeGoal.id}`}
+          aria-labelledby={`tx-tab-${activeGoal.id}`}
         >
-          <div className="goal-treatments__visual">
+          <div className="tx-cat__visual">
             <ResponsiveImage
               src={activeGoal.image}
               alt={activeGoal.imageAlt}
-              className="goal-treatments__image"
-              sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1100px) calc(100vw - 64px), 58vw"
+              className="tx-cat__image"
+              sizes="(max-width: 900px) 100vw, 48vw"
             />
-            <div className="goal-treatments__image-wash" aria-hidden="true" />
-            <div className="goal-treatments__visual-brand" aria-hidden="true">
-              <span>EFEXIA</span>
-              <small>THE STATE OF GOOD CONDITION</small>
-            </div>
-            <div className="goal-treatments__visual-copy">
+            <div className="tx-cat__visual-copy">
               <span>{activeGoal.kicker}</span>
               <strong>{activeGoal.title}</strong>
+              <p>{activeGoal.description}</p>
             </div>
           </div>
 
-          <div className="goal-treatments__content">
-            <div className="goal-treatments__content-top">
-              <span className="goal-treatments__personalized">
-                <span aria-hidden="true">✦</span> {copy.personalized}
-              </span>
-              <span className="goal-treatments__index" aria-hidden="true">{activeGoal.number}</span>
-            </div>
-
-            <p className="goal-treatments__description">{activeGoal.description}</p>
-
-            <div className="goal-treatments__options">
-              {activeGoal.treatments.map((treatment) => (
-                <article className="goal-treatments__option" key={treatment.id}>
-                  <div>
-                    <span>{treatment.eyebrow}</span>
-                    <h3>{treatment.title}</h3>
-                    <p>{treatment.description}</p>
-                  </div>
-                  <Link
-                    href={`/treatment/${treatment.id}`}
-                    className="goal-treatments__option-link"
-                    aria-label={`${copy.explore}: ${treatment.title}`}
-                  >
-                    <span>{copy.explore}</span>
-                    <span aria-hidden="true">↗</span>
+          <div className="tx-cat__cards">
+            {activeGoal.treatments.map((treatment) => (
+              <article key={treatment.id} className="tx-cat__card">
+                <div>
+                  <h3>{treatment.title}</h3>
+                  <p>{treatment.description}</p>
+                </div>
+                <div className="tx-cat__card-actions">
+                  <Link href={`/treatment/${treatment.id}`} className="tx-cat__link">
+                    {copy.explore}
                   </Link>
-                </article>
-              ))}
-            </div>
-
-            <div className="goal-treatments__actions">
-              <Link
-                href={`/treatment/${activeGoal.treatments[0].id}`}
-                className="goal-treatments__primary-action"
-              >
-                {copy.qualify}
-                <span aria-hidden="true">→</span>
-              </Link>
-              <ul className="goal-treatments__trust" aria-label="Efexia care standards">
-                {copy.trust.map((item) => (
-                  <li key={item}><span aria-hidden="true">✓</span>{item}</li>
-                ))}
-              </ul>
-            </div>
+                  <Link href={startCheckoutHref(treatment.id)} className="tx-cat__cta">
+                    {copy.start}
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+            <p className="tx-cat__note">{copy.note}</p>
           </div>
         </div>
       </div>

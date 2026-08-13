@@ -143,50 +143,7 @@ function Home({ locale }: HomeProps) {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  const treatmentItems = [
-    {
-      id: 'trt',
-      title: t('trtTitle'),
-      desc: t('trtDesc'),
-      image: '/images/testosterone_vial.webp',
-      badge: locale === 'en' ? 'Clinically Proven' : 'Clínicamente Probado'
-    },
-    {
-      id: 'ed',
-      title: t('edTitle'),
-      desc: t('edDesc'),
-      image: '/images/telehealth_doctor.webp',
-      badge: locale === 'en' ? 'FDA Approved Ingredients' : 'Ingredientes Aprobados FDA'
-    },
-    {
-      id: 'weight',
-      title: t('weightTitle'),
-      desc: t('weightDesc'),
-      image: '/images/semaglutide_vial.webp',
-      badge: locale === 'en' ? 'Compounded GLP-1' : 'GLP-1 Compuesto'
-    },
-    {
-      id: 'hair',
-      title: t('hairTitle'),
-      desc: t('hairDesc'),
-      image: '/images/hair_dropper.webp',
-      badge: locale === 'en' ? 'Physician Guided' : 'Guiado por Médicos'
-    },
-    {
-      id: 'wellness',
-      title: t('wellnessTitle'),
-      desc: t('wellnessDesc'),
-      image: '/images/nad_vial.webp',
-      badge: locale === 'en' ? 'Cellular Boosters' : 'Impulsores Celulares'
-    },
-    {
-      id: 'peptide',
-      title: t('peptideTitle'),
-      desc: t('peptideDesc'),
-      image: '/images/diagnostic_kit.webp',
-      badge: locale === 'en' ? 'Longevity Protocols' : 'Protocolos de Longevidad'
-    }
-  ];
+  const faqItems = locale === 'en' ? faqItemsEn : faqItemsEs;
 
   const steps = [
     {
@@ -342,47 +299,6 @@ function Home({ locale }: HomeProps) {
                   </span>
                 ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="treatments" className="retro-section">
-        <div className="retro-container">
-          <ScrollReveal variant="fade-up" className="retro-section-head">
-            <span className="retro-tag">{t('ourTreatments')}</span>
-            <h2 className="retro-h2">{t('treatmentTitle')}</h2>
-            <p className="retro-sub">{locale === 'en' ? 'Personalized protocols, delivered to your door.' : 'Protocolos personalizados, entregados a tu puerta.'}</p>
-          </ScrollReveal>
-
-          <div className="accordion-gallery-PMC">
-            {treatmentItems.map((item, index) => (
-              <ScrollReveal
-                key={item.id}
-                variant={index % 2 === 0 ? 'slide-left' : 'slide-right'}
-                delay={(index % 4) + 1}
-                className={`accordion-item-PMC hover-lift`}
-              >
-                <div className="accordion-bg-wrapper">
-                  <ResponsiveImage
-                    src={item.image}
-                    alt={item.title}
-                    className="treatment-image"
-                    sizes="(max-width: 991px) calc(100vw - 48px), 40vw"
-                  />
-                  <div className="accordion-gradient-overlay"></div>
-                </div>
-                <div className="accordion-content">
-                  <div className="accordion-content-inner">
-                    <span className="accordion-badge">{item.badge}</span>
-                    <h3 className="accordion-title">{item.title}</h3>
-                    <p className="accordion-desc">{item.desc}</p>
-                    <Link href={`/treatment/${item.id}`} className="accordion-link">
-                      {t('learnMore')} <span className="accordion-arrow">→</span>
-                    </Link>
-                  </div>
-                </div>
-              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -620,7 +536,7 @@ function Home({ locale }: HomeProps) {
           </ScrollReveal>
 
           <div className="faqs-list-PMC">
-            {(locale === 'en' ? faqItemsEn : faqItemsEs).map((item, idx) => (
+            {faqItems.map((item, idx) => (
               <ScrollReveal key={idx} variant="fade-up" delay={(idx % 4) + 1} className={`faq-item-PMC ${openFaq === idx ? 'open' : ''}`}>
                 <button className="faq-question-btn-PMC" onClick={() => toggleFaq(idx)}>
                   <span className="faq-question-PMC">{item.question}</span>
