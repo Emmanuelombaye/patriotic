@@ -6016,9 +6016,9 @@ body {
   position: relative;
   padding: clamp(4.5rem, 8vw, 7rem) 0;
   background:
-    radial-gradient(ellipse at 10% 0%, rgba(0, 213, 200, 0.1), transparent 42%),
-    radial-gradient(ellipse at 90% 100%, rgba(90, 76, 255, 0.12), transparent 48%),
-    linear-gradient(180deg, #f7f9ff 0%, #eef1ff 55%, #f7f9ff 100%);
+    radial-gradient(ellipse at 12% 0%, rgba(0, 213, 200, 0.14), transparent 44%),
+    radial-gradient(ellipse at 88% 100%, rgba(23, 37, 84, 0.08), transparent 50%),
+    linear-gradient(180deg, #f5f7fc 0%, #eef3f8 52%, #f7f9ff 100%);
 }
 
 .tx-cat__shell {
@@ -6132,27 +6132,29 @@ body {
 
 .tx-cat__visual {
   position: relative;
-  min-height: 420px;
+  min-height: 440px;
   overflow: hidden;
   border-radius: 1.5rem;
   background: var(--brand-text);
+  box-shadow: 0 24px 60px rgba(23, 37, 84, 0.16);
 }
 
 .tx-cat__image {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 420px;
+  min-height: 440px;
   object-fit: cover;
   object-position: center;
+  transform: scale(1.02);
 }
 
 .tx-cat__visual-copy {
   position: absolute;
   inset: auto 0 0;
-  padding: 1.5rem 1.5rem 1.65rem;
+  padding: 1.75rem 1.6rem 1.8rem;
   color: #fff;
-  background: linear-gradient(180deg, transparent, rgba(10, 16, 40, 0.92) 55%);
+  background: linear-gradient(180deg, transparent 0%, rgba(8, 14, 34, 0.55) 28%, rgba(8, 14, 34, 0.94) 78%);
 }
 
 .tx-cat__visual-copy span {
@@ -6194,11 +6196,17 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1.25rem 1.3rem;
+  padding: 1.35rem 1.4rem;
   border: 1px solid rgba(23, 37, 84, 0.1);
   border-radius: 1.15rem;
-  background: #fff;
-  box-shadow: 0 12px 32px rgba(23, 37, 84, 0.06);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 28px rgba(23, 37, 84, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tx-cat__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(23, 37, 84, 0.09);
 }
 
 .tx-cat__card h3 {

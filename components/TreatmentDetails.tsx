@@ -26,114 +26,114 @@ const treatmentData: Record<string, TreatmentInfo> = {
     desc: 'trtDesc',
     heroImg: '/images/testosterone_vial.webp',
     benefits: [
-      'Increased energy levels',
-      'Enhanced libido and sexual function',
-      'Improved muscle mass and strength',
-      'Better mood and cognitive function'
+      'Licensed clinician review before any prescription',
+      'Plans considered only when clinically appropriate',
+      'Monitoring discussed when treatment continues',
+      'Discreet fulfillment through pharmacy partners'
     ],
     benefitsEs: [
-      'Aumento de los niveles de energía',
-      'Mejora de la libido y la función sexual',
-      'Mejora de la masa y fuerza muscular',
-      'Mejor estado de ánimo y función cognitiva'
+      'Revisión de clínico con licencia antes de cualquier receta',
+      'Planes solo cuando son clínicamente apropiados',
+      'Monitoreo discutido si el tratamiento continúa',
+      'Surtido discreto mediante farmacias asociadas'
     ],
-    details: 'Our Testosterone Replacement Therapy is a clinically proven, physician-guided protocol designed to optimize your hormone levels safely. Using bio-identical testosterone, our treatment targets the root cause of low energy, decreased libido, and muscle loss.',
-    detailsEs: 'Nuestra Terapia de Reemplazo de Testosterona es un protocolo clínicamente probado y guiado por médicos diseñado para optimizar sus niveles hormonales de manera segura. Usando testosterona bioidéntica, nuestro tratamiento ataca la causa raíz de la baja energía, disminución de la libido y pérdida muscular.'
+    details: 'TRT may be considered after a $2 clinical intake and review by a U.S.-licensed clinician. Completing intake does not guarantee a prescription. If appropriate, care is individualized and fulfilled through a licensed pharmacy partner.',
+    detailsEs: 'El TRT puede considerarse después de una evaluación clínica de $2 y la revisión de un clínico con licencia en EE. UU. Completar la evaluación no garantiza una receta. Si es apropiado, el cuidado se individualiza y se surte mediante una farmacia asociada con licencia.'
   },
   ed: {
     title: 'edTitle',
     desc: 'edDesc',
     heroImg: '/images/telehealth_doctor.webp',
     benefits: [
-      'Rapid onset of action',
-      'FDA-approved active ingredients',
-      'Discreet home delivery',
-      'Customized dosage plans'
+      'Private clinical evaluation',
+      'Provider-directed options when appropriate',
+      'Discreet home fulfillment if prescribed',
+      'Clear $2 clinical intake to begin'
     ],
     benefitsEs: [
-      'Rápido inicio de acción',
-      'Ingredientes activos aprobados por la FDA',
-      'Entrega discreta a domicilio',
-      'Planes de dosificación personalizados'
+      'Evaluación clínica privada',
+      'Opciones dirigidas por el proveedor cuando sea apropiado',
+      'Surtido discreto a domicilio si se receta',
+      'Evaluación clínica clara de $2 para comenzar'
     ],
-    details: 'Erectile dysfunction is common and treatable. Our ED protocols utilize compounded versions of proven medications, tailored specifically to your needs by our licensed physicians. Regain your confidence with treatments delivered discreetly to your door.',
-    detailsEs: 'La disfunción eréctil es común y tratable. Nuestros protocolos de DE utilizan versiones compuestas de medicamentos probados, adaptados específicamente a sus necesidades por nuestros médicos autorizados. Recupere su confianza con tratamientos entregados discretamente en su puerta.'
+    details: 'Erectile dysfunction care begins with a $2 clinical intake and licensed-provider review. Treatment options, including compounded formulations when clinically appropriate, are determined by the clinician — intake alone does not guarantee a prescription.',
+    detailsEs: 'El cuidado de la disfunción eréctil comienza con una evaluación clínica de $2 y revisión de un proveedor con licencia. Las opciones de tratamiento, incluidos compuestos cuando sean clínicamente apropiados, las determina el clínico — la evaluación sola no garantiza una receta.'
   },
   weight: {
     title: 'weightTitle',
     desc: 'weightDesc',
     heroImg: '/images/semaglutide_vial.webp',
     benefits: [
-      'Significant weight loss',
-      'Reduced appetite and cravings',
-      'Improved metabolic health',
-      'Physician-monitored progress'
+      'Clinical eligibility review first',
+      'GLP-1 pathways discussed when appropriate',
+      'Provider oversight if treatment continues',
+      'Discreet fulfillment when prescribed'
     ],
     benefitsEs: [
-      'Pérdida de peso significativa',
-      'Reducción del apetito y los antojos',
-      'Mejora de la salud metabólica',
-      'Progreso supervisado por el médico'
+      'Primero revisión de elegibilidad clínica',
+      'Vías GLP-1 discutidas cuando sea apropiado',
+      'Supervisión del proveedor si el tratamiento continúa',
+      'Surtido discreto cuando se receta'
     ],
-    details: 'Achieve sustainable weight loss with our GLP-1 compounding protocols. Semaglutide and Tirzepatide work by regulating appetite and improving blood sugar control. Combined with our medical supervision, it\'s a powerful tool for transforming your health.',
-    detailsEs: 'Logre una pérdida de peso sostenible con nuestros protocolos de compuestos GLP-1. La Semaglutida y la Tirzepatida funcionan regulando el apetito y mejorando el control del azúcar en la sangre. Combinado con nuestra supervisión médica, es una poderosa herramienta para transformar su salud.'
+    details: 'Weight-management options such as GLP-1 therapies may be discussed only after clinical intake and licensed-provider review. Completing the $2 intake does not guarantee eligibility or a prescription.',
+    detailsEs: 'Opciones de control de peso como terapias GLP-1 pueden discutirse solo después de la evaluación clínica y revisión de un proveedor con licencia. Completar la evaluación de $2 no garantiza elegibilidad ni una receta.'
   },
   hair: {
     title: 'hairTitle',
     desc: 'hairDesc',
     heroImg: '/images/hair_dropper.webp',
     benefits: [
-      'Stimulates new hair growth',
-      'Prevents further hair loss',
-      'Topical and oral options',
-      'Clinically formulated compounds'
+      'Physician-guided evaluation',
+      'Topical or oral options when appropriate',
+      'Individualized plans under clinical judgment',
+      'Private fulfillment if prescribed'
     ],
     benefitsEs: [
-      'Estimula el crecimiento de cabello nuevo',
-      'Previene una mayor pérdida de cabello',
-      'Opciones tópicas y orales',
-      'Compuestos formulados clínicamente'
+      'Evaluación guiada por el médico',
+      'Opciones tópicas u orales cuando sea apropiado',
+      'Planes individualizados bajo criterio clínico',
+      'Surtido privado si se receta'
     ],
-    details: 'Don\'t accept hair loss as inevitable. Our comprehensive hair restoration protocols include custom-compounded topical solutions and oral medications combining Finasteride, Minoxidil, and essential vitamins to halt hair loss and stimulate regrowth.',
-    detailsEs: 'No acepte la caída del cabello como inevitable. Nuestros protocolos integrales de restauración capilar incluyen soluciones tópicas compuestas a medida y medicamentos orales que combinan finasterida, minoxidil y vitaminas esenciales para detener la caída del cabello y estimular el rebrote.'
+    details: 'Hair restoration options may include clinician-directed topical or oral therapies when appropriate after your $2 clinical intake. No prescription is guaranteed by completing intake alone.',
+    detailsEs: 'Las opciones de restauración capilar pueden incluir terapias tópicas u orales dirigidas por el clínico cuando sea apropiado después de su evaluación clínica de $2. Completar la evaluación sola no garantiza una receta.'
   },
   wellness: {
     title: 'wellnessTitle',
     desc: 'wellnessDesc',
     heroImg: '/images/nad_vial.webp',
     benefits: [
-      'Enhanced cellular energy',
-      'Improved cognitive focus',
-      'Anti-aging cellular repair',
-      'Boosted immune system'
+      'Provider review of goals and history',
+      'Options considered in clinical context',
+      'Compounded products only when appropriate',
+      'Discreet fulfillment if prescribed'
     ],
     benefitsEs: [
-      'Energía celular mejorada',
-      'Enfoque cognitivo mejorado',
-      'Reparación celular antienvejecimiento',
-      'Sistema inmunológico reforzado'
+      'Revisión del proveedor de objetivos e historial',
+      'Opciones consideradas en contexto clínico',
+      'Productos compuestos solo cuando sea apropiado',
+      'Surtido discreto si se receta'
     ],
-    details: 'Optimize your health at the cellular level. Our wellness injections, including NAD+ and Glutathione, provide powerful antioxidants and coenzymes directly into your system, bypassing digestion for maximum absorption and profound systemic benefits.',
-    detailsEs: 'Optimice su salud a nivel celular. Nuestras inyecciones de bienestar, que incluyen NAD+ y glutatión, proporcionan potentes antioxidantes y coenzimas directamente en su sistema, evitando la digestión para una absorción máxima y profundos beneficios sistémicos.'
+    details: 'Wellness support options, including NAD+ when clinically appropriate, are considered after licensed-provider review of your intake. Completing the $2 clinical intake does not guarantee treatment.',
+    detailsEs: 'Las opciones de apoyo al bienestar, incluido NAD+ cuando sea clínicamente apropiado, se consideran después de la revisión de su evaluación por un proveedor con licencia. Completar la evaluación clínica de $2 no garantiza tratamiento.'
   },
   peptide: {
     title: 'peptideTitle',
     desc: 'peptideDesc',
     heroImg: '/images/diagnostic_kit.webp',
     benefits: [
-      'Accelerated tissue repair',
-      'Enhanced muscle recovery',
-      'Improved sleep quality',
-      'Advanced longevity support'
+      'Clinical review before any peptide option',
+      'Prescribed only when appropriate',
+      'Licensed pharmacy fulfillment when ordered',
+      'Clear $2 intake to begin'
     ],
     benefitsEs: [
-      'Reparación acelerada de tejidos',
-      'Mejora de la recuperación muscular',
-      'Mejora de la calidad del sueño',
-      'Soporte avanzado de longevidad'
+      'Revisión clínica antes de cualquier opción de péptido',
+      'Recetado solo cuando sea apropiado',
+      'Surtido por farmacia con licencia cuando se ordene',
+      'Evaluación clara de $2 para comenzar'
     ],
-    details: 'Regenerative therapies use targeted cellular signals (like BPC-157 and Sermorelin) designed to accelerate healing, boost human growth hormone naturally, and promote overall longevity.',
-    detailsEs: 'Las terapias regenerativas utilizan señales celulares dirigidas (como BPC-157 y Sermorelin) diseñadas para acelerar la curación, aumentar la hormona del crecimiento humano de forma natural y promover la longevidad general.'
+    details: 'Regenerative or peptide options may be discussed only when a U.S.-licensed clinician determines they are appropriate after reviewing your clinical intake.',
+    detailsEs: 'Las opciones regenerativas o de péptidos pueden discutirse solo cuando un clínico con licencia en EE. UU. determina que son apropiadas después de revisar su evaluación clínica.'
   }
 };
 
@@ -186,7 +186,7 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
             </Link>
           </ScrollReveal>
           <ScrollReveal variant="fade-up" eager delay={2}>
-            <span className="treatment-tag-badge">Premium Protocol</span>
+            <span className="treatment-tag-badge">{locale === 'en' ? 'Clinical Care' : 'Cuidado Clínico'}</span>
           </ScrollReveal>
           <ScrollReveal variant="slide-right" eager delay={2}>
             <h1 className="treatment-hero-title">{t(treatment.title)}</h1>
@@ -200,7 +200,7 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
               className="btn btn-red"
               style={{ marginTop: '24px', padding: '16px 32px', fontSize: '1.1rem', display: 'inline-flex' }}
             >
-              {t('beginConsultation')}
+              {locale === 'en' ? 'Start $2 clinical intake' : 'Iniciar evaluación clínica de $2'}
             </Link>
           </ScrollReveal>
         </div>
@@ -227,19 +227,19 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
         
         <div className="treatment-sidebar-right">
           <ScrollReveal variant="slide-right" delay={2} className="treatment-sticky-card hover-lift">
-            <h3 className="sticky-card-title">{locale === 'en' ? 'Ready to optimize your health?' : '¿Listo para optimizar tu salud?'}</h3>
+            <h3 className="sticky-card-title">{locale === 'en' ? 'Start with a clinical review' : 'Comience con una revisión clínica'}</h3>
             <p className="sticky-card-desc">
               {locale === 'en' 
-                ? 'Complete the required 4-step compliance qualifier to see if you are eligible. No commitment required.' 
-                : 'Complete el calificador de cumplimiento de 4 pasos para ver si es elegible. No se requiere compromiso.'}
+                ? 'Complete the $2 clinical intake so a licensed provider can review your case. Intake alone does not guarantee a prescription.' 
+                : 'Complete la evaluación clínica de $2 para que un proveedor con licencia revise su caso. La evaluación sola no garantiza una receta.'}
             </p>
             <div className="sticky-card-features">
-              <span>✓ {locale === 'en' ? 'U.S. Licensed Physicians' : 'Médicos Licenciados'}</span>
-              <span>✓ {locale === 'en' ? 'Discreet Delivery' : 'Entrega Discreta'}</span>
-              <span>✓ {locale === 'en' ? 'Ongoing Medical Support' : 'Apoyo Médico Continuo'}</span>
+              <span>✓ {locale === 'en' ? 'U.S. licensed clinicians' : 'Clínicos con licencia en EE. UU.'}</span>
+              <span>✓ {locale === 'en' ? 'Discreet fulfillment when prescribed' : 'Entrega discreta si se receta'}</span>
+              <span>✓ {locale === 'en' ? '$2 verification intake only' : 'Solo evaluación de verificación de $2'}</span>
             </div>
             <Link href={startCheckoutHref(id)} className="btn btn-red" style={{ width: '100%', marginTop: '20px', display: 'inline-flex', justifyContent: 'center' }}>
-              {locale === 'en' ? 'Start Compliance Checkout' : 'Iniciar Checkout de Cumplimiento'}
+              {locale === 'en' ? 'Start $2 clinical intake' : 'Iniciar evaluación clínica de $2'}
             </Link>
           </ScrollReveal>
         </div>

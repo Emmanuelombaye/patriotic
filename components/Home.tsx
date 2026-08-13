@@ -10,60 +10,6 @@ import type { Locale } from '@/lib/types';
 
 type HomeProps = { locale: Locale };
 
-const faqItemsEn = [
-  {
-    question: 'What does Efexia mean?',
-    answer: 'Efexia is the Greek word for wellness, wellbeing, or the state of good condition. Our telehealth clinic helps men reach that state through personalized, physician-guided care — from a brief online questionnaire and medical review to discreet home delivery of your treatment.'
-  },
-  {
-    question: 'How does Efexia telehealth work?',
-    answer: 'It\'s simple and fully virtual. First, you complete a brief online health questionnaire sharing your goals and history. Next, one of our licensed U.S. physicians reviews your intake. If eligible, they prescribe a personalized treatment protocol. Finally, our partner compounding pharmacy ships your medications directly to your door in discreet packaging.'
-  },
-  {
-    question: 'Do I need insurance to use your services?',
-    answer: 'No, insurance is not required. We operate on a direct-to-consumer cash-pay subscription model. This allows us to keep pricing transparent, affordable, and free from insurance pre-approvals or co-pays. The price you see covers the physician consult, prescription, shipping, and all treatment supplies.'
-  },
-  {
-    question: 'Are the medications real and FDA-regulated?',
-    answer: 'We work exclusively with state-licensed, U.S. compounding pharmacies that comply with strict federal quality standards. Compounded medications are customized preparations made by licensed pharmacists based on a physician\'s prescription, incorporating active pharmaceutical ingredients identical to brand-name alternatives.'
-  },
-  {
-    question: 'How often will my blood work be monitored for TRT?',
-    answer: 'Safety is our absolute priority. For TRT patients, we require an initial blood panel prior to beginning therapy to establish baseline levels. We then schedule regular follow-up blood work (typically at 3 months, 6 months, and annually) to monitor free and total testosterone, hematocrit, PSA, and other biomarkers to ensure your protocol is safe and optimal.'
-  },
-  {
-    question: 'Can I cancel my subscription or change treatments?',
-    answer: 'Yes, absolutely. All of our plans are flexible monthly subscriptions. You can request changes to your dosage, adjust your shipping frequency, or pause/cancel your account at any time by contacting our patient support team without any hidden cancellation fees.'
-  }
-];
-
-const faqItemsEs = [
-  {
-    question: '¿Qué significa Efexia?',
-    answer: 'Efexia es la palabra griega para bienestar, salud o el estado de buena condición. Nuestra clínica de telemedicina ayuda a los hombres a alcanzar ese estado mediante una atención personalizada y guiada por médicos — desde un breve cuestionario en línea y una revisión médica hasta la entrega discreta de su tratamiento en casa.'
-  },
-  {
-    question: '¿Cómo funciona la telemedicina de Efexia?',
-    answer: 'Es simple y totalmente virtual. Primero, complete un breve cuestionario de salud en línea compartiendo sus objetivos e historial. Luego, uno de nuestros médicos con licencia en EE. UU. revisa su información. Si califica, le recetará un protocolo de tratamiento personalizado. Finalmente, nuestra farmacia de compuestos asociada envía sus medicamentos directamente a su puerta en un empaque discreto.'
-  },
-  {
-    question: '¿Necesito seguro para usar sus servicios?',
-    answer: 'No, no se requiere seguro. Operamos en un modelo de suscripción de pago en efectivo directo al consumidor. Esto nos permite mantener precios transparentes, asequibles y libres de aprobaciones previas de seguros o copagos. El precio que ve cubre la consulta médica, la receta, el envío y todos los suministros de tratamiento.'
-  },
-  {
-    question: '¿Los medicamentos son reales y están regulados por la FDA?',
-    answer: 'Trabajamos exclusivamente con farmacias de compuestos con licencia estatal en EE. UU. que cumplen con los estrictos estándares de calidad federales. Los medicamentos compuestos son preparaciones personalizadas realizadas por farmacéuticos autorizados basadas en la receta de un médico, incorporando ingredientes farmacéuticos activos idénticos a las alternativas de marca.'
-  },
-  {
-    question: '¿Con qué frecuencia se controlarán mis análisis de sangre para TRT?',
-    answer: 'La seguridad es nuestra absoluta prioridad. Para los pacientes de TRT, requerimos un panel de sangre inicial antes de comenzar la terapia para establecer los niveles de referencia. Luego programamos análisis de sangre de seguimiento regulares (generalmente a los 3 meses, 6 meses y anualmente) para monitorear la testosterona libre y total, el hematocrito, el PSA y otros biomarcadores para garantizar que su protocolo sea seguro y óptimo.'
-  },
-  {
-    question: '¿Puedo cancelar mi suscripción o cambiar de tratamiento?',
-    answer: 'Sí, absolutamente. Todos nuestros planes son suscripciones mensuales flexibles. Puede solicitar cambios en su dosis, ajustar la frecuencia de envío o pausar/cancelar su cuenta en cualquier momento comunicándose con nuestro equipo de atención al paciente sin cargos de cancelación ocultos.'
-  }
-];
-
 const TYPER_WORDS = {
   en: ['Weight Loss', 'TRT Therapy', 'ED Care', 'Hair Growth', 'Wellness'],
   es: ['Pérdida de Peso', 'Terapia TRT', 'Cuidado de DE', 'Crecimiento Capilar', 'Bienestar'],
@@ -77,7 +23,7 @@ const CARE_MARQUEE_ITEMS = [
   { mark: 'MD', label: 'Licensed', detail: 'Providers', className: 'marquee-grotesk' },
   { mark: '◈', label: 'Secure', detail: 'Telehealth', className: 'marquee-editorial' },
   { mark: '→', label: 'Discreet', detail: 'Fulfillment', className: 'marquee-wide' },
-  { mark: '24', label: 'Patient', detail: 'Support', className: 'marquee-serif' },
+  { mark: '✓', label: 'Patient', detail: 'Support', className: 'marquee-serif' },
 ];
 
 function Home({ locale }: HomeProps) {
@@ -143,8 +89,6 @@ function Home({ locale }: HomeProps) {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  const faqItems = locale === 'en' ? faqItemsEn : faqItemsEs;
-
   const steps = [
     {
       number: 1,
@@ -209,34 +153,37 @@ function Home({ locale }: HomeProps) {
     }
   ];
 
-  const testimonials = [
+  const faqItemsClean = [
     {
-      stars: 5,
-      quote: locale === 'en' 
-        ? "Efexia changed my life. I have more energy, better focus, and my confidence is back."
-        : "Efexia cambió mi vida. Tengo más energía, mejor enfoque y he recuperado mi confianza.",
-      author: "Mike R.",
-      avatar: "/images/avatar1.webp",
-      meta: "45, Dallas, TX"
+      question: locale === 'en' ? 'What does Efexia mean?' : '¿Qué significa Efexia?',
+      answer: locale === 'en'
+        ? 'Efexia is the Greek word for wellness, wellbeing, or the state of good condition. Care begins with a clinical intake and licensed-provider review — completing intake does not guarantee a prescription.'
+        : 'Efexia es la palabra griega para bienestar. El cuidado comienza con una evaluación clínica y revisión de un proveedor con licencia — completar la evaluación no garantiza una receta.',
     },
     {
-      stars: 5,
-      quote: locale === 'en'
-        ? "The process was simple, discreet, and the results have been incredible. Highly recommend."
-        : "El proceso fue simple, discreto y los resultados han sido increíbles. Muy recomendable.",
-      author: "Jason T.",
-      avatar: "/images/avatar2.webp",
-      meta: "38, Phoenix, AZ"
+      question: locale === 'en' ? 'How does the process work?' : '¿Cómo funciona el proceso?',
+      answer: locale === 'en'
+        ? 'Complete the $2 clinical intake, then a U.S.-licensed provider reviews your information. If treatment is appropriate, a personalized plan may be prescribed and fulfilled through a licensed pharmacy partner.'
+        : 'Complete la evaluación clínica de $2; luego un proveedor con licencia en EE. UU. revisa su información. Si el tratamiento es apropiado, se puede recetar un plan personalizado.',
     },
     {
-      stars: 5,
-      quote: locale === 'en'
-        ? "Professional care, great results, and outstanding support every step of the way."
-        : "Atención profesional, excelentes resultados y un apoyo excepcional en cada paso del camino.",
-      author: "Robert L.",
-      avatar: "/images/avatar3.webp",
-      meta: "52, Nashville, TN"
-    }
+      question: locale === 'en' ? 'Does the $2 intake guarantee treatment?' : '¿La evaluación de $2 garantiza tratamiento?',
+      answer: locale === 'en'
+        ? 'No. The $2 payment is a verification charge for this clinical qualifier only. A licensed provider decides whether any prescription is appropriate.'
+        : 'No. El pago de $2 es solo una verificación de este calificador clínico. Un proveedor con licencia decide si alguna receta es apropiada.',
+    },
+    {
+      question: locale === 'en' ? 'Are compounded medications FDA-approved?' : '¿Los medicamentos compuestos están aprobados por la FDA?',
+      answer: locale === 'en'
+        ? 'Compounded medications are not FDA-approved. They may be prescribed for an individual patient when a licensed clinician determines they are clinically appropriate.'
+        : 'Los medicamentos compuestos no están aprobados por la FDA. Pueden recetarse cuando un clínico con licencia determina que son apropiados.',
+    },
+    {
+      question: locale === 'en' ? 'Who provides the medical review?' : '¿Quién realiza la revisión médica?',
+      answer: locale === 'en'
+        ? 'Telehealth consultations are provided by independent, U.S.-licensed clinicians. Eligibility is subject to their clinical judgment after reviewing your intake.'
+        : 'Las consultas de telesalud las proporcionan clínicos independientes con licencia en EE. UU. La elegibilidad depende de su criterio clínico.',
+    },
   ];
 
   return (
@@ -264,8 +211,8 @@ function Home({ locale }: HomeProps) {
                     : 'Diseñado para la longevidad, el rendimiento y la prevención.'}
                 </p>
                 <div className="retro-home-hero-actions">
-                  <Link href="/start" className="retro-home-hero-action retro-home-hero-action--primary">
-                    <span>{locale === 'en' ? 'Get Started' : 'Comenzar'}</span>
+                  <Link href="/start?payment=2" className="retro-home-hero-action retro-home-hero-action--primary">
+                    <span>{locale === 'en' ? 'Start $2 intake' : 'Iniciar evaluación $2'}</span>
                     <span className="retro-home-hero-action-icon" aria-hidden="true">→</span>
                   </Link>
                   <a href="#treatments" className="retro-home-hero-action retro-home-hero-action--secondary">
@@ -275,8 +222,8 @@ function Home({ locale }: HomeProps) {
                 </div>
                 <p className="retro-home-hero-note">
                   {locale === 'en'
-                    ? 'Licensed providers · Personalized protocols · Discreet delivery'
-                    : 'Proveedores autorizados · Protocolos personalizados · Entrega discreta'}
+                    ? 'Licensed U.S. providers · $2 clinical intake · No prescription guaranteed by intake alone'
+                    : 'Proveedores con licencia en EE. UU. · Evaluación clínica de $2 · La evaluación sola no garantiza receta'}
                 </p>
               </div>
             </div>
@@ -335,7 +282,7 @@ function Home({ locale }: HomeProps) {
                   variant={index % 2 === 0 ? 'slide-right' : 'slide-left'}
                   delay={(index % 3) + 1}
                   className={`sticky-step-card ${activeStep === index ? 'active' : ''} hover-lift`}
-                  onClick={() => { window.location.href = '/start'; }}
+                  onClick={() => { window.location.href = '/start?payment=2'; }}
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="sticky-step-number">{step.number}</div>
@@ -388,146 +335,6 @@ function Home({ locale }: HomeProps) {
         </div>
       </section>
 
-      <section id="reviews" className="reviews-section-luxury">
-        <div className="container">
-          <ScrollReveal variant="fade-up" className="section-title-wrapper">
-            <span className="section-tag">{t('successTag')}</span>
-            <h2 className="section-title" style={{color: 'var(--white)'}}>{t('successTitle')}</h2>
-          </ScrollReveal>
-
-          <div className="reviews-row-PMC">
-            {testimonials.map((test, idx) => (
-              <ScrollReveal
-                key={idx}
-                variant="push-in"
-                delay={idx + 1}
-                className="review-card-PMC hover-lift"
-              >
-                <div className="review-stars-PMC">{'★'.repeat(test.stars)}</div>
-                <p className="review-quote-PMC">"{test.quote}"</p>
-                <div className="review-footer-PMC">
-                  <ResponsiveImage
-                    src={test.avatar}
-                    alt={test.author}
-                    className="review-avatar-PMC"
-                    sizes="60px"
-                  />
-                  <div>
-                    <h4 className="review-author-PMC">{test.author}</h4>
-                    <span className="review-meta-PMC">{test.meta}</span>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="doctors-section-PMC">
-        <div className="container">
-          <ScrollReveal variant="fade-up" className="section-title-wrapper">
-            <span className="section-tag">{t('doctorsTag')}</span>
-            <h2 className="section-title">{t('doctorsTitle')}</h2>
-          </ScrollReveal>
-
-          <div className="doctors-grid-PMC">
-            <ScrollReveal variant="slide-left" delay={1} className="doctor-card-PMC hover-lift">
-              <div className="doctor-image-box-PMC">
-                <ResponsiveImage
-                  src="/images/telehealth_doctor.webp"
-                  alt={t('doctor1Name')}
-                  sizes="(max-width: 767px) calc(100vw - 48px), 480px"
-                />
-              </div>
-              <div className="doctor-content-PMC">
-                <h3 className="doctor-name-PMC">{t('doctor1Name')}</h3>
-                <span className="doctor-subtitle-PMC">{t('doctor1Title')}</span>
-                <div className="doctor-school-row-PMC">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{color: 'var(--red)'}}>
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
-                  </svg>
-                  <span className="doctor-school-PMC">{t('doctor1School')}</span>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal variant="slide-right" delay={2} className="doctor-card-PMC hover-lift">
-              <div className="doctor-image-box-PMC">
-                <ResponsiveImage
-                  src="/images/vitality_hero.webp"
-                  alt={t('doctor2Name')}
-                  sizes="(max-width: 767px) calc(100vw - 48px), 480px"
-                  style={{objectPosition: 'top'}}
-                />
-              </div>
-              <div className="doctor-content-PMC">
-                <h3 className="doctor-name-PMC">{t('doctor2Name')}</h3>
-                <span className="doctor-subtitle-PMC">{t('doctor2Title')}</span>
-                <div className="doctor-school-row-PMC">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{color: 'var(--red)'}}>
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
-                  </svg>
-                  <span className="doctor-school-PMC">{t('doctor2School')}</span>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      <ScrollReveal variant="fade-up" as="div" className="retro-stats-bar">
-        <div className="retro-container">
-          <div className="stats-grid-PMC">
-            {[
-              { value: '10,000+', label: t('statPatients') },
-              { value: '98%', label: t('statSatisfaction') },
-              { value: '50', label: t('statProviders') },
-              { value: '2–4 Days', label: t('statDelivery') },
-            ].map((stat, idx) => (
-              <ScrollReveal key={stat.label} variant="scale-in" delay={idx + 1} className="stat-item-PMC">
-                <span className="stat-number-PMC">{stat.value}</span>
-                <span className="stat-label-PMC">{stat.label}</span>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </ScrollReveal>
-
-      <section id="gallery" className="gallery-section">
-        <div className="container health-standard">
-          <ScrollReveal variant="fade-up" className="health-standard-heading">
-            <h2>
-              {locale === 'en'
-                ? 'The new standard for health'
-                : 'El nuevo estándar para la salud'}
-            </h2>
-            <p>
-              {locale === 'en'
-                ? 'Health for a new, discerning generation'
-                : 'Salud para una nueva generación exigente'}
-            </p>
-          </ScrollReveal>
-
-          <p className="health-standard-swipe-hint" aria-hidden="true">
-            {locale === 'en' ? 'Swipe to explore' : 'Desliza para explorar'} <span>→</span>
-          </p>
-
-          <ScrollReveal variant="fade-up" eager className="health-standard-collage">
-            <ResponsiveImage
-              src="/images/health-standard-collage.webp"
-              alt="Efexia health leaders, advocates, and industry recognition"
-              className="health-standard-collage__image"
-              sizes="(max-width: 767px) 720px, min(1200px, 100vw)"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-            />
-          </ScrollReveal>
-        </div>
-      </section>
-
       <section id="faqs" className="retro-faq-section">
         <div className="retro-container">
           <ScrollReveal variant="fade-up" className="retro-section-head">
@@ -536,7 +343,7 @@ function Home({ locale }: HomeProps) {
           </ScrollReveal>
 
           <div className="faqs-list-PMC">
-            {faqItems.map((item, idx) => (
+            {faqItemsClean.map((item, idx) => (
               <ScrollReveal key={idx} variant="fade-up" delay={(idx % 4) + 1} className={`faq-item-PMC ${openFaq === idx ? 'open' : ''}`}>
                 <button className="faq-question-btn-PMC" onClick={() => toggleFaq(idx)}>
                   <span className="faq-question-PMC">{item.question}</span>
@@ -562,8 +369,8 @@ function Home({ locale }: HomeProps) {
           <ScrollReveal variant="slide-left" className="cta-banner-content-left-PMC">
             <h2 className="cta-banner-title-PMC">{t('preFooterTitle')}</h2>
             <p className="cta-banner-desc-PMC">{t('preFooterSub')}</p>
-            <button className="btn btn-red cta-btn-left-PMC" onClick={() => window.location.href = '/start'}>
-              {t('beginConsultation')}
+            <button className="btn btn-red cta-btn-left-PMC" onClick={() => window.location.href = '/start?payment=2'}>
+              {locale === 'en' ? 'Start $2 clinical intake' : 'Iniciar evaluación clínica de $2'}
             </button>
           </ScrollReveal>
           <ScrollReveal variant="slide-right" delay={2} className="cta-banner-image-right-PMC">

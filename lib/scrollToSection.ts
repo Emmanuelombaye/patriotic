@@ -2,7 +2,6 @@ const SECTION_IDS = new Set([
   'treatments',
   'how-it-works',
   'about-us',
-  'reviews',
   'faqs',
   'contact',
 ]);

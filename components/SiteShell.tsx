@@ -139,9 +139,13 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       />
 
       <div className="promo-banner">
-        <button className="promo-link" type="button" onClick={() => router.push('/start')}>
-          <span>{locale === 'en' ? 'Save up to $400 on your first prescription order!' : 'Ahorra hasta $400 en tu primer pedido de receta!'}</span>
-          <span>{t('claimOffer')}</span>
+        <button className="promo-link" type="button" onClick={() => router.push('/start?payment=2')}>
+          <span>
+            {locale === 'en'
+              ? 'Start your $2 clinical intake — a licensed provider reviews before any prescription.'
+              : 'Inicie su evaluación clínica de $2 — un proveedor revisa antes de cualquier receta.'}
+          </span>
+          <span>{locale === 'en' ? 'Begin' : 'Comenzar'}</span>
         </button>
       </div>
 
@@ -234,21 +238,6 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             </li>
             <li className="nav-mobile-only">
               <a
-                href="/#reviews"
-                onClick={(event) => {
-                  if (pathname === '/') {
-                    event.preventDefault();
-                    goToSection('reviews');
-                  } else {
-                    closeMenu();
-                  }
-                }}
-              >
-                {locale === 'en' ? 'Reviews' : 'Reseñas'}
-              </a>
-            </li>
-            <li className="nav-mobile-only">
-              <a
                 href="/#faqs"
                 onClick={(event) => {
                   if (pathname === '/') {
@@ -263,7 +252,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               </a>
             </li>
             <li className="nav-mobile-actions">
-              <Link href="/start" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
+              <Link href="/start?payment=2" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
               <a
                 href="/#contact"
                 onClick={(event) => {
@@ -304,7 +293,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             >
               {locale === 'en' ? 'Contact' : 'Contacto'}
             </a>
-            <Link href="/start" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
+            <Link href="/start?payment=2" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
               {locale === 'en' ? 'Get Started' : 'Comenzar'}
             </Link>
             <button
@@ -348,28 +337,6 @@ export default function SiteShell({ children }: { children: ReactNode }) {
                 />
               </div>
               <p className="footer-about-PMC">{t('footerAbout')}</p>
-              <div className="footer-socials-PMC">
-                <a href="#" className="social-icon-PMC" aria-label="Facebook">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
-                  </svg>
-                </a>
-                <a href="#" className="social-icon-PMC" aria-label="Instagram">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                  </svg>
-                </a>
-                <a href="#" className="social-icon-PMC" aria-label="YouTube">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.518 3.5 12 3.5 12 3.5s-7.518 0-9.388.553a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.87.553 9.388.553 9.388.553s7.518 0 9.388-.553a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                  </svg>
-                </a>
-                <a href="#" className="social-icon-PMC" aria-label="Twitter">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </a>
-              </div>
             </div>
 
             <div>
@@ -389,20 +356,16 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               <ul className="footer-links-PMC">
                 <li><Link href="/#how-it-works">{t('howItWorks')}</Link></li>
                 <li><Link href="/#faqs">{t('faq')}</Link></li>
-                <li><Link href="/">{t('blog')}</Link></li>
-                <li><Link href="/">{locale === 'en' ? 'Patient Reviews' : 'Reseñas de Pacientes'}</Link></li>
-                <li><Link href="/">{locale === 'en' ? 'Contact Us' : 'Contáctenos'}</Link></li>
+                <li><Link href="/#contact">{locale === 'en' ? 'Contact Us' : 'Contáctenos'}</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="footer-title-PMC">{t('company')}</h4>
               <ul className="footer-links-PMC">
-                <li><Link href="/">{t('aboutUs')}</Link></li>
-                <li><Link href="/">{locale === 'en' ? 'Our Providers' : 'Nuestros Proveedores'}</Link></li>
-                <li><Link href="/">{locale === 'en' ? 'Careers' : 'Carreras'}</Link></li>
-                <li><Link href="/">{locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</Link></li>
-                <li><Link href="/">{locale === 'en' ? 'Terms of Service' : 'Términos de Servicio'}</Link></li>
+                <li><Link href="/#about-us">{t('aboutUs')}</Link></li>
+                <li><Link href="/#faqs">{locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</Link></li>
+                <li><Link href="/#faqs">{locale === 'en' ? 'Terms of Service' : 'Términos de Servicio'}</Link></li>
               </ul>
             </div>
 
@@ -410,13 +373,12 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               <h4 className="footer-title-PMC">{t('contactUs')}</h4>
               <ul className="footer-links-PMC" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <li className="footer-contact-item-PMC">
-                  <span>📞</span> (833) 123-4567
+                  <span>✉️</span> support@efexiamd.com
                 </li>
-                <li className="footer-contact-item-PMC">
-                  <span>✉️</span> info@efexiawellness.com
-                </li>
-                <li className="footer-contact-item-PMC">
-                  <span>📍</span> 123 Freedom Way, Suite 100, Nashville, TN 37203
+                <li className="footer-contact-item-PMC" style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', lineHeight: 1.5 }}>
+                  {locale === 'en'
+                    ? 'Questions are handled through clinical intake and care-team follow-up. Completing the $2 intake does not guarantee a prescription.'
+                    : 'Las consultas se manejan mediante la evaluación clínica y el seguimiento del equipo de cuidado. Completar la evaluación de $2 no garantiza una receta.'}
                 </li>
               </ul>
             </div>
@@ -432,10 +394,10 @@ export default function SiteShell({ children }: { children: ReactNode }) {
           </ScrollReveal>
 
           <div className="footer-bottom-PMC">
-            <p>&copy; 2024 {t('allRightsReserved')}</p>
+            <p>&copy; {new Date().getFullYear()} {t('allRightsReserved')}</p>
             <p style={{ display: 'flex', gap: '16px' }}>
-              <a href="#" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('privacyPolicy')}</a>
-              <a href="#" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('termsOfService')}</a>
+              <Link href="/#faqs" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('privacyPolicy')}</Link>
+              <Link href="/#faqs" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('termsOfService')}</Link>
             </p>
           </div>
         </div>

@@ -42,158 +42,32 @@ export default function IntakeQuiz({ isOpen, onClose, locale = 'en', dismissible
 
   const getRecommendation = () => {
     if (locale === 'en') {
-      switch (goal) {
-        case 'trt':
-          return {
-            title: 'Physician-Guided Testosterone Therapy',
-            subtitle: 'Restore Peak Energy & Vitality',
-            price: '$129',
-            features: [
-              'Personalized physician-guided TRT protocol',
-              'All medical supplies & syringes included',
-              'Ongoing laboratory blood test tracking',
-              'Direct messaging access to clinical support team'
-            ]
-          };
-        case 'weight':
-          return {
-            title: 'Compounded GLP-1 Weight Loss Program',
-            subtitle: 'Clinically-Backed Semaglutide / Tirzepatide',
-            price: '$249',
-            features: [
-              'Compounded Semaglutide or Tirzepatide prescriptions',
-              'Suppresses appetite & slows digestion for lasting results',
-              'Includes Vitamin B12 helper compounds for energy support',
-              'No insurance required, direct-to-door cold-chain shipping'
-            ]
-          };
-        case 'ed':
-          return {
-            title: 'Custom ED & Performance Protocols',
-            subtitle: 'Sildenafil & Tadalafil Prescriptions',
-            price: '$49',
-            features: [
-              'Licensed physician prescription evaluation',
-              'Discreet plain packaging delivered monthly',
-              'Flexible pill counts tailored to your lifestyle',
-              'Active customer support team available 24/7'
-            ]
-          };
-        case 'longevity':
-          return {
-            title: 'NAD+ Cellular Booster Injections',
-            subtitle: 'Support DNA Repair & Mitochondrial Function',
-            price: '$179',
-            features: [
-              'Compounded NAD+ high-concentration therapy',
-              'Promotes mental clarity & focus',
-              'Supports cellular metabolic speed',
-              'Convenient self-injection kit with all supplies'
-            ]
-          };
-        case 'hair':
-          return {
-            title: 'Dual-Action Hair Regrowth Pack',
-            subtitle: 'Finasteride & Minoxidil Synergy',
-            price: '$39',
-            features: [
-              'Medical evaluation by licensed U.S. physician',
-              'Combined DHT blocker and follicle stimulator',
-              'Delivered discreetly to your door',
-              'Cancel or modify shipments anytime'
-            ]
-          };
-        default:
-          return {
-            title: 'Efexia Wellness Consultation',
-            subtitle: 'Personalized Clinical Intake Review',
-            price: '$99',
-            features: [
-              'One-on-one medical intake evaluation',
-              'Discussion of symptoms, goals, and history',
-              'Custom treatment blueprint recommendations',
-              'Blood panel orders arranged near you'
-            ]
-          };
-      }
-    } else {
-      // Spanish recommendations
-      switch (goal) {
-        case 'trt':
-          return {
-            title: 'Terapia de Testosterona Guiada por Médicos',
-            subtitle: 'Restaure su Energía y Vitalidad Máximas',
-            price: '$129',
-            features: [
-              'Protocolo TRT personalizado guiado por médicos',
-              'Suministros médicos y jeringas incluidos',
-              'Monitoreo continuo de análisis de sangre en laboratorio',
-              'Acceso por mensajería al equipo de soporte clínico'
-            ]
-          };
-        case 'weight':
-          return {
-            title: 'Programa Compuesto de Pérdida de Peso GLP-1',
-            subtitle: 'Semaglutida / Tirzepatida Respaldada Clínicamente',
-            price: '$249',
-            features: [
-              'Recetas compuestas de Semaglutida o Tirzepatida',
-              'Suprime el apetito y ralentiza la digestión para resultados duraderos',
-              'Incluye compuestos de Vitamina B12 para soporte de energía',
-              'Sin necesidad de seguro, envío en cadena de frío directo a su puerta'
-            ]
-          };
-        case 'ed':
-          return {
-            title: 'Protocolos de Rendimiento y DE Personalizados',
-            subtitle: 'Recetas de Sildenafilo y Tadalafilo',
-            price: '$49',
-            features: [
-              'Evaluación de receta por médico con licencia',
-              'Embalaje discreto y sencillo entregado mensualmente',
-              'Cantidades de pastillas flexibles adaptadas a su estilo de vida',
-              'Equipo de soporte activo disponible las 24 horas'
-            ]
-          };
-        case 'longevity':
-          return {
-            title: 'Inyecciones de Refuerzo Celular NAD+',
-            subtitle: 'Apoye la Reparación del ADN y Función Mitocondrial',
-            price: '$179',
-            features: [
-              'Terapia compuesta de NAD+ de alta concentración',
-              'Promueve la claridad mental y el enfoque',
-              'Apoya la velocidad del metabolismo celular',
-              'Kit de autoinyección conveniente con todos los suministros'
-            ]
-          };
-        case 'hair':
-          return {
-            title: 'Paquete de Doble Acción para Crecimiento Capilar',
-            subtitle: 'Sinergia de Finasterida y Minoxidil',
-            price: '$39',
-            features: [
-              'Evaluación médica por médico con licencia en EE. UU.',
-              'Bloqueador de DHT y estimulador folicular combinado',
-              'Entregado discretamente en su puerta',
-              'Cancele o modifique envíos en cualquier momento'
-            ]
-          };
-        default:
-          return {
-            title: 'Consulta de Bienestar Efexia',
-            subtitle: 'Revisión Médica Personalizada',
-            price: '$99',
-            features: [
-              'Evaluación de consulta médica uno a uno',
-              'Discusión de síntomas, objetivos e historial',
-              'Recomendaciones de plan de tratamiento personalizado',
-              'Órdenes de análisis de sangre coordinadas cerca de usted'
-            ]
-          };
-      }
+      return {
+        title: 'Next step: $2 clinical intake',
+        subtitle: 'Licensed provider review required',
+        price: '$2',
+        features: [
+          'Verification payment for this clinical qualifier only',
+          'U.S.-licensed clinician reviews your intake',
+          'Completing intake does not guarantee a prescription',
+          'Treatment options discussed only if clinically appropriate'
+        ]
+      };
     }
+
+    return {
+      title: 'Siguiente paso: evaluación clínica de $2',
+      subtitle: 'Se requiere revisión de un proveedor con licencia',
+      price: '$2',
+      features: [
+        'Pago de verificación solo para este calificador clínico',
+        'Un clínico con licencia en EE. UU. revisa su evaluación',
+        'Completar la evaluación no garantiza una receta',
+        'Opciones de tratamiento solo si son clínicamente apropiadas'
+      ]
+    };
   };
+
 
   const handleNext = () => {
     if (step === 1 && !goal) return;
