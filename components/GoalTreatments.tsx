@@ -20,7 +20,7 @@ const COPY = {
     start: 'Get started',
     priceNote: 'per month if prescribed',
     detailPrefix: 'Licensed-provider review required.',
-    note: 'Licensed U.S. providers · MensRX fulfillment when prescribed · Compounded meds only when clinically appropriate',
+    note: 'Licensed U.S. providers · Licensed pharmacy fulfillment when prescribed · Compounded meds only when clinically appropriate',
     treatments: [
       {
         id: 'tirzepatide' as FeaturedTreatmentId,
@@ -64,7 +64,7 @@ const COPY = {
     start: 'Comenzar',
     priceNote: 'al mes si se receta',
     detailPrefix: 'Se requiere revisión de un proveedor con licencia.',
-    note: 'Proveedores licenciados en EE. UU. · Surtido MensRX si se receta · Medicamentos compuestos solo cuando sea clínicamente apropiado',
+    note: 'Proveedores licenciados en EE. UU. · Surtido por farmacia con licencia si se receta · Medicamentos compuestos solo cuando sea clínicamente apropiado',
     treatments: [
       {
         id: 'tirzepatide' as FeaturedTreatmentId,

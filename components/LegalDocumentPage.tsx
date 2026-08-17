@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LEGAL_BODIES } from '@/lib/legalBodies';
 import { LEGAL_DOC_LIST, googleDocPreviewUrl, googleDocViewUrl } from '@/lib/legalDocs';
 
 type LegalDocumentPageProps = {
@@ -9,6 +10,7 @@ type LegalDocumentPageProps = {
 };
 
 export default function LegalDocumentPage({ slug, title, description, docId }: LegalDocumentPageProps) {
+  const hosted = LEGAL_BODIES[slug];
   const previewUrl = googleDocPreviewUrl(docId);
   const viewUrl = googleDocViewUrl(docId);
 
@@ -33,25 +35,46 @@ export default function LegalDocumentPage({ slug, title, description, docId }: L
         </nav>
 
         <div className="legal-doc__actions">
-          <a className="legal-doc__open" href={viewUrl} target="_blank" rel="noreferrer">
-            Open full document
-          </a>
-          <Link href="/">Back to home</Link>
+          {hosted ? (
+            <Link href="/">Back to home</Link>
+          ) : (
+            <>
+              <a className="legal-doc__open" href={viewUrl} target="_blank" rel="noreferrer">
+                Open full document
+              </a>
+              <Link href="/">Back to home</Link>
+            </>
+          )}
         </div>
 
-        <div className="legal-doc__frame-wrap">
-          <iframe
-            src={previewUrl}
-            title={title}
-            className="legal-doc__frame"
-            loading="eager"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
+        {hosted ? (
+          <article className="legal-doc__article">
+            <p className="legal-doc__updated">Last updated: {hosted.updated}</p>
+            {hosted.intro ? <p>{hosted.intro}</p> : null}
+            {hosted.blocks.map((block) => (
+              <section key={block.heading || block.paragraphs[0]}>
+                {block.heading ? <h2>{block.heading}</h2> : null}
+                {block.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </section>
+            ))}
+          </article>
+        ) : (
+          <div className="legal-doc__frame-wrap">
+            <iframe
+              src={previewUrl}
+              title={title}
+              className="legal-doc__frame"
+              loading="eager"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        )}
         <p className="legal-doc__note">
           These documents are required for clinical and pharmacy compliance. Completing intake does not
-          guarantee a prescription. If a document does not display, use Open full document.
+          guarantee a prescription.
         </p>
       </div>
     </div>
