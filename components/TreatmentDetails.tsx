@@ -263,8 +263,9 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
           inset: 0;
           width: 100%;
           height: 100%;
-          object-fit: cover;
-          object-position: center;
+          object-fit: contain;
+          object-position: center right;
+          background: #0a1024;
         }
         .treatment-hero-overlay {
           position: absolute;
@@ -389,8 +390,30 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
           .treatment-main-layout {
             grid-template-columns: 1fr;
           }
+          .treatment-hero {
+            height: auto;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            margin-top: 0;
+            padding-top: 24px;
+          }
+          .treatment-hero-image {
+            position: relative;
+            height: 42vw;
+            min-height: 220px;
+            max-height: 320px;
+            object-fit: contain;
+            object-position: center;
+          }
+          .treatment-hero-overlay {
+            background: linear-gradient(180deg, rgba(10, 16, 36, 0.18) 0%, rgba(10, 16, 36, 0.88) 100%);
+          }
+          .treatment-hero-content {
+            padding-bottom: 28px;
+          }
           .treatment-hero-title {
-            font-size: 2.5rem;
+            font-size: 2.15rem;
           }
         }
       `}} />

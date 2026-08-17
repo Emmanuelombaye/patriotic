@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, type KeyboardEvent } from 'react';
 import Link from 'next/link';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -11,32 +12,40 @@ const COPY = {
     eyebrow: 'Treatments',
     title: (
       <>
-        Two physician-guided paths for <em>men’s health.</em>
+        Personalized care, <em>reviewed by licensed providers.</em>
       </>
     ),
-    intro:
-      'Efexia currently offers TRT and weight management. Both start with a $2 clinical intake and licensed-provider review — completing intake does not guarantee a prescription.',
-    explore: 'View treatment',
+    intro: 'Choose TRT or weight management, then complete a $2 clinical intake. Completing intake does not guarantee a prescription.',
+    explore: 'Learn more',
     start: 'Start $2 intake',
+    price: '$2',
+    priceNote: 'Clinical intake · charged only to verify this qualifier',
+    detailPrefix: 'Licensed-provider review required.',
     note: 'Licensed U.S. providers · MensRX fulfillment when prescribed · Compounded meds only when clinically appropriate',
     treatments: [
       {
         id: 'trt' as FeaturedTreatmentId,
-        kicker: 'Hormone care',
+        tab: 'TRT',
+        badge: 'Hormone care',
         title: 'Testosterone (TRT)',
         description:
           'Clinician-reviewed hormone support, considered only when a licensed provider determines it fits your history and goals.',
+        detail: 'TRT · Monitoring discussed if prescribed.',
         image: '/images/efexia-goal-strength.webp',
         imageAlt: 'Man focused on strength and metabolic wellness',
+        vial: '/images/testosterone_vial.webp',
       },
       {
         id: 'weight' as FeaturedTreatmentId,
-        kicker: 'Metabolic care',
+        tab: 'Weight',
+        badge: 'Metabolic care',
         title: 'Weight management',
         description:
           'GLP-1 and related options discussed only after clinical eligibility review. Treatment is never guaranteed by intake alone.',
+        detail: 'Weight management · Provider-guided if appropriate.',
         image: '/images/efexia-goal-longevity.webp',
         imageAlt: 'Calm setting focused on metabolic wellness',
+        vial: '/images/semaglutide_vial.webp',
       },
     ],
   },
@@ -44,32 +53,40 @@ const COPY = {
     eyebrow: 'Tratamientos',
     title: (
       <>
-        Dos caminos guiados por médicos para la <em>salud masculina.</em>
+        Cuidado personalizado, <em>revisado por proveedores con licencia.</em>
       </>
     ),
-    intro:
-      'Efexia ofrece actualmente TRT y control de peso. Ambos comienzan con una evaluación clínica de $2 y revisión de un proveedor con licencia — completar la evaluación no garantiza una receta.',
-    explore: 'Ver tratamiento',
+    intro: 'Elija TRT o control de peso, luego complete una evaluación clínica de $2. Completar la evaluación no garantiza una receta.',
+    explore: 'Más información',
     start: 'Iniciar evaluación de $2',
+    price: '$2',
+    priceNote: 'Evaluación clínica · solo para verificar este calificador',
+    detailPrefix: 'Se requiere revisión de un proveedor con licencia.',
     note: 'Proveedores licenciados en EE. UU. · Surtido MensRX si se receta · Medicamentos compuestos solo cuando sea clínicamente apropiado',
     treatments: [
       {
         id: 'trt' as FeaturedTreatmentId,
-        kicker: 'Cuidado hormonal',
+        tab: 'TRT',
+        badge: 'Cuidado hormonal',
         title: 'Testosterona (TRT)',
         description:
           'Apoyo hormonal con revisión clínica, considerado solo cuando un proveedor determina que encaja con su historial.',
+        detail: 'TRT · Monitoreo si se receta.',
         image: '/images/efexia-goal-strength.webp',
         imageAlt: 'Hombre enfocado en fuerza y bienestar metabólico',
+        vial: '/images/testosterone_vial.webp',
       },
       {
         id: 'weight' as FeaturedTreatmentId,
-        kicker: 'Cuidado metabólico',
+        tab: 'Peso',
+        badge: 'Cuidado metabólico',
         title: 'Control de peso',
         description:
           'Opciones GLP-1 solo tras revisión de elegibilidad clínica. La evaluación sola no garantiza tratamiento.',
+        detail: 'Control de peso · Guiado por el proveedor si es apropiado.',
         image: '/images/efexia-goal-longevity.webp',
         imageAlt: 'Entorno calmado de bienestar metabólico',
+        vial: '/images/semaglutide_vial.webp',
       },
     ],
   },
@@ -81,6 +98,19 @@ type GoalTreatmentsProps = {
 
 export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
   const copy = COPY[locale] || COPY.en;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = copy.treatments[activeIndex];
+
+  const onTabKey = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let next: number | undefined;
+    if (event.key === 'ArrowRight') next = (index + 1) % copy.treatments.length;
+    if (event.key === 'ArrowLeft') next = (index - 1 + copy.treatments.length) % copy.treatments.length;
+    if (event.key === 'Home') next = 0;
+    if (event.key === 'End') next = copy.treatments.length - 1;
+    if (next === undefined) return;
+    event.preventDefault();
+    setActiveIndex(next);
+  };
 
   return (
     <section id="treatments" className="tx-cat" aria-labelledby="tx-cat-title">
@@ -91,36 +121,79 @@ export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
           <p className="tx-cat__intro">{copy.intro}</p>
         </ScrollReveal>
 
-        <div className="tx-duo">
-          {copy.treatments.map((treatment, index) => (
-            <ScrollReveal
-              key={treatment.id}
-              variant={index === 0 ? 'slide-left' : 'slide-right'}
-              delay={index + 1}
-              className="tx-duo__card"
-            >
-              <ResponsiveImage
-                src={treatment.image}
-                alt={treatment.imageAlt}
-                className="tx-duo__image"
-                sizes="(max-width: 900px) 100vw, 48vw"
-              />
-              <div className="tx-duo__copy">
-                <span>{treatment.kicker}</span>
-                <h3>{treatment.title}</h3>
-                <p>{treatment.description}</p>
-                <div className="tx-duo__actions">
-                  <Link href={`/treatment/${treatment.id}`} className="tx-cat__link">
-                    {copy.explore}
-                  </Link>
-                  <Link href={startCheckoutHref(treatment.id)} className="tx-cat__cta">
-                    {copy.start}
-                    <span aria-hidden="true">→</span>
-                  </Link>
+        <div className="tx-tablist-wrap">
+          <div className="tx-tablist" role="tablist" aria-label={copy.eyebrow}>
+            {copy.treatments.map((treatment, index) => (
+              <button
+                key={treatment.id}
+                type="button"
+                role="tab"
+                id={`tx-tab-${treatment.id}`}
+                aria-selected={activeIndex === index}
+                aria-controls={`tx-pane-${treatment.id}`}
+                tabIndex={activeIndex === index ? 0 : -1}
+                className={activeIndex === index ? 'is-active' : undefined}
+                onClick={() => setActiveIndex(index)}
+                onKeyDown={(event) => onTabKey(event, index)}
+              >
+                {treatment.tab}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div
+          key={active.id}
+          id={`tx-pane-${active.id}`}
+          className="tx-pane"
+          role="tabpanel"
+          aria-labelledby={`tx-tab-${active.id}`}
+        >
+          <div className="tx-cutout" aria-hidden="true">
+            <ResponsiveImage
+              src={active.image}
+              alt=""
+              className="tx-cutout__img"
+              sizes="(max-width: 900px) 92vw, 46vw"
+            />
+          </div>
+
+          <article className="tx-product">
+            <div className="tx-product__tags">
+              <span className="tx-product__tag">{active.tab}</span>
+              <span className="tx-product__tag">{active.badge}</span>
+            </div>
+
+            <div className="tx-product__top">
+              <div className="tx-product__vial">
+                <ResponsiveImage
+                  src={active.vial}
+                  alt=""
+                  className="tx-vial"
+                  sizes="180px"
+                />
+              </div>
+              <div className="tx-product__meta">
+                <div className="tx-product__price">
+                  {copy.price}
+                  <span>{copy.priceNote}</span>
                 </div>
               </div>
-            </ScrollReveal>
-          ))}
+            </div>
+
+            <h3>{active.title}</h3>
+            <p className="tx-product__desc">{active.description}</p>
+            <p className="tx-product__detail">{active.detail}</p>
+
+            <div className="tx-product__ctas">
+              <Link href={startCheckoutHref(active.id)} className="tx-product__cta tx-product__cta--primary">
+                {copy.start}
+              </Link>
+              <Link href={`/treatment/${active.id}`} className="tx-product__cta tx-product__cta--ghost">
+                {copy.explore}
+              </Link>
+            </div>
+          </article>
         </div>
         <p className="tx-cat__note tx-duo__note">{copy.note}</p>
       </div>
