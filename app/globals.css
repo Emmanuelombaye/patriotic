@@ -6746,39 +6746,8 @@ body {
 }
 
 /* =============================================
-   HERO VISUAL + ABOUT YUCCA
+   ABOUT YUCCA
 ============================================= */
-@media (min-width: 901px) {
-  .retro-home-hero-wrap {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-    align-items: center;
-    gap: 2rem 2.5rem;
-  }
-}
-
-.retro-home-hero-visual {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.retro-home-hero-visual .responsive-picture {
-  display: contents;
-}
-
-.retro-home-hero-visual img,
-.retro-home-hero-visual__img {
-  display: block;
-  width: min(100%, 520px);
-  height: auto;
-  max-height: 520px;
-  object-fit: contain;
-  object-position: center;
-  filter: drop-shadow(0 24px 48px rgba(5, 13, 38, 0.35));
-}
-
 .about-yucca {
   padding: 88px 0 72px;
   background:
@@ -7036,15 +7005,6 @@ body {
 }
 
 @media (max-width: 900px) {
-  .retro-home-hero-visual {
-    margin-top: 0.25rem;
-  }
-
-  .retro-home-hero-visual img,
-  .retro-home-hero-visual__img {
-    max-height: 280px;
-  }
-
   .about-yucca {
     padding: 64px 0 48px;
   }
@@ -7094,8 +7054,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .about-story,
-  .about-mosaic__card,
-  .retro-home-hero-visual img {
+  .about-mosaic__card {
     animation: none;
     filter: none;
   }

@@ -203,16 +203,6 @@ function Home({ locale }: HomeProps) {
                     : 'Proveedores con licencia en EE. UU. · Desde $239/mes · La evaluación sola no garantiza receta'}
                 </p>
               </div>
-              <div className="retro-home-hero-visual" aria-hidden="true">
-                <ResponsiveImage
-                  src="/images/efexia-goal-strength.webp"
-                  alt=""
-                  className="retro-home-hero-visual__img"
-                  sizes="(max-width: 900px) 86vw, 42vw"
-                  loading="eager"
-                  fetchPriority="high"
-                />
-              </div>
             </div>
           </div>
         </ScrollReveal>
