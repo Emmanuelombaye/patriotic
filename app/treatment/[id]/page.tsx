@@ -1,9 +1,15 @@
-'use client';
+import { redirect } from 'next/navigation';
+import { isTreatmentId } from '@/lib/treatments';
+import TreatmentPageClient from './TreatmentPageClient';
 
-import TreatmentDetails from '@/components/TreatmentDetails';
-import { useLocale } from '@/context/LocaleContext';
+type TreatmentPageProps = {
+  params: Promise<{ id: string }>;
+};
 
-export default function TreatmentRoutePage() {
-  const { locale } = useLocale();
-  return <TreatmentDetails locale={locale} />;
+export default async function TreatmentPage({ params }: TreatmentPageProps) {
+  const { id } = await params;
+  if (!isTreatmentId(id)) {
+    redirect('/');
+  }
+  return <TreatmentPageClient />;
 }

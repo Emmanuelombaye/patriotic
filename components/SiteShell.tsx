@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import ScrollReveal from '@/components/ScrollReveal';
 import { useLocale } from '@/context/LocaleContext';
+import { LEGAL_DOC_LIST } from '@/lib/legalDocs';
 import { scrollToSection, updateSectionHash } from '@/lib/scrollToSection';
 import { startCheckoutHref } from '@/lib/treatments';
 
@@ -237,6 +238,11 @@ export default function SiteShell({ children }: { children: ReactNode }) {
                 {locale === 'en' ? 'Tirzepatide' : 'Tirzepatida'}
               </Link>
             </li>
+            <li>
+              <Link href="/treatment/semaglutide" onClick={closeMenu}>
+                {locale === 'en' ? 'Semaglutide' : 'Semaglutida'}
+              </Link>
+            </li>
             <li className="nav-mobile-only">
               <a
                 href="/#faqs"
@@ -395,9 +401,16 @@ export default function SiteShell({ children }: { children: ReactNode }) {
 
           <div className="footer-bottom-PMC">
             <p>&copy; {new Date().getFullYear()} {t('allRightsReserved')}</p>
-            <p style={{ display: 'flex', gap: '16px' }}>
-              <Link href="/privacy" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('privacyPolicy')}</Link>
-              <Link href="/terms" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('termsOfService')}</Link>
+            <p style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              {LEGAL_DOC_LIST.map((doc) => (
+                <Link
+                  key={doc.slug}
+                  href={`/${doc.slug}`}
+                  style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}
+                >
+                  {doc.title}
+                </Link>
+              ))}
             </p>
           </div>
         </div>
