@@ -11,6 +11,10 @@ export const TREATMENT_IDS = [
 
 export type TreatmentId = (typeof TREATMENT_IDS)[number];
 
+/** Public checkout catalog for certification — two treatments only. */
+export const FEATURED_TREATMENT_IDS = ['trt', 'weight'] as const;
+export type FeaturedTreatmentId = (typeof FEATURED_TREATMENT_IDS)[number];
+
 const LABELS: Record<TreatmentId, { en: string; es: string }> = {
   trt: {
     en: 'Testosterone Replacement Therapy (TRT)',

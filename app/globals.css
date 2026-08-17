@@ -5836,6 +5836,17 @@ body {
   line-height: 1.5;
 }
 
+.patient-check a {
+  color: var(--brand-button);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.patient-check a:hover {
+  color: var(--brand-hover);
+}
+
 .patient-check.has-error {
   border-color: #D14343;
 }
@@ -6286,5 +6297,89 @@ body {
   .tx-cat__panel {
     animation: none;
   }
+}
+
+/* =============================================
+   LEGAL DOCUMENT PAGES
+============================================= */
+.legal-doc {
+  padding: clamp(2.5rem, 6vw, 5rem) 0 4.5rem;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(0, 213, 200, 0.12), transparent 46%),
+    linear-gradient(180deg, #f5f7fc 0%, #eef3f8 52%, #f7f9ff 100%);
+}
+
+.legal-doc__shell {
+  width: min(1080px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.legal-doc__kicker {
+  margin: 0 0 0.75rem;
+  color: var(--brand-button);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.legal-doc h1 {
+  margin: 0;
+  color: var(--brand-text);
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.legal-doc__lede {
+  max-width: 44rem;
+  margin: 1rem 0 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.legal-doc__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin: 1.5rem 0 1.75rem;
+}
+
+.legal-doc__actions a {
+  color: var(--brand-button);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.legal-doc__actions a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-doc__frame-wrap {
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(23, 37, 84, 0.1);
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(23, 37, 84, 0.08);
+}
+
+.legal-doc__frame {
+  display: block;
+  width: 100%;
+  min-height: min(78vh, 920px);
+  height: 78vh;
+  border: 0;
+  background: #fff;
+}
+
+.legal-doc__note {
+  margin: 1rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 

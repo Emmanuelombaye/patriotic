@@ -10,15 +10,12 @@ import {
   type FormEvent,
   type ReactNode,
 } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { Locale } from '@/lib/types';
 import {
-  getActiveScreeningQuestions,
-  isScreeningComplete,
-  questionIsDisqualified,
-} from '@/lib/intake';
-import {
   COMPLIANCE_PAYMENT,
+  FEATURED_TREATMENT_IDS,
   getTreatmentLabel,
   type TreatmentId,
 } from '@/lib/treatments';
@@ -38,14 +35,12 @@ type FormData = {
   phone: string;
   dateOfBirth: string;
   sexAtBirth: SexAtBirth;
-  height: string;
-  weight: string;
+  selectedTreatment: TreatmentId | '';
   street: string;
   apartment: string;
   city: string;
   state: string;
   zip: string;
-  answers: Record<string, string>;
   medicalConditions: ScreeningAnswer;
   agreeTerms: boolean;
   authorizeClinicians: boolean;
@@ -68,14 +63,12 @@ const INITIAL: FormData = {
   phone: '',
   dateOfBirth: '',
   sexAtBirth: '',
-  height: '',
-  weight: '',
+  selectedTreatment: '',
   street: '',
   apartment: '',
   city: '',
   state: '',
   zip: '',
-  answers: {},
   medicalConditions: '',
   agreeTerms: false,
   authorizeClinicians: false,
@@ -214,8 +207,8 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
         screeningTitle: '¿Le aplica alguna de las siguientes condiciones?',
         screeningHint:
           'Responda con honestidad. Esta pregunta de cumplimiento ayuda a determinar si el tratamiento puede ser considerado de forma segura.',
-        yes: 'Sí',
-        no: 'No',
+        yes: 'Sí, una o más',
+        no: 'No, ninguna aplica',
         agreeTerms:
           'Acepto los Términos de Servicio, el formulario de Consentimiento Médico y reconozco el Consentimiento Informado de Telemedicina para protocolos médicos especializados.',
         authorize:
@@ -232,9 +225,8 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
         privacy:
           'Esta calificación se usa solo para elegibilidad y cumplimiento clínico. Su información está protegida y solo la revisa el equipo clínico.',
         selectedTreatment: 'Tratamiento seleccionado',
-        noTreatment: 'Calificación general de elegibilidad',
-        height: 'Estatura',
-        weight: 'Peso (lb)',
+        noTreatment: 'Elija un tratamiento para continuar',
+        chooseTreatment: 'Seleccione un tratamiento',
         paymentNote: `Verificación de pago: $${COMPLIANCE_PAYMENT}. No hay otro cargo en este calificador.`,
       };
     }
@@ -278,8 +270,8 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
       screeningTitle: 'Do any of the following conditions apply to you?',
       screeningHint:
         'Answer honestly. This compliance question helps determine whether treatment can be safely considered.',
-      yes: 'Yes',
-      no: 'No',
+      yes: 'Yes, one or more',
+      no: 'No, none apply',
       agreeTerms:
         'I agree to the Terms of Service, Medical Consent form, and acknowledge the Telehealth Informed Consent for specialized medical protocols.',
       authorize:
@@ -296,25 +288,14 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
       privacy:
         'This qualifier is used only for eligibility and clinical compliance. Your information is protected and reviewed only by the clinical team.',
       selectedTreatment: 'Selected treatment',
-      noTreatment: 'General eligibility qualification',
-      height: 'Height',
-      weight: 'Weight (lbs)',
+      noTreatment: 'Choose a treatment to continue',
+      chooseTreatment: 'Select a treatment',
       paymentNote: `Verification payment: $${COMPLIANCE_PAYMENT}. No other charge in this qualifier.`,
     };
   }, [locale]);
 
-  const selectedLabel = treatmentId ? getTreatmentLabel(treatmentId, locale) : null;
-  const screeningIntake = useMemo(
-    () => ({
-      answers: data.answers,
-      sexAtBirth: data.sexAtBirth === 'female' ? 'Female' : data.sexAtBirth === 'male' ? 'Male' : '',
-    }),
-    [data.answers, data.sexAtBirth],
-  );
-  const screeningQuestions = useMemo(
-    () => getActiveScreeningQuestions(screeningIntake),
-    [screeningIntake],
-  );
+  const resolvedTreatment = treatmentId || data.selectedTreatment || null;
+  const selectedLabel = resolvedTreatment ? getTreatmentLabel(resolvedTreatment, locale) : null;
 
   useEffect(() => {
     headingRef.current?.focus();
@@ -343,8 +324,7 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
       if (!data.dateOfBirth) nextErrors.dateOfBirth = copy.required;
       else if (!isAdult(data.dateOfBirth)) nextErrors.dateOfBirth = copy.invalidDob;
       if (!data.sexAtBirth) nextErrors.sexAtBirth = copy.required;
-      if (!data.height.trim()) nextErrors.height = copy.required;
-      if (!data.weight.trim()) nextErrors.weight = copy.required;
+      if (!treatmentId && !data.selectedTreatment) nextErrors.selectedTreatment = copy.required;
     }
 
     if (current === 2) {
@@ -356,10 +336,7 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
     }
 
     if (current === 3) {
-      const blocked = screeningQuestions.some((q) => questionIsDisqualified(q, data.answers[q.id]));
-      if (blocked || !isScreeningComplete(screeningIntake)) {
-        nextErrors.medicalConditions = copy.required;
-      }
+      if (!data.medicalConditions) nextErrors.medicalConditions = copy.required;
     }
 
     if (current === 4) {
@@ -369,7 +346,7 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
 
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
-  }, [copy, data, screeningIntake, screeningQuestions]);
+  }, [copy, data, treatmentId]);
 
   const goNext = useCallback(() => {
     if (!validateStep(step)) return;
@@ -538,26 +515,29 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                   {errors.sexAtBirth ? <span className="patient-field__error" role="alert">{errors.sexAtBirth}</span> : null}
                 </fieldset>
 
-                <div className="patient-intake__row">
-                  <Field label={copy.height} htmlFor={`${formId}-height`} error={errors.height}>
-                    <input
-                      id={`${formId}-height`}
-                      type="text"
-                      value={data.height}
-                      onChange={(event) => update('height', event.target.value)}
-                      placeholder="5ft 10in"
-                    />
-                  </Field>
-                  <Field label={copy.weight} htmlFor={`${formId}-weight`} error={errors.weight}>
-                    <input
-                      id={`${formId}-weight`}
-                      type="number"
-                      inputMode="numeric"
-                      value={data.weight}
-                      onChange={(event) => update('weight', event.target.value)}
-                    />
-                  </Field>
-                </div>
+                {!treatmentId ? (
+                  <fieldset className={`patient-choice${errors.selectedTreatment ? ' has-error' : ''}`}>
+                    <legend>
+                      {copy.chooseTreatment} <span aria-hidden="true">*</span>
+                    </legend>
+                    <div className="patient-choice__options patient-choice__options--stack">
+                      {FEATURED_TREATMENT_IDS.map((id) => (
+                        <button
+                          key={id}
+                          type="button"
+                          className={data.selectedTreatment === id ? 'is-selected' : ''}
+                          onClick={() => update('selectedTreatment', id)}
+                          aria-pressed={data.selectedTreatment === id}
+                        >
+                          {getTreatmentLabel(id, locale)}
+                        </button>
+                      ))}
+                    </div>
+                    {errors.selectedTreatment ? (
+                      <span className="patient-field__error" role="alert">{errors.selectedTreatment}</span>
+                    ) : null}
+                  </fieldset>
+                ) : null}
               </div>
             )}
 
@@ -626,57 +606,24 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                 <fieldset className={`patient-screening${errors.medicalConditions ? ' has-error' : ''}`}>
                   <legend>{copy.screeningTitle} <span aria-hidden="true">*</span></legend>
                   <p className="patient-screening__hint">{copy.screeningHint}</p>
-                  {screeningQuestions.map((q) => {
-                    const value = data.answers[q.id] || '';
-                    const blocked = questionIsDisqualified(q, value);
-                    return (
-                      <div key={q.id} className={`patient-q${blocked ? ' has-error' : ''}`}>
-                        <p className="patient-screening__hint">{q.question}</p>
-                        {q.type === 'boolean' ? (
-                          <div className="patient-choice__options patient-choice__options--stack">
-                            <button
-                              type="button"
-                              className={value === 'yes' ? 'is-selected' : ''}
-                              onClick={() =>
-                                update('answers', { ...data.answers, [q.id]: 'yes' })
-                              }
-                            >
-                              {copy.yes}
-                            </button>
-                            <button
-                              type="button"
-                              className={value === 'no' ? 'is-selected' : ''}
-                              onClick={() =>
-                                update('answers', { ...data.answers, [q.id]: 'no' })
-                              }
-                            >
-                              {copy.no}
-                            </button>
-                          </div>
-                        ) : q.type === 'select' ? (
-                          <select
-                            value={value}
-                            onChange={(event) =>
-                              update('answers', { ...data.answers, [q.id]: event.target.value })
-                            }
-                          >
-                            <option value="">—</option>
-                            {(q.options || []).map((opt) => (
-                              <option key={opt} value={opt}>{opt}</option>
-                            ))}
-                          </select>
-                        ) : (
-                          <input
-                            type={q.type === 'number' ? 'number' : 'text'}
-                            value={value}
-                            onChange={(event) =>
-                              update('answers', { ...data.answers, [q.id]: event.target.value })
-                            }
-                          />
-                        )}
-                      </div>
-                    );
-                  })}
+                  <div className="patient-choice__options patient-choice__options--stack">
+                    <button
+                      type="button"
+                      className={data.medicalConditions === 'yes' ? 'is-selected' : ''}
+                      onClick={() => update('medicalConditions', 'yes')}
+                      aria-pressed={data.medicalConditions === 'yes'}
+                    >
+                      {copy.yes}
+                    </button>
+                    <button
+                      type="button"
+                      className={data.medicalConditions === 'no' ? 'is-selected' : ''}
+                      onClick={() => update('medicalConditions', 'no')}
+                      aria-pressed={data.medicalConditions === 'no'}
+                    >
+                      {copy.no}
+                    </button>
+                  </div>
                   {errors.medicalConditions ? (
                     <span className="patient-field__error" role="alert">{errors.medicalConditions}</span>
                   ) : null}
@@ -692,7 +639,26 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                     checked={data.agreeTerms}
                     onChange={(event) => update('agreeTerms', event.target.checked)}
                   />
-                  <span>{copy.agreeTerms} <strong aria-hidden="true">*</strong></span>
+                  <span>
+                    {locale === 'en' ? (
+                      <>
+                        I agree to the <Link href="/terms" target="_blank" rel="noreferrer">Terms of Service</Link>,{' '}
+                        <Link href="/medical-consent" target="_blank" rel="noreferrer">Medical Consent</Link> form, and
+                        acknowledge the{' '}
+                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Telehealth Informed Consent</Link>{' '}
+                        for specialized medical protocols.
+                      </>
+                    ) : (
+                      <>
+                        Acepto los <Link href="/terms" target="_blank" rel="noreferrer">Términos de Servicio</Link>, el
+                        formulario de <Link href="/medical-consent" target="_blank" rel="noreferrer">Consentimiento Médico</Link> y
+                        reconozco el{' '}
+                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Consentimiento Informado de Telemedicina</Link>{' '}
+                        para protocolos médicos especializados.
+                      </>
+                    )}
+                    {' '}<strong aria-hidden="true">*</strong>
+                  </span>
                 </label>
                 {errors.agreeTerms ? <span className="patient-field__error" role="alert">{errors.agreeTerms}</span> : null}
 

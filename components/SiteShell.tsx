@@ -232,8 +232,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               </a>
             </li>
             <li>
-              <Link href="/treatment/peptide" onClick={closeMenu}>
-                {locale === 'en' ? 'Regenerative Therapy' : 'Terapia Regenerativa'}
+              <Link href="/treatment/weight" onClick={closeMenu}>
+                {locale === 'en' ? 'Weight Management' : 'Control de Peso'}
               </Link>
             </li>
             <li className="nav-mobile-only">
@@ -343,11 +343,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               <h4 className="footer-title-PMC">{t('treatments')}</h4>
               <ul className="footer-links-PMC">
                 <li><Link href="/treatment/trt">TRT Therapy</Link></li>
-                <li><Link href="/treatment/ed">ED Treatment</Link></li>
                 <li><Link href="/treatment/weight">Weight Loss</Link></li>
-                <li><Link href="/treatment/hair">Hair Restoration</Link></li>
-                <li><Link href="/treatment/peptide">Regenerative Therapy</Link></li>
-                <li><Link href="/treatment/wellness">Wellness Optimization</Link></li>
               </ul>
             </div>
 
@@ -364,8 +360,11 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               <h4 className="footer-title-PMC">{t('company')}</h4>
               <ul className="footer-links-PMC">
                 <li><Link href="/#about-us">{t('aboutUs')}</Link></li>
-                <li><Link href="/#faqs">{locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</Link></li>
-                <li><Link href="/#faqs">{locale === 'en' ? 'Terms of Service' : 'Términos de Servicio'}</Link></li>
+                <li><Link href="/privacy">{locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</Link></li>
+                <li><Link href="/terms">{locale === 'en' ? 'Terms of Service' : 'Términos de Servicio'}</Link></li>
+                <li><Link href="/medical-consent">{locale === 'en' ? 'Medical Consent' : 'Consentimiento Médico'}</Link></li>
+                <li><Link href="/telehealth-consent">{locale === 'en' ? 'Telehealth Consent' : 'Consentimiento de Telesalud'}</Link></li>
+                <li><Link href="/mensrx">MensRX</Link></li>
               </ul>
             </div>
 
@@ -396,8 +395,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
           <div className="footer-bottom-PMC">
             <p>&copy; {new Date().getFullYear()} {t('allRightsReserved')}</p>
             <p style={{ display: 'flex', gap: '16px' }}>
-              <Link href="/#faqs" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('privacyPolicy')}</Link>
-              <Link href="/#faqs" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('termsOfService')}</Link>
+              <Link href="/privacy" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('privacyPolicy')}</Link>
+              <Link href="/terms" style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{t('termsOfService')}</Link>
             </p>
           </div>
         </div>
