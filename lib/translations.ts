@@ -32,19 +32,11 @@ export const translations: Record<Locale, Record<string, string>> = {
     
     // Our Treatments
     ourTreatments: "OUR TREATMENTS",
-    treatmentTitle: "Physician-Guided Options For Men's Health",
-    trtTitle: "Testosterone Replacement Therapy (TRT)",
-    trtDesc: "Hormone care considered when a licensed provider determines it fits your history and goals.",
-    edTitle: "Erectile Dysfunction Treatment",
-    edDesc: "Private clinical evaluation and provider-directed options when appropriate.",
-    weightTitle: "Weight Loss Programs",
-    weightDesc: "GLP-1 and related pathways discussed only after clinical eligibility review.",
-    hairTitle: "Hair Restoration",
-    hairDesc: "Physician-guided topical or oral plans when clinically appropriate.",
-    wellnessTitle: "Men's Wellness Optimization",
-    wellnessDesc: "Supportive protocols considered under licensed provider oversight.",
-    peptideTitle: "Regenerative Therapy",
-    peptideDesc: "Peptide options considered only when a provider finds them clinically appropriate.",
+    treatmentTitle: "Physician-Guided Semaglutide and Tirzepatide",
+    tirzepatideTitle: "Tirzepatide",
+    tirzepatideDesc: "A dual-pathway option considered when a licensed provider determines it is clinically appropriate.",
+    semaglutideTitle: "Semaglutide",
+    semaglutideDesc: "A GLP-1 option discussed only after clinical eligibility review.",
     learnMore: "LEARN MORE",
     
     // How It Works
@@ -171,19 +163,11 @@ export const translations: Record<Locale, Record<string, string>> = {
     
     // Our Treatments
     ourTreatments: "NUESTROS TRATAMIENTOS",
-    treatmentTitle: "Opciones Guiadas por Médicos para la Salud del Hombre",
-    trtTitle: "Terapia de Reemplazo de Testosterona (TRT)",
-    trtDesc: "Cuidado hormonal considerado cuando un proveedor determina que encaja con su historial y objetivos.",
-    edTitle: "Tratamiento de la Disfunción Eréctil",
-    edDesc: "Evaluación clínica privada y opciones dirigidas por el proveedor cuando sea apropiado.",
-    weightTitle: "Programas de Pérdida de Peso",
-    weightDesc: "Vías GLP-1 y relacionadas solo tras revisión de elegibilidad clínica.",
-    hairTitle: "Restauración Capilar",
-    hairDesc: "Planes tópicos u orales guiados por médicos cuando sean clínicamente apropiados.",
-    wellnessTitle: "Optimización del Bienestar Masculino",
-    wellnessDesc: "Protocolos de apoyo considerados bajo supervisión de proveedores con licencia.",
-    peptideTitle: "Terapia Regenerativa",
-    peptideDesc: "Opciones de péptidos solo cuando un proveedor las considera clínicamente apropiadas.",
+    treatmentTitle: "Semaglutida y Tirzepatida guiadas por médicos",
+    tirzepatideTitle: "Tirzepatida",
+    tirzepatideDesc: "Una opción de doble vía considerada cuando un proveedor con licencia determina que es clínicamente apropiada.",
+    semaglutideTitle: "Semaglutida",
+    semaglutideDesc: "Una opción GLP-1 discutida solo después de la revisión de elegibilidad clínica.",
     learnMore: "MÁS INFORMACIÓN",
     
     // How It Works

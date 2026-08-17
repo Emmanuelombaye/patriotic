@@ -6,7 +6,6 @@ import { useParams } from 'next/navigation';
 import { translations } from '@/lib/translations';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import ScrollReveal from '@/components/ScrollReveal';
-import PeptideTreatment from '@/components/PeptideTreatment';
 import type { Locale } from '@/lib/types';
 import { startCheckoutHref } from '@/lib/treatments';
 
@@ -21,120 +20,48 @@ type TreatmentInfo = {
 };
 
 const treatmentData: Record<string, TreatmentInfo> = {
-  trt: {
-    title: 'trtTitle',
-    desc: 'trtDesc',
-    heroImg: '/images/testosterone_vial.webp',
+  tirzepatide: {
+    title: 'tirzepatideTitle',
+    desc: 'tirzepatideDesc',
+    heroImg: '/images/nad_vial.webp',
     benefits: [
       'Licensed clinician review before any prescription',
-      'Plans considered only when clinically appropriate',
-      'Monitoring discussed when treatment continues',
-      'Discreet fulfillment through pharmacy partners'
+      'Dual-pathway GLP-1 + GIP option when clinically appropriate',
+      'Provider oversight if treatment continues',
+      'Discreet fulfillment through pharmacy partners',
     ],
     benefitsEs: [
       'Revisión de clínico con licencia antes de cualquier receta',
-      'Planes solo cuando son clínicamente apropiados',
-      'Monitoreo discutido si el tratamiento continúa',
-      'Surtido discreto mediante farmacias asociadas'
+      'Opción dual GLP-1 + GIP cuando sea clínicamente apropiada',
+      'Supervisión del proveedor si el tratamiento continúa',
+      'Surtido discreto mediante farmacias asociadas',
     ],
-    details: 'TRT may be considered after a $2 clinical intake and review by a U.S.-licensed clinician. Completing intake does not guarantee a prescription. If appropriate, care is individualized and fulfilled through a licensed pharmacy partner.',
-    detailsEs: 'El TRT puede considerarse después de una evaluación clínica de $2 y la revisión de un clínico con licencia en EE. UU. Completar la evaluación no garantiza una receta. Si es apropiado, el cuidado se individualiza y se surte mediante una farmacia asociada con licencia.'
+    details:
+      'Tirzepatide may be considered after a $2 clinical intake and review by a U.S.-licensed clinician. Completing intake does not guarantee a prescription. If appropriate, care is individualized and fulfilled through a licensed pharmacy partner.',
+    detailsEs:
+      'La tirzepatida puede considerarse después de una evaluación clínica de $2 y la revisión de un clínico con licencia en EE. UU. Completar la evaluación no garantiza una receta. Si es apropiado, el cuidado se individualiza y se surte mediante una farmacia asociada con licencia.',
   },
-  ed: {
-    title: 'edTitle',
-    desc: 'edDesc',
-    heroImg: '/images/telehealth_doctor.webp',
-    benefits: [
-      'Private clinical evaluation',
-      'Provider-directed options when appropriate',
-      'Discreet home fulfillment if prescribed',
-      'Clear $2 clinical intake to begin'
-    ],
-    benefitsEs: [
-      'Evaluación clínica privada',
-      'Opciones dirigidas por el proveedor cuando sea apropiado',
-      'Surtido discreto a domicilio si se receta',
-      'Evaluación clínica clara de $2 para comenzar'
-    ],
-    details: 'Erectile dysfunction care begins with a $2 clinical intake and licensed-provider review. Treatment options, including compounded formulations when clinically appropriate, are determined by the clinician — intake alone does not guarantee a prescription.',
-    detailsEs: 'El cuidado de la disfunción eréctil comienza con una evaluación clínica de $2 y revisión de un proveedor con licencia. Las opciones de tratamiento, incluidos compuestos cuando sean clínicamente apropiados, las determina el clínico — la evaluación sola no garantiza una receta.'
-  },
-  weight: {
-    title: 'weightTitle',
-    desc: 'weightDesc',
+  semaglutide: {
+    title: 'semaglutideTitle',
+    desc: 'semaglutideDesc',
     heroImg: '/images/semaglutide_vial.webp',
     benefits: [
       'Clinical eligibility review first',
-      'GLP-1 pathways discussed when appropriate',
+      'GLP-1 pathway discussed when appropriate',
       'Provider oversight if treatment continues',
-      'Discreet fulfillment when prescribed'
+      'Discreet fulfillment when prescribed',
     ],
     benefitsEs: [
       'Primero revisión de elegibilidad clínica',
-      'Vías GLP-1 discutidas cuando sea apropiado',
+      'Vía GLP-1 discutida cuando sea apropiado',
       'Supervisión del proveedor si el tratamiento continúa',
-      'Surtido discreto cuando se receta'
+      'Surtido discreto cuando se receta',
     ],
-    details: 'Weight-management options such as GLP-1 therapies may be discussed only after clinical intake and licensed-provider review. Completing the $2 intake does not guarantee eligibility or a prescription.',
-    detailsEs: 'Opciones de control de peso como terapias GLP-1 pueden discutirse solo después de la evaluación clínica y revisión de un proveedor con licencia. Completar la evaluación de $2 no garantiza elegibilidad ni una receta.'
+    details:
+      'Semaglutide may be discussed only after clinical intake and licensed-provider review. Completing the $2 intake does not guarantee eligibility or a prescription.',
+    detailsEs:
+      'La semaglutida puede discutirse solo después de la evaluación clínica y revisión de un proveedor con licencia. Completar la evaluación de $2 no garantiza elegibilidad ni una receta.',
   },
-  hair: {
-    title: 'hairTitle',
-    desc: 'hairDesc',
-    heroImg: '/images/hair_dropper.webp',
-    benefits: [
-      'Physician-guided evaluation',
-      'Topical or oral options when appropriate',
-      'Individualized plans under clinical judgment',
-      'Private fulfillment if prescribed'
-    ],
-    benefitsEs: [
-      'Evaluación guiada por el médico',
-      'Opciones tópicas u orales cuando sea apropiado',
-      'Planes individualizados bajo criterio clínico',
-      'Surtido privado si se receta'
-    ],
-    details: 'Hair restoration options may include clinician-directed topical or oral therapies when appropriate after your $2 clinical intake. No prescription is guaranteed by completing intake alone.',
-    detailsEs: 'Las opciones de restauración capilar pueden incluir terapias tópicas u orales dirigidas por el clínico cuando sea apropiado después de su evaluación clínica de $2. Completar la evaluación sola no garantiza una receta.'
-  },
-  wellness: {
-    title: 'wellnessTitle',
-    desc: 'wellnessDesc',
-    heroImg: '/images/nad_vial.webp',
-    benefits: [
-      'Provider review of goals and history',
-      'Options considered in clinical context',
-      'Compounded products only when appropriate',
-      'Discreet fulfillment if prescribed'
-    ],
-    benefitsEs: [
-      'Revisión del proveedor de objetivos e historial',
-      'Opciones consideradas en contexto clínico',
-      'Productos compuestos solo cuando sea apropiado',
-      'Surtido discreto si se receta'
-    ],
-    details: 'Wellness support options, including NAD+ when clinically appropriate, are considered after licensed-provider review of your intake. Completing the $2 clinical intake does not guarantee treatment.',
-    detailsEs: 'Las opciones de apoyo al bienestar, incluido NAD+ cuando sea clínicamente apropiado, se consideran después de la revisión de su evaluación por un proveedor con licencia. Completar la evaluación clínica de $2 no garantiza tratamiento.'
-  },
-  peptide: {
-    title: 'peptideTitle',
-    desc: 'peptideDesc',
-    heroImg: '/images/diagnostic_kit.webp',
-    benefits: [
-      'Clinical review before any peptide option',
-      'Prescribed only when appropriate',
-      'Licensed pharmacy fulfillment when ordered',
-      'Clear $2 intake to begin'
-    ],
-    benefitsEs: [
-      'Revisión clínica antes de cualquier opción de péptido',
-      'Recetado solo cuando sea apropiado',
-      'Surtido por farmacia con licencia cuando se ordene',
-      'Evaluación clara de $2 para comenzar'
-    ],
-    details: 'Regenerative or peptide options may be discussed only when a U.S.-licensed clinician determines they are appropriate after reviewing your clinical intake.',
-    detailsEs: 'Las opciones regenerativas o de péptidos pueden discutirse solo cuando un clínico con licencia en EE. UU. determina que son apropiadas después de revisar su evaluación clínica.'
-  }
 };
 
 type TreatmentDetailsProps = { locale: Locale };
@@ -149,10 +76,6 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
-
-  if (id === 'peptide') {
-    return <PeptideTreatment locale={locale} />;
-  }
 
   if (!treatment) {
     return (

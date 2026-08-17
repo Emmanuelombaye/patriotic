@@ -1,44 +1,21 @@
 import type { Locale } from '@/lib/types';
 
-export const TREATMENT_IDS = [
-  'trt',
-  'ed',
-  'weight',
-  'hair',
-  'wellness',
-  'peptide',
-] as const;
+export const TREATMENT_IDS = ['tirzepatide', 'semaglutide'] as const;
 
 export type TreatmentId = (typeof TREATMENT_IDS)[number];
 
-/** Public checkout catalog for certification — two treatments only. */
-export const FEATURED_TREATMENT_IDS = ['trt', 'weight'] as const;
-export type FeaturedTreatmentId = (typeof FEATURED_TREATMENT_IDS)[number];
+/** Public catalog — two treatments only. */
+export const FEATURED_TREATMENT_IDS = TREATMENT_IDS;
+export type FeaturedTreatmentId = TreatmentId;
 
 const LABELS: Record<TreatmentId, { en: string; es: string }> = {
-  trt: {
-    en: 'Testosterone Replacement Therapy (TRT)',
-    es: 'Terapia de Reemplazo de Testosterona (TRT)',
+  tirzepatide: {
+    en: 'Tirzepatide',
+    es: 'Tirzepatida',
   },
-  ed: {
-    en: 'Erectile Dysfunction Treatment',
-    es: 'Tratamiento de la Disfunción Eréctil',
-  },
-  weight: {
-    en: 'Weight Loss Programs',
-    es: 'Programas de Pérdida de Peso',
-  },
-  hair: {
-    en: 'Hair Restoration',
-    es: 'Restauración Capilar',
-  },
-  wellness: {
-    en: "Men's Wellness Optimization",
-    es: 'Optimización del Bienestar Masculino',
-  },
-  peptide: {
-    en: 'Regenerative Therapy',
-    es: 'Terapia Regenerativa',
+  semaglutide: {
+    en: 'Semaglutide',
+    es: 'Semaglutida',
   },
 };
 
@@ -49,7 +26,7 @@ export function isTreatmentId(value: string | null | undefined): value is Treatm
 export function isFeaturedTreatmentId(
   value: string | null | undefined,
 ): value is FeaturedTreatmentId {
-  return !!value && (FEATURED_TREATMENT_IDS as readonly string[]).includes(value);
+  return isTreatmentId(value);
 }
 
 export function getTreatmentLabel(id: TreatmentId, locale: Locale): string {

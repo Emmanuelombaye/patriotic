@@ -232,8 +232,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               </a>
             </li>
             <li>
-              <Link href="/treatment/trt" onClick={closeMenu}>
-                {locale === 'en' ? 'TRT Therapy' : 'Terapia TRT'}
+              <Link href="/treatment/tirzepatide" onClick={closeMenu}>
+                {locale === 'en' ? 'Tirzepatide' : 'Tirzepatida'}
               </Link>
             </li>
             <li className="nav-mobile-only">
@@ -342,8 +342,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             <div>
               <h4 className="footer-title-PMC">{t('treatments')}</h4>
               <ul className="footer-links-PMC">
-                <li><Link href="/treatment/trt">TRT Therapy</Link></li>
-                <li><Link href="/treatment/weight">Weight Loss</Link></li>
+                <li><Link href="/treatment/tirzepatide">Tirzepatide</Link></li>
+                <li><Link href="/treatment/semaglutide">Semaglutide</Link></li>
               </ul>
             </div>
 

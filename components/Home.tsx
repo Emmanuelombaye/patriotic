@@ -11,8 +11,8 @@ import type { Locale } from '@/lib/types';
 type HomeProps = { locale: Locale };
 
 const TYPER_WORDS = {
-  en: ['TRT Therapy', 'Weight Loss'],
-  es: ['Terapia TRT', 'Pérdida de Peso'],
+  en: ['Tirzepatide', 'Semaglutide'],
+  es: ['Tirzepatida', 'Semaglutida'],
 };
 
 const TYPER_COLORS = ['#F7F9FF', '#00D5C8', '#7B61FF', '#5A4CFF', '#FFFFFF'];
