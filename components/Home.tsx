@@ -208,8 +208,8 @@ function Home({ locale }: HomeProps) {
                 </h1>
                 <p className="retro-home-hero-subtitle">
                   {locale === 'en'
-                    ? 'Designed for longevity, performance, and prevention.'
-                    : 'Diseñado para la longevidad, el rendimiento y la prevención.'}
+                    ? 'Personalized metabolic care. A licensed U.S. provider reviews your intake before any prescription.'
+                    : 'Cuidado metabólico personalizado. Un proveedor con licencia en EE. UU. revisa su evaluación antes de cualquier receta.'}
                 </p>
                 <div className="retro-home-hero-actions">
                   <Link href={startCheckoutHref()} className="retro-home-hero-action retro-home-hero-action--primary">
@@ -226,6 +226,16 @@ function Home({ locale }: HomeProps) {
                     ? 'Licensed U.S. providers · From $239/mo · No prescription guaranteed by intake alone'
                     : 'Proveedores con licencia en EE. UU. · Desde $239/mes · La evaluación sola no garantiza receta'}
                 </p>
+              </div>
+              <div className="retro-home-hero-visual" aria-hidden="true">
+                <ResponsiveImage
+                  src="/images/efexia-goal-strength.webp"
+                  alt=""
+                  className="retro-home-hero-visual__img"
+                  sizes="(max-width: 900px) 86vw, 42vw"
+                  loading="eager"
+                  fetchPriority="high"
+                />
               </div>
             </div>
           </div>
@@ -304,31 +314,119 @@ function Home({ locale }: HomeProps) {
         </div>
       </section>
 
-      <section id="about-us" className="retro-section why-choose-premium">
+      <section id="about-us" className="about-yucca">
         <div className="retro-container">
-          <ScrollReveal variant="fade-up" className="retro-section-head">
-            <span className="retro-tag">{t('whyChooseTag')}</span>
-            <h2 className="retro-h2">{t('whyChooseTitle')}</h2>
+          <ScrollReveal variant="fade-up" className="about-yucca__head">
+            <span className="retro-tag">{locale === 'en' ? 'About Efexia' : 'Sobre Efexia'}</span>
+            <h2 className="retro-h2">
+              {locale === 'en'
+                ? 'Wellness, wellbeing, and the state of good condition.'
+                : 'Bienestar, salud y el estado de buena condición.'}
+            </h2>
+            <p className="about-yucca__lede">
+              {locale === 'en'
+                ? 'Efexia is the Greek word for wellness, wellbeing, or the state of good condition. The platform connects eligible patients with independent U.S.-licensed clinicians. Completing intake does not guarantee a prescription. If treatment is appropriate, Semaglutide is $239/mo and Tirzepatide is $345/mo, fulfilled through a licensed pharmacy partner.'
+                : 'Efexia es la palabra griega para bienestar, salud o el estado de buena condición. La plataforma conecta a pacientes elegibles con clínicos independientes con licencia en EE. UU. Completar la evaluación no garantiza una receta. Si el tratamiento es apropiado, Semaglutida cuesta $239/mes y Tirzepatida $345/mes, surtidas por una farmacia asociada con licencia.'}
+            </p>
           </ScrollReveal>
 
-          <div className="premium-features-grid">
+          <div className="about-story-stack">
+            {(locale === 'en'
+              ? [
+                  {
+                    kicker: 'Licensed review',
+                    title: 'A U.S.-licensed clinician reviews every intake.',
+                    body: 'Care is not automated. After you complete the 4-step qualifier, an affiliated licensed provider reviews your information and decides whether treatment is clinically appropriate.',
+                    image: '/images/telehealth_doctor.webp',
+                    alt: 'Licensed clinician reviewing a telehealth consultation',
+                    flip: false,
+                  },
+                  {
+                    kicker: 'Two treatments',
+                    title: 'Semaglutide $239/mo. Tirzepatide $345/mo.',
+                    body: 'Those prices apply only if a licensed provider prescribes. The public catalog is limited to these two options. Compounded medication is used only when clinically appropriate and is not FDA-approved.',
+                    image: '/images/efexia-goal-longevity.webp',
+                    alt: 'Calm setting associated with metabolic wellness',
+                    flip: true,
+                  },
+                  {
+                    kicker: 'Private fulfillment',
+                    title: 'Discreet shipping when a prescription is issued.',
+                    body: 'If prescribed, medication is dispensed by a licensed U.S. pharmacy partner and shipped in discreet packaging. Availability depends on your location, clinical review, and pharmacy authorization.',
+                    image: '/images/discreet_packaging.webp',
+                    alt: 'Discreet pharmacy packaging',
+                    flip: false,
+                  },
+                ]
+              : [
+                  {
+                    kicker: 'Revisión con licencia',
+                    title: 'Un clínico con licencia en EE. UU. revisa cada evaluación.',
+                    body: 'El cuidado no es automático. Después del calificador de 4 pasos, un proveedor afiliado con licencia revisa su información y decide si el tratamiento es clínicamente apropiado.',
+                    image: '/images/telehealth_doctor.webp',
+                    alt: 'Clínico con licencia revisando una consulta de telesalud',
+                    flip: false,
+                  },
+                  {
+                    kicker: 'Dos tratamientos',
+                    title: 'Semaglutida $239/mes. Tirzepatida $345/mes.',
+                    body: 'Esos precios aplican solo si un proveedor con licencia receta. El catálogo público se limita a estas dos opciones. El medicamento compuesto se usa solo cuando es clínicamente apropiado y no está aprobado por la FDA.',
+                    image: '/images/efexia-goal-longevity.webp',
+                    alt: 'Entorno calmado de bienestar metabólico',
+                    flip: true,
+                  },
+                  {
+                    kicker: 'Surtido privado',
+                    title: 'Envío discreto cuando se emite una receta.',
+                    body: 'Si se receta, el medicamento lo surte una farmacia asociada con licencia en EE. UU. y se envía en empaque discreto. La disponibilidad depende de su ubicación, la revisión clínica y la autorización de la farmacia.',
+                    image: '/images/discreet_packaging.webp',
+                    alt: 'Empaque discreto de farmacia',
+                    flip: false,
+                  },
+                ]
+            ).map((story, idx) => (
+              <ScrollReveal
+                key={story.title}
+                variant={idx % 2 === 0 ? 'slide-left' : 'slide-right'}
+                delay={(idx % 3) + 1}
+                className={`about-story${story.flip ? ' about-story--flip' : ''}`}
+              >
+                <div className="about-story__media">
+                  <ResponsiveImage
+                    src={story.image}
+                    alt={story.alt}
+                    className="about-story__img"
+                    sizes="(max-width: 900px) 92vw, 48vw"
+                  />
+                </div>
+                <div className="about-story__copy">
+                  <p className="about-story__kicker">{story.kicker}</p>
+                  <h3>{story.title}</h3>
+                  <p>{story.body}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <div className="about-mosaic" aria-label={locale === 'en' ? 'How Efexia care works' : 'Cómo funciona el cuidado de Efexia'}>
             {features.map((feat, idx) => (
               <ScrollReveal
-                key={idx}
-                variant={idx % 2 === 0 ? 'slide-left' : 'slide-right'}
+                key={feat.title}
+                variant="fade-up"
                 delay={(idx % 4) + 1}
-                className="premium-feature-card hover-lift"
+                className="about-mosaic__card"
               >
-                <div className="feature-circle-image">
+                <div className="about-mosaic__media">
                   <ResponsiveImage
                     src={feat.image}
                     alt={feat.title}
-                    sizes="(max-width: 767px) 180px, 240px"
+                    className="about-mosaic__img"
+                    sizes="(max-width: 767px) 78vw, 280px"
                   />
                 </div>
-                <div className="feature-content-wrapper">
-                  <h3 className="premium-feature-title">{feat.title}</h3>
-                  <p className="premium-feature-desc">{feat.desc}</p>
+                <div className="about-mosaic__copy">
+                  <h3>{feat.title}</h3>
+                  <p>{feat.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -377,7 +475,7 @@ function Home({ locale }: HomeProps) {
           <ScrollReveal variant="slide-right" delay={2} className="cta-banner-image-right-PMC">
             <ResponsiveImage
               src="/images/cta-transformation.webp"
-              alt="Transformation man"
+              alt=""
               className="cta-man-img-PMC"
               sizes="(max-width: 767px) calc(100vw - 48px), 50vw"
             />

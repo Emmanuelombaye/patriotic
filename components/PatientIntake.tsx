@@ -649,18 +649,18 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                   <span>
                     {locale === 'en' ? (
                       <>
-                        I agree to the <Link href="/terms" target="_blank" rel="noreferrer">Terms of Use</Link>,{' '}
-                        <Link href="/medical-consent" target="_blank" rel="noreferrer">Medical Disclaimer</Link>, and
+                        I agree to the <Link href="/terms" target="_blank" rel="noreferrer">Terms of Service</Link>,{' '}
+                        <Link href="/medical-consent" target="_blank" rel="noreferrer">Medical Consent</Link> form, and
                         acknowledge the{' '}
-                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Telehealth Consent</Link>{' '}
+                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Telehealth Informed Consent</Link>{' '}
                         for specialized medical protocols.
                       </>
                     ) : (
                       <>
-                        Acepto los <Link href="/terms" target="_blank" rel="noreferrer">Términos de Uso</Link>, el
-                        <Link href="/medical-consent" target="_blank" rel="noreferrer">Descargo Médico</Link> y
+                        Acepto los <Link href="/terms" target="_blank" rel="noreferrer">Términos de Servicio</Link>, el
+                        formulario de <Link href="/medical-consent" target="_blank" rel="noreferrer">Consentimiento Médico</Link> y
                         reconozco el{' '}
-                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Consentimiento de Telesalud</Link>{' '}
+                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Consentimiento Informado de Telemedicina</Link>{' '}
                         para protocolos médicos especializados.
                       </>
                     )}

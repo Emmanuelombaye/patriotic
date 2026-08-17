@@ -234,6 +234,21 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               </a>
             </li>
             <li>
+              <a
+                href="/#about-us"
+                onClick={(event) => {
+                  if (pathname === '/') {
+                    event.preventDefault();
+                    goToSection('about-us');
+                  } else {
+                    closeMenu();
+                  }
+                }}
+              >
+                {t('aboutUs')}
+              </a>
+            </li>
+            <li>
               <Link href="/treatment/tirzepatide" onClick={closeMenu}>
                 {locale === 'en' ? 'Tirzepatide' : 'Tirzepatida'}
               </Link>
