@@ -11,7 +11,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     blog: "Blog",
     contact: "Contact",
     getStarted: "GET STARTED",
-    promo: "Start your $2 clinical intake — a licensed provider reviews before any prescription.",
+    promo: "Semaglutide $239/mo · Tirzepatide $345/mo — a licensed provider reviews before any prescription.",
     claimOffer: "BEGIN",
     reviews: "Patient Care",
     allRightsReserved: "Efexia Wellness. All rights reserved.",
@@ -23,7 +23,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     heroTitlePre: "Wellness, Wellbeing, and ",
     heroTitleSpan: "Good Condition.",
     heroDesc: "Efexia is the Greek word for wellness, wellbeing, and the state of good condition. Personalized men's health care guided by licensed providers.",
-    startConsultation: "START $2 CLINICAL INTAKE",
+    startConsultation: "START FROM $239",
     seeTreatments: "SEE TREATMENTS",
     licensedProviders: "Licensed Providers",
     secureConsult: "Secure Online Consultations",
@@ -43,8 +43,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     howItWorksTag: "HOW IT WORKS",
     howItWorksTitle: "Personalized Care, Simple Process",
     step1Title: "Complete Clinical Intake",
-    step1Desc: "Start with a secure $2 clinical intake. Share your medical history, symptoms, and goals so a licensed provider can review your case.",
-    step1Btn: "START $2 INTAKE",
+    step1Desc: "Start a secure clinical intake. Share your medical history, symptoms, and goals so a licensed provider can review your case.",
+    step1Btn: "START FROM $239",
     
     step2Title: "Licensed Provider Review",
     step2Desc: "A U.S.-licensed clinician reviews your intake. Completing the intake does not guarantee a prescription — eligibility depends on clinical judgment.",
@@ -56,7 +56,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     
     step4Title: "Discreet Fulfillment",
     step4Desc: "When prescribed, medication is fulfilled through a licensed U.S. pharmacy partner and shipped in discreet packaging.",
-    step4Btn: "START $2 INTAKE",
+    step4Btn: "START FROM $239",
     
     // Why Choose
     whyChooseTag: "WHY CHOOSE EFEXIA",
@@ -72,7 +72,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     feat5Title: "Ongoing Medical Support",
     feat5Desc: "Follow-up through your care team when treatment continues.",
     feat6Title: "Transparent Pricing",
-    feat6Desc: "Clear $2 clinical intake verification before provider review.",
+    feat6Desc: "Clear monthly pricing from $239 before provider review.",
     
     // Success Stories
     successTag: "PATIENT CARE",
@@ -99,8 +99,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     
     // Pricing
     pricingTag: "CLINICAL INTAKE",
-    pricingTitle: "Start with a $2 clinical intake",
-    pricingSub: "Verification payment only. Treatment pricing is discussed if a provider recommends care.",
+    pricingTitle: "Plans from $239 a month",
+    pricingSub: "Semaglutide $239/mo · Tirzepatide $345/mo if prescribed. Completing intake does not guarantee a prescription.",
     trtTreatment: "TRT Treatment",
     edTreatment: "ED Treatment",
     weightProgram: "Weight Loss Program",
@@ -121,8 +121,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     
     // Pre-Footer
     preFooterTitle: "Begin Your Path to Good Condition",
-    preFooterSub: "Start with a $2 clinical intake. A licensed provider reviews your information before any prescription decision.",
-    beginConsultation: "START $2 CLINICAL INTAKE",
+    preFooterSub: "Plans from $239/mo. A licensed provider reviews your information before any prescription decision.",
+    beginConsultation: "START FROM $239",
     
     // Footer
     footerBrand: "EFEXIA",
@@ -142,7 +142,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     blog: "Blog",
     contact: "Contacto",
     getStarted: "COMENZAR",
-    promo: "Inicie su evaluación clínica de $2 — un proveedor revisa antes de cualquier receta.",
+    promo: "Semaglutida $239/mes · Tirzepatida $345/mes — un proveedor revisa antes de cualquier receta.",
     claimOffer: "COMENZAR",
     reviews: "Atención al Paciente",
     allRightsReserved: "Efexia Wellness. Todos los derechos reservados.",
@@ -154,7 +154,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     heroTitlePre: "Bienestar, Salud y ",
     heroTitleSpan: "Buena Condición.",
     heroDesc: "Efexia es la palabra griega para bienestar, salud y el estado de buena condición. Cuidado personalizado de salud masculina guiado por proveedores con licencia.",
-    startConsultation: "INICIAR EVALUACIÓN CLÍNICA DE $2",
+    startConsultation: "COMENZAR DESDE $239",
     seeTreatments: "VER TRATAMIENTOS",
     licensedProviders: "Proveedores Autorizados",
     secureConsult: "Consultas en Línea Seguras",
@@ -174,8 +174,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     howItWorksTag: "CÓMO FUNCIONA",
     howItWorksTitle: "Atención Personalizada, Proceso Simple",
     step1Title: "Complete la Evaluación Clínica",
-    step1Desc: "Comience con una evaluación clínica segura de $2. Comparta su historial, síntomas y objetivos para que un proveedor con licencia revise su caso.",
-    step1Btn: "INICIAR EVALUACIÓN $2",
+    step1Desc: "Comience con una evaluación clínica segura. Comparta su historial, síntomas y objetivos para que un proveedor con licencia revise su caso.",
+    step1Btn: "COMENZAR DESDE $239",
     
     step2Title: "Revisión de Proveedor con Licencia",
     step2Desc: "Un clínico con licencia en EE. UU. revisa su evaluación. Completarla no garantiza una receta — la elegibilidad depende del criterio clínico.",
@@ -187,7 +187,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     
     step4Title: "Cumplimiento Discreto",
     step4Desc: "Cuando se receta, el medicamento se surte a través de una farmacia asociada con licencia en EE. UU. y se envía en empaque discreto.",
-    step4Btn: "INICIAR EVALUACIÓN $2",
+    step4Btn: "COMENZAR DESDE $239",
     
     // Why Choose
     whyChooseTag: "POR QUÉ ELEGIR EFEXIA",
@@ -203,7 +203,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     feat5Title: "Soporte Médico Continuo",
     feat5Desc: "Seguimiento con su equipo de cuidado cuando el tratamiento continúa.",
     feat6Title: "Precios Transparentes",
-    feat6Desc: "Evaluación clínica de verificación de $2 clara antes de la revisión del proveedor.",
+    feat6Desc: "Precios mensuales claros desde $239 antes de la revisión del proveedor.",
     
     // Success Stories
     successTag: "ATENCIÓN AL PACIENTE",
@@ -230,8 +230,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     
     // Pricing
     pricingTag: "EVALUACIÓN CLÍNICA",
-    pricingTitle: "Comience con una evaluación clínica de $2",
-    pricingSub: "Solo pago de verificación. Los precios del tratamiento se discuten si un proveedor recomienda cuidado.",
+    pricingTitle: "Planes desde $239 al mes",
+    pricingSub: "Semaglutida $239/mes · Tirzepatida $345/mes si se receta. Completar la evaluación no garantiza una receta.",
     trtTreatment: "Tratamiento TRT",
     edTreatment: "Tratamiento de DE",
     weightProgram: "Programa de Pérdida de Peso",
@@ -252,8 +252,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     
     // Pre-Footer
     preFooterTitle: "Comience su Camino hacia la Buena Condición",
-    preFooterSub: "Comience con una evaluación clínica de $2. Un proveedor con licencia revisa su información antes de cualquier decisión de receta.",
-    beginConsultation: "INICIAR EVALUACIÓN CLÍNICA DE $2",
+    preFooterSub: "Planes desde $239/mes. Un proveedor con licencia revisa su información antes de cualquier decisión de receta.",
+    beginConsultation: "COMENZAR DESDE $239",
     
     // Footer
     footerBrand: "EFEXIA",

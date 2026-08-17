@@ -1,14 +1,5 @@
-import type { Metadata } from 'next';
-import LegalDocumentPage from '@/components/LegalDocumentPage';
-import { LEGAL_DOCS } from '@/lib/legalDocs';
+import { redirect } from 'next/navigation';
 
-const doc = LEGAL_DOCS.mensrx;
-
-export const metadata: Metadata = {
-  title: `${doc.title} | Efexia`,
-  description: doc.description,
-};
-
-export default function MensrxPage() {
-  return <LegalDocumentPage {...doc} />;
+export default function MensrxRedirect() {
+  redirect('/hipaa');
 }

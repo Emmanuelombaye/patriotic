@@ -44,12 +44,13 @@ export default function LegalDocumentPage({ slug, title, description, docId }: L
             src={previewUrl}
             title={title}
             className="legal-doc__frame"
-            loading="lazy"
+            loading="eager"
+            allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
         <p className="legal-doc__note">
-          These documents are required for clinical and pharmacy compliance. Completing the $2 intake does not
+          These documents are required for clinical and pharmacy compliance. Completing intake does not
           guarantee a prescription. If a document does not display, use Open full document.
         </p>
       </div>

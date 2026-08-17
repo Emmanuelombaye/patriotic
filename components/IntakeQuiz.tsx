@@ -43,11 +43,11 @@ export default function IntakeQuiz({ isOpen, onClose, locale = 'en', dismissible
   const getRecommendation = () => {
     if (locale === 'en') {
       return {
-        title: 'Next step: $2 clinical intake',
+        title: 'Next step: start from $239',
         subtitle: 'Licensed provider review required',
-        price: '$2',
+        price: '$239',
         features: [
-          'Verification payment for this clinical qualifier only',
+          'Monthly pricing if a licensed provider prescribes',
           'U.S.-licensed clinician reviews your intake',
           'Completing intake does not guarantee a prescription',
           'Treatment options discussed only if clinically appropriate'
@@ -56,11 +56,11 @@ export default function IntakeQuiz({ isOpen, onClose, locale = 'en', dismissible
     }
 
     return {
-      title: 'Siguiente paso: evaluación clínica de $2',
+      title: 'Siguiente paso: comenzar desde $239',
       subtitle: 'Se requiere revisión de un proveedor con licencia',
-      price: '$2',
+      price: '$239',
       features: [
-        'Pago de verificación solo para este calificador clínico',
+        'Precio mensual si un proveedor con licencia receta',
         'Un clínico con licencia en EE. UU. revisa su evaluación',
         'Completar la evaluación no garantiza una receta',
         'Opciones de tratamiento solo si son clínicamente apropiadas'

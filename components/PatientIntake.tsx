@@ -14,9 +14,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { Locale } from '@/lib/types';
 import {
-  COMPLIANCE_PAYMENT,
   FEATURED_TREATMENT_IDS,
+  STARTING_PRICE,
+  formatUsd,
   getTreatmentLabel,
+  getTreatmentPrice,
   type TreatmentId,
 } from '@/lib/treatments';
 
@@ -227,7 +229,6 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
         selectedTreatment: 'Tratamiento seleccionado',
         noTreatment: 'Elija un tratamiento para continuar',
         chooseTreatment: 'Seleccione un tratamiento',
-        paymentNote: `Verificación de pago: $${COMPLIANCE_PAYMENT}. No hay otro cargo en este calificador.`,
       };
     }
 
@@ -290,12 +291,18 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
       selectedTreatment: 'Selected treatment',
       noTreatment: 'Choose a treatment to continue',
       chooseTreatment: 'Select a treatment',
-      paymentNote: `Verification payment: $${COMPLIANCE_PAYMENT}. No other charge in this qualifier.`,
     };
   }, [locale]);
 
   const resolvedTreatment = treatmentId || data.selectedTreatment || null;
   const selectedLabel = resolvedTreatment ? getTreatmentLabel(resolvedTreatment, locale) : null;
+  const paymentNote = resolvedTreatment
+    ? locale === 'en'
+      ? `${selectedLabel} is ${formatUsd(getTreatmentPrice(resolvedTreatment))}/mo if prescribed after licensed-provider review. Completing intake does not guarantee a prescription.`
+      : `${selectedLabel} cuesta ${formatUsd(getTreatmentPrice(resolvedTreatment))}/mes si se receta después de la revisión del proveedor. Completar la evaluación no garantiza una receta.`
+    : locale === 'en'
+      ? `Plans from ${formatUsd(STARTING_PRICE)}/mo if prescribed — Semaglutide $239, Tirzepatide $345. Completing intake does not guarantee a prescription.`
+      : `Planes desde ${formatUsd(STARTING_PRICE)}/mes si se recetan — Semaglutida $239, Tirzepatida $345. Completar la evaluación no garantiza una receta.`;
 
   useEffect(() => {
     headingRef.current?.focus();
@@ -642,18 +649,18 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                   <span>
                     {locale === 'en' ? (
                       <>
-                        I agree to the <Link href="/terms" target="_blank" rel="noreferrer">Terms of Service</Link>,{' '}
-                        <Link href="/medical-consent" target="_blank" rel="noreferrer">Medical Consent</Link> form, and
+                        I agree to the <Link href="/terms" target="_blank" rel="noreferrer">Terms of Use</Link>,{' '}
+                        <Link href="/medical-consent" target="_blank" rel="noreferrer">Medical Disclaimer</Link>, and
                         acknowledge the{' '}
-                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Telehealth Informed Consent</Link>{' '}
+                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Telehealth Consent</Link>{' '}
                         for specialized medical protocols.
                       </>
                     ) : (
                       <>
-                        Acepto los <Link href="/terms" target="_blank" rel="noreferrer">Términos de Servicio</Link>, el
-                        formulario de <Link href="/medical-consent" target="_blank" rel="noreferrer">Consentimiento Médico</Link> y
+                        Acepto los <Link href="/terms" target="_blank" rel="noreferrer">Términos de Uso</Link>, el
+                        <Link href="/medical-consent" target="_blank" rel="noreferrer">Descargo Médico</Link> y
                         reconozco el{' '}
-                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Consentimiento Informado de Telemedicina</Link>{' '}
+                        <Link href="/telehealth-consent" target="_blank" rel="noreferrer">Consentimiento de Telesalud</Link>{' '}
                         para protocolos médicos especializados.
                       </>
                     )}
@@ -675,7 +682,7 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
                 ) : null}
 
                 <p className="patient-intake__privacy">{copy.privacy}</p>
-                <p className="patient-intake__privacy">{copy.paymentNote}</p>
+                <p className="patient-intake__privacy">{paymentNote}</p>
               </div>
             )}
           </form>

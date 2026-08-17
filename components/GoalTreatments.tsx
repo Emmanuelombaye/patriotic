@@ -15,11 +15,10 @@ const COPY = {
         Personalized care, <em>reviewed by licensed providers.</em>
       </>
     ),
-    intro: 'Choose Tirzepatide or Semaglutide, then complete a $2 clinical intake. Completing intake does not guarantee a prescription.',
+    intro: 'Choose Tirzepatide at $345/mo or Semaglutide at $239/mo. Completing intake does not guarantee a prescription.',
     explore: 'Learn more',
-    start: 'Start $2 intake',
-    price: '$2',
-    priceNote: 'Clinical intake · charged only to verify this qualifier',
+    start: 'Get started',
+    priceNote: 'per month if prescribed',
     detailPrefix: 'Licensed-provider review required.',
     note: 'Licensed U.S. providers · MensRX fulfillment when prescribed · Compounded meds only when clinically appropriate',
     treatments: [
@@ -34,6 +33,8 @@ const COPY = {
         image: '/images/efexia-goal-strength.webp',
         imageAlt: 'Man focused on strength and metabolic wellness',
         vial: '/images/nad_vial.webp',
+        price: '$345',
+        priceNote: 'per month if prescribed',
       },
       {
         id: 'semaglutide' as FeaturedTreatmentId,
@@ -46,6 +47,8 @@ const COPY = {
         image: '/images/efexia-goal-longevity.webp',
         imageAlt: 'Calm setting focused on metabolic wellness',
         vial: '/images/semaglutide_vial.webp',
+        price: '$239',
+        priceNote: 'per month if prescribed',
       },
     ],
   },
@@ -56,11 +59,10 @@ const COPY = {
         Cuidado personalizado, <em>revisado por proveedores con licencia.</em>
       </>
     ),
-    intro: 'Elija Tirzepatida o Semaglutida, luego complete una evaluación clínica de $2. Completar la evaluación no garantiza una receta.',
+    intro: 'Elija Tirzepatida a $345/mes o Semaglutida a $239/mes. Completar la evaluación no garantiza una receta.',
     explore: 'Más información',
-    start: 'Iniciar evaluación de $2',
-    price: '$2',
-    priceNote: 'Evaluación clínica · solo para verificar este calificador',
+    start: 'Comenzar',
+    priceNote: 'al mes si se receta',
     detailPrefix: 'Se requiere revisión de un proveedor con licencia.',
     note: 'Proveedores licenciados en EE. UU. · Surtido MensRX si se receta · Medicamentos compuestos solo cuando sea clínicamente apropiado',
     treatments: [
@@ -75,6 +77,8 @@ const COPY = {
         image: '/images/efexia-goal-strength.webp',
         imageAlt: 'Hombre enfocado en fuerza y bienestar metabólico',
         vial: '/images/nad_vial.webp',
+        price: '$345',
+        priceNote: 'al mes si se receta',
       },
       {
         id: 'semaglutide' as FeaturedTreatmentId,
@@ -87,6 +91,8 @@ const COPY = {
         image: '/images/efexia-goal-longevity.webp',
         imageAlt: 'Entorno calmado de bienestar metabólico',
         vial: '/images/semaglutide_vial.webp',
+        price: '$239',
+        priceNote: 'al mes si se receta',
       },
     ],
   },
@@ -175,8 +181,8 @@ export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
               </div>
               <div className="tx-product__meta">
                 <div className="tx-product__price">
-                  {copy.price}
-                  <span>{copy.priceNote}</span>
+                  {active.price}
+                  <span>{active.priceNote}</span>
                 </div>
               </div>
             </div>

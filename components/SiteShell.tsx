@@ -12,6 +12,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import ScrollReveal from '@/components/ScrollReveal';
 import { useLocale } from '@/context/LocaleContext';
 import { scrollToSection, updateSectionHash } from '@/lib/scrollToSection';
+import { startCheckoutHref } from '@/lib/treatments';
 
 export default function SiteShell({ children }: { children: ReactNode }) {
   const { locale, toggleLocale, t } = useLocale();
@@ -139,11 +140,11 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       />
 
       <div className="promo-banner">
-        <button className="promo-link" type="button" onClick={() => router.push('/start?payment=2')}>
+        <button className="promo-link" type="button" onClick={() => router.push(startCheckoutHref())}>
           <span>
             {locale === 'en'
-              ? 'Start your $2 clinical intake — a licensed provider reviews before any prescription.'
-              : 'Inicie su evaluación clínica de $2 — un proveedor revisa antes de cualquier receta.'}
+              ? 'Semaglutide $239/mo · Tirzepatide $345/mo — a licensed provider reviews before any prescription.'
+              : 'Semaglutida $239/mes · Tirzepatida $345/mes — un proveedor revisa antes de cualquier receta.'}
           </span>
           <span>{locale === 'en' ? 'Begin' : 'Comenzar'}</span>
         </button>
@@ -252,7 +253,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               </a>
             </li>
             <li className="nav-mobile-actions">
-              <Link href="/start?payment=2" onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
+              <Link href={startCheckoutHref()} onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
               <a
                 href="/#contact"
                 onClick={(event) => {
@@ -293,7 +294,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             >
               {locale === 'en' ? 'Contact' : 'Contacto'}
             </a>
-            <Link href="/start?payment=2" className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
+            <Link href={startCheckoutHref()} className="nav-cta-pill" onClick={closeMenu} style={{ textDecoration: 'none' }}>
               {locale === 'en' ? 'Get Started' : 'Comenzar'}
             </Link>
             <button
@@ -361,10 +362,10 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               <ul className="footer-links-PMC">
                 <li><Link href="/#about-us">{t('aboutUs')}</Link></li>
                 <li><Link href="/privacy">{locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</Link></li>
-                <li><Link href="/terms">{locale === 'en' ? 'Terms of Service' : 'Términos de Servicio'}</Link></li>
-                <li><Link href="/medical-consent">{locale === 'en' ? 'Medical Consent' : 'Consentimiento Médico'}</Link></li>
+                <li><Link href="/hipaa">{locale === 'en' ? 'HIPAA Notice' : 'Aviso HIPAA'}</Link></li>
+                <li><Link href="/terms">{locale === 'en' ? 'Terms of Use' : 'Términos de Uso'}</Link></li>
+                <li><Link href="/medical-consent">{locale === 'en' ? 'Medical Disclaimer' : 'Descargo Médico'}</Link></li>
                 <li><Link href="/telehealth-consent">{locale === 'en' ? 'Telehealth Consent' : 'Consentimiento de Telesalud'}</Link></li>
-                <li><Link href="/mensrx">MensRX</Link></li>
               </ul>
             </div>
 
@@ -376,8 +377,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
                 </li>
                 <li className="footer-contact-item-PMC" style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', lineHeight: 1.5 }}>
                   {locale === 'en'
-                    ? 'Questions are handled through clinical intake and care-team follow-up. Completing the $2 intake does not guarantee a prescription.'
-                    : 'Las consultas se manejan mediante la evaluación clínica y el seguimiento del equipo de cuidado. Completar la evaluación de $2 no garantiza una receta.'}
+                    ? 'Questions are handled through clinical intake and care-team follow-up. Completing intake does not guarantee a prescription.'
+                    : 'Las consultas se manejan mediante la evaluación clínica y el seguimiento del equipo de cuidado. Completar la evaluación no garantiza una receta.'}
                 </li>
               </ul>
             </div>

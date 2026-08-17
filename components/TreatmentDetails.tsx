@@ -7,7 +7,7 @@ import { translations } from '@/lib/translations';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import ScrollReveal from '@/components/ScrollReveal';
 import type { Locale } from '@/lib/types';
-import { startCheckoutHref } from '@/lib/treatments';
+import { startCheckoutHref, formatUsd, getTreatmentPrice, isTreatmentId } from '@/lib/treatments';
 
 type TreatmentInfo = {
   title: string;
@@ -37,9 +37,9 @@ const treatmentData: Record<string, TreatmentInfo> = {
       'Surtido discreto mediante farmacias asociadas',
     ],
     details:
-      'Tirzepatide may be considered after a $2 clinical intake and review by a U.S.-licensed clinician. Completing intake does not guarantee a prescription. If appropriate, care is individualized and fulfilled through a licensed pharmacy partner.',
+      'Tirzepatide may be considered after clinical intake and review by a U.S.-licensed clinician at $345/mo if prescribed. Completing intake does not guarantee a prescription. If appropriate, care is individualized and fulfilled through a licensed pharmacy partner.',
     detailsEs:
-      'La tirzepatida puede considerarse después de una evaluación clínica de $2 y la revisión de un clínico con licencia en EE. UU. Completar la evaluación no garantiza una receta. Si es apropiado, el cuidado se individualiza y se surte mediante una farmacia asociada con licencia.',
+      'La tirzepatida puede considerarse después de una evaluación clínica y la revisión de un clínico con licencia en EE. UU. a $345/mes si se receta. Completar la evaluación no garantiza una receta. Si es apropiado, el cuidado se individualiza y se surte mediante una farmacia asociada con licencia.',
   },
   semaglutide: {
     title: 'semaglutideTitle',
@@ -58,9 +58,9 @@ const treatmentData: Record<string, TreatmentInfo> = {
       'Surtido discreto cuando se receta',
     ],
     details:
-      'Semaglutide may be discussed only after clinical intake and licensed-provider review. Completing the $2 intake does not guarantee eligibility or a prescription.',
+      'Semaglutide may be discussed only after clinical intake and licensed-provider review. If prescribed, the plan is $239/mo. Completing intake does not guarantee eligibility or a prescription.',
     detailsEs:
-      'La semaglutida puede discutirse solo después de la evaluación clínica y revisión de un proveedor con licencia. Completar la evaluación de $2 no garantiza elegibilidad ni una receta.',
+      'La semaglutida puede discutirse solo después de la evaluación clínica y revisión de un proveedor con licencia. Si se receta, el plan es $239/mes. Completar la evaluación no garantiza elegibilidad ni una receta.',
   },
 };
 
@@ -123,7 +123,9 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
               className="btn btn-red"
               style={{ marginTop: '24px', padding: '16px 32px', fontSize: '1.1rem', display: 'inline-flex' }}
             >
-              {locale === 'en' ? 'Start $2 clinical intake' : 'Iniciar evaluación clínica de $2'}
+              {locale === 'en'
+                ? `Start from ${isTreatmentId(id) ? formatUsd(getTreatmentPrice(id)) : '$239'}`
+                : `Comenzar desde ${isTreatmentId(id) ? formatUsd(getTreatmentPrice(id)) : '$239'}`}
             </Link>
           </ScrollReveal>
         </div>
@@ -153,16 +155,20 @@ function TreatmentDetails({ locale }: TreatmentDetailsProps) {
             <h3 className="sticky-card-title">{locale === 'en' ? 'Start with a clinical review' : 'Comience con una revisión clínica'}</h3>
             <p className="sticky-card-desc">
               {locale === 'en' 
-                ? 'Complete the $2 clinical intake so a licensed provider can review your case. Intake alone does not guarantee a prescription.' 
-                : 'Complete la evaluación clínica de $2 para que un proveedor con licencia revise su caso. La evaluación sola no garantiza una receta.'}
+                ? `Complete clinical intake so a licensed provider can review your case${isTreatmentId(id) ? ` — ${formatUsd(getTreatmentPrice(id))}/mo if prescribed` : ''}. Intake alone does not guarantee a prescription.` 
+                : `Complete la evaluación clínica para que un proveedor con licencia revise su caso${isTreatmentId(id) ? ` — ${formatUsd(getTreatmentPrice(id))}/mes si se receta` : ''}. La evaluación sola no garantiza una receta.`}
             </p>
             <div className="sticky-card-features">
               <span>✓ {locale === 'en' ? 'U.S. licensed clinicians' : 'Clínicos con licencia en EE. UU.'}</span>
               <span>✓ {locale === 'en' ? 'Discreet fulfillment when prescribed' : 'Entrega discreta si se receta'}</span>
-              <span>✓ {locale === 'en' ? '$2 verification intake only' : 'Solo evaluación de verificación de $2'}</span>
+              <span>✓ {locale === 'en'
+                ? (isTreatmentId(id) ? `${formatUsd(getTreatmentPrice(id))}/mo if prescribed` : 'From $239/mo if prescribed')
+                : (isTreatmentId(id) ? `${formatUsd(getTreatmentPrice(id))}/mes si se receta` : 'Desde $239/mes si se receta')}</span>
             </div>
             <Link href={startCheckoutHref(id)} className="btn btn-red" style={{ width: '100%', marginTop: '20px', display: 'inline-flex', justifyContent: 'center' }}>
-              {locale === 'en' ? 'Start $2 clinical intake' : 'Iniciar evaluación clínica de $2'}
+              {locale === 'en'
+                ? `Start from ${isTreatmentId(id) ? formatUsd(getTreatmentPrice(id)) : '$239'}`
+                : `Comenzar desde ${isTreatmentId(id) ? formatUsd(getTreatmentPrice(id)) : '$239'}`}
             </Link>
           </ScrollReveal>
         </div>

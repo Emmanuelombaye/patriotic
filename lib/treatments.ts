@@ -33,7 +33,23 @@ export function getTreatmentLabel(id: TreatmentId, locale: Locale): string {
   return LABELS[id][locale] || LABELS[id].en;
 }
 
-/** Peak / compliance checkout — payment mode 2 only. */
+/** Displayed monthly price if a licensed provider prescribes. */
+export const TREATMENT_PRICE: Record<TreatmentId, number> = {
+  semaglutide: 239,
+  tirzepatide: 345,
+};
+
+export const STARTING_PRICE = TREATMENT_PRICE.semaglutide;
+
+export function getTreatmentPrice(id: TreatmentId): number {
+  return TREATMENT_PRICE[id];
+}
+
+export function formatUsd(amount: number): string {
+  return `$${amount}`;
+}
+
+/** Peak checkout query mode — not the displayed dollar amount. */
 export const COMPLIANCE_PAYMENT = 2;
 
 export function startCheckoutHref(treatmentId?: TreatmentId | string | null): string {

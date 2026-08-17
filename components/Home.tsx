@@ -7,6 +7,7 @@ import ResponsiveImage from '@/components/ResponsiveImage';
 import ScrollReveal from '@/components/ScrollReveal';
 import GoalTreatments from '@/components/GoalTreatments';
 import type { Locale } from '@/lib/types';
+import { startCheckoutHref } from '@/lib/treatments';
 
 type HomeProps = { locale: Locale };
 
@@ -163,14 +164,14 @@ function Home({ locale }: HomeProps) {
     {
       question: locale === 'en' ? 'How does the process work?' : '¿Cómo funciona el proceso?',
       answer: locale === 'en'
-        ? 'Complete the $2 clinical intake, then a U.S.-licensed provider reviews your information. If treatment is appropriate, a personalized plan may be prescribed and fulfilled through a licensed pharmacy partner.'
-        : 'Complete la evaluación clínica de $2; luego un proveedor con licencia en EE. UU. revisa su información. Si el tratamiento es apropiado, se puede recetar un plan personalizado.',
+        ? 'Complete a clinical intake, then a U.S.-licensed provider reviews your information. If treatment is appropriate, Semaglutide is $239/mo and Tirzepatide is $345/mo, fulfilled through a licensed pharmacy partner.'
+        : 'Complete una evaluación clínica; luego un proveedor con licencia en EE. UU. revisa su información. Si el tratamiento es apropiado, Semaglutida cuesta $239/mes y Tirzepatida $345/mes.',
     },
     {
-      question: locale === 'en' ? 'Does the $2 intake guarantee treatment?' : '¿La evaluación de $2 garantiza tratamiento?',
+      question: locale === 'en' ? 'Does paying guarantee treatment?' : '¿El pago garantiza tratamiento?',
       answer: locale === 'en'
-        ? 'No. The $2 payment is a verification charge for this clinical qualifier only. A licensed provider decides whether any prescription is appropriate.'
-        : 'No. El pago de $2 es solo una verificación de este calificador clínico. Un proveedor con licencia decide si alguna receta es apropiada.',
+        ? 'No. Semaglutide is $239/mo and Tirzepatide is $345/mo only if a licensed provider prescribes. Completing intake does not guarantee a prescription.'
+        : 'No. Semaglutida cuesta $239/mes y Tirzepatida $345/mes solo si un proveedor con licencia receta. Completar la evaluación no garantiza una receta.',
     },
     {
       question: locale === 'en' ? 'Are compounded medications FDA-approved?' : '¿Los medicamentos compuestos están aprobados por la FDA?',
@@ -211,8 +212,8 @@ function Home({ locale }: HomeProps) {
                     : 'Diseñado para la longevidad, el rendimiento y la prevención.'}
                 </p>
                 <div className="retro-home-hero-actions">
-                  <Link href="/start?payment=2" className="retro-home-hero-action retro-home-hero-action--primary">
-                    <span>{locale === 'en' ? 'Start $2 intake' : 'Iniciar evaluación $2'}</span>
+                  <Link href={startCheckoutHref()} className="retro-home-hero-action retro-home-hero-action--primary">
+                    <span>{locale === 'en' ? 'Start from $239' : 'Comenzar desde $239'}</span>
                     <span className="retro-home-hero-action-icon" aria-hidden="true">→</span>
                   </Link>
                   <a href="#treatments" className="retro-home-hero-action retro-home-hero-action--secondary">
@@ -222,8 +223,8 @@ function Home({ locale }: HomeProps) {
                 </div>
                 <p className="retro-home-hero-note">
                   {locale === 'en'
-                    ? 'Licensed U.S. providers · $2 clinical intake · No prescription guaranteed by intake alone'
-                    : 'Proveedores con licencia en EE. UU. · Evaluación clínica de $2 · La evaluación sola no garantiza receta'}
+                    ? 'Licensed U.S. providers · From $239/mo · No prescription guaranteed by intake alone'
+                    : 'Proveedores con licencia en EE. UU. · Desde $239/mes · La evaluación sola no garantiza receta'}
                 </p>
               </div>
             </div>
@@ -282,7 +283,7 @@ function Home({ locale }: HomeProps) {
                   variant={index % 2 === 0 ? 'slide-right' : 'slide-left'}
                   delay={(index % 3) + 1}
                   className={`sticky-step-card ${activeStep === index ? 'active' : ''} hover-lift`}
-                  onClick={() => { window.location.href = '/start?payment=2'; }}
+                  onClick={() => { window.location.href = startCheckoutHref(); }}
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="sticky-step-number">{step.number}</div>
@@ -369,8 +370,8 @@ function Home({ locale }: HomeProps) {
           <ScrollReveal variant="slide-left" className="cta-banner-content-left-PMC">
             <h2 className="cta-banner-title-PMC">{t('preFooterTitle')}</h2>
             <p className="cta-banner-desc-PMC">{t('preFooterSub')}</p>
-            <button className="btn btn-red cta-btn-left-PMC" onClick={() => window.location.href = '/start?payment=2'}>
-              {locale === 'en' ? 'Start $2 clinical intake' : 'Iniciar evaluación clínica de $2'}
+            <button className="btn btn-red cta-btn-left-PMC" onClick={() => window.location.href = startCheckoutHref()}>
+              {locale === 'en' ? 'Start from $239' : 'Comenzar desde $239'}
             </button>
           </ScrollReveal>
           <ScrollReveal variant="slide-right" delay={2} className="cta-banner-image-right-PMC">

@@ -26,9 +26,9 @@ const content = {
     title: <>Support your body’s <em>next chapter.</em></>,
     intro: 'Personalized peptide protocols designed around your goals, health history, and ongoing clinical support.',
     back: 'All treatments',
-    primary: 'Start $2 clinical intake',
+    primary: 'Start from $239',
     secondary: 'Explore the process',
-    proof: ['$2 clinical intake', 'U.S.-licensed providers', 'Private fulfillment when prescribed'],
+    proof: ['From $239/mo if prescribed', 'U.S.-licensed providers', 'Private fulfillment when prescribed'],
     scienceEyebrow: 'A more precise approach',
     scienceTitle: 'Small signals. Thoughtful care.',
     scienceBody: 'Peptides are short chains of amino acids that act as messengers throughout the body. When clinically appropriate, a provider may use a personalized protocol to support specific wellness goals—always based on your medical history and an individual evaluation.',
@@ -62,7 +62,7 @@ const content = {
     ],
     ctaEyebrow: 'Your next step',
     ctaTitle: 'A stronger tomorrow can start today.',
-    ctaBody: 'Start the $2 clinical intake. Completing intake does not guarantee a prescription — a licensed provider decides.',
+    ctaBody: 'Start from $239/mo. Completing intake does not guarantee a prescription — a licensed provider decides.',
     disclaimer: 'Prescription treatment requires an online medical evaluation. Completing intake does not guarantee a prescription. Compounded medications are not FDA-approved and are prescribed only when clinically appropriate.'
   },
   es: {
@@ -70,9 +70,9 @@ const content = {
     title: <>Apoya el <em>próximo capítulo</em> de tu cuerpo.</>,
     intro: 'Protocolos de péptidos personalizados según tus objetivos, historial médico y apoyo clínico continuo.',
     back: 'Todos los tratamientos',
-    primary: 'Iniciar evaluación clínica de $2',
+    primary: 'Comenzar desde $239',
     secondary: 'Explorar el proceso',
-    proof: ['Evaluación clínica de $2', 'Proveedores licenciados en EE. UU.', 'Surtido privado cuando se receta'],
+    proof: ['Desde $239/mes si se receta', 'Proveedores licenciados en EE. UU.', 'Surtido privado cuando se receta'],
     scienceEyebrow: 'Un enfoque más preciso',
     scienceTitle: 'Pequeñas señales. Atención cuidadosa.',
     scienceBody: 'Los péptidos son cadenas cortas de aminoácidos que actúan como mensajeros en el cuerpo. Cuando es clínicamente apropiado, un proveedor puede usar un protocolo personalizado para apoyar objetivos específicos de bienestar.',
@@ -106,7 +106,7 @@ const content = {
     ],
     ctaEyebrow: 'Tu próximo paso',
     ctaTitle: 'Un mañana más fuerte puede comenzar hoy.',
-    ctaBody: 'Inicie la evaluación clínica de $2. Completarla no garantiza una receta — un proveedor con licencia decide.',
+    ctaBody: 'Comience desde $239/mes. Completarla no garantiza una receta — un proveedor con licencia decide.',
     disclaimer: 'El tratamiento con receta requiere una evaluación médica en línea. Completar la evaluación no garantiza una receta. Los medicamentos compuestos no están aprobados por la FDA y se recetan solo cuando son clínicamente apropiados.'
   }
 };
