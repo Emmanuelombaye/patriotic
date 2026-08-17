@@ -46,6 +46,12 @@ export function isTreatmentId(value: string | null | undefined): value is Treatm
   return !!value && (TREATMENT_IDS as readonly string[]).includes(value);
 }
 
+export function isFeaturedTreatmentId(
+  value: string | null | undefined,
+): value is FeaturedTreatmentId {
+  return !!value && (FEATURED_TREATMENT_IDS as readonly string[]).includes(value);
+}
+
 export function getTreatmentLabel(id: TreatmentId, locale: Locale): string {
   return LABELS[id][locale] || LABELS[id].en;
 }
@@ -55,7 +61,7 @@ export const COMPLIANCE_PAYMENT = 2;
 
 export function startCheckoutHref(treatmentId?: TreatmentId | string | null): string {
   const params = new URLSearchParams({ payment: String(COMPLIANCE_PAYMENT) });
-  if (treatmentId && isTreatmentId(treatmentId)) {
+  if (treatmentId && isFeaturedTreatmentId(treatmentId)) {
     params.set('treatment', treatmentId);
   }
   return `/start?${params.toString()}`;

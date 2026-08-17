@@ -1,48 +1,42 @@
 'use client';
 
-import { useRef, useState, type KeyboardEvent } from 'react';
 import Link from 'next/link';
 import ResponsiveImage from '@/components/ResponsiveImage';
 import ScrollReveal from '@/components/ScrollReveal';
 import type { Locale } from '@/lib/types';
-import { startCheckoutHref } from '@/lib/treatments';
+import { startCheckoutHref, type FeaturedTreatmentId } from '@/lib/treatments';
 
 const COPY = {
   en: {
     eyebrow: 'Treatments',
     title: (
       <>
-        Choose the treatment that matches your <em>goals.</em>
+        Two physician-guided paths for <em>men’s health.</em>
       </>
     ),
     intro:
-      'Browse physician-guided TRT and weight-management options. Every path starts with a $2 clinical intake and provider review — completing intake does not guarantee a prescription.',
-    goalLabel: 'Treatment categories',
+      'Efexia currently offers TRT and weight management. Both start with a $2 clinical intake and licensed-provider review — completing intake does not guarantee a prescription.',
     explore: 'View treatment',
     start: 'Start $2 intake',
-    note: 'Licensed U.S. providers · Private delivery · Compounded meds only when clinically appropriate',
-    goals: [
+    note: 'Licensed U.S. providers · MensRX fulfillment when prescribed · Compounded meds only when clinically appropriate',
+    treatments: [
       {
-        id: 'strength',
-        tab: 'Strength & metabolism',
-        kicker: 'Energy & body composition',
-        title: 'Hormone and metabolic support',
+        id: 'trt' as FeaturedTreatmentId,
+        kicker: 'Hormone care',
+        title: 'Testosterone (TRT)',
         description:
-          'TRT and GLP-1 options considered when a licensed provider determines they fit your history and goals.',
+          'Clinician-reviewed hormone support, considered only when a licensed provider determines it fits your history and goals.',
         image: '/images/efexia-goal-strength.webp',
         imageAlt: 'Man focused on strength and metabolic wellness',
-        treatments: [
-          {
-            id: 'trt',
-            title: 'Testosterone (TRT)',
-            description: 'Clinician-reviewed hormone care with monitoring when prescribed.',
-          },
-          {
-            id: 'weight',
-            title: 'Weight management',
-            description: 'GLP-1 pathways discussed only after clinical eligibility review.',
-          },
-        ],
+      },
+      {
+        id: 'weight' as FeaturedTreatmentId,
+        kicker: 'Metabolic care',
+        title: 'Weight management',
+        description:
+          'GLP-1 and related options discussed only after clinical eligibility review. Treatment is never guaranteed by intake alone.',
+        image: '/images/efexia-goal-longevity.webp',
+        imageAlt: 'Calm setting focused on metabolic wellness',
       },
     ],
   },
@@ -50,37 +44,32 @@ const COPY = {
     eyebrow: 'Tratamientos',
     title: (
       <>
-        Elija el tratamiento que coincide con sus <em>objetivos.</em>
+        Dos caminos guiados por médicos para la <em>salud masculina.</em>
       </>
     ),
     intro:
-      'Explore las opciones de TRT y control de peso guiadas por médicos. Cada camino comienza con una evaluación clínica de $2 y revisión del proveedor — completar la evaluación no garantiza una receta.',
-    goalLabel: 'Categorías de tratamiento',
+      'Efexia ofrece actualmente TRT y control de peso. Ambos comienzan con una evaluación clínica de $2 y revisión de un proveedor con licencia — completar la evaluación no garantiza una receta.',
     explore: 'Ver tratamiento',
     start: 'Iniciar evaluación de $2',
-    note: 'Proveedores licenciados en EE. UU. · Entrega privada · Medicamentos compuestos solo cuando sea clínicamente apropiado',
-    goals: [
+    note: 'Proveedores licenciados en EE. UU. · Surtido MensRX si se receta · Medicamentos compuestos solo cuando sea clínicamente apropiado',
+    treatments: [
       {
-        id: 'strength',
-        tab: 'Fuerza y metabolismo',
-        kicker: 'Energía y composición corporal',
-        title: 'Apoyo hormonal y metabólico',
+        id: 'trt' as FeaturedTreatmentId,
+        kicker: 'Cuidado hormonal',
+        title: 'Testosterona (TRT)',
         description:
-          'Opciones de TRT y GLP-1 consideradas cuando un proveedor determina que encajan con su historial.',
+          'Apoyo hormonal con revisión clínica, considerado solo cuando un proveedor determina que encaja con su historial.',
         image: '/images/efexia-goal-strength.webp',
         imageAlt: 'Hombre enfocado en fuerza y bienestar metabólico',
-        treatments: [
-          {
-            id: 'trt',
-            title: 'Testosterona (TRT)',
-            description: 'Cuidado hormonal con revisión clínica y monitoreo si se receta.',
-          },
-          {
-            id: 'weight',
-            title: 'Control de peso',
-            description: 'Vías GLP-1 solo tras revisión de elegibilidad clínica.',
-          },
-        ],
+      },
+      {
+        id: 'weight' as FeaturedTreatmentId,
+        kicker: 'Cuidado metabólico',
+        title: 'Control de peso',
+        description:
+          'Opciones GLP-1 solo tras revisión de elegibilidad clínica. La evaluación sola no garantiza tratamiento.',
+        image: '/images/efexia-goal-longevity.webp',
+        imageAlt: 'Entorno calmado de bienestar metabólico',
       },
     ],
   },
@@ -92,25 +81,6 @@ type GoalTreatmentsProps = {
 
 export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
   const copy = COPY[locale] || COPY.en;
-  const [activeIndex, setActiveIndex] = useState(0);
-  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
-  const activeGoal = copy.goals[activeIndex];
-
-  const selectTab = (index: number) => {
-    setActiveIndex(index);
-    tabsRef.current[index]?.focus();
-  };
-
-  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-    let nextIndex: number | undefined;
-    if (event.key === 'ArrowRight') nextIndex = (index + 1) % copy.goals.length;
-    if (event.key === 'ArrowLeft') nextIndex = (index - 1 + copy.goals.length) % copy.goals.length;
-    if (event.key === 'Home') nextIndex = 0;
-    if (event.key === 'End') nextIndex = copy.goals.length - 1;
-    if (nextIndex === undefined) return;
-    event.preventDefault();
-    selectTab(nextIndex);
-  };
 
   return (
     <section id="treatments" className="tx-cat" aria-labelledby="tx-cat-title">
@@ -121,61 +91,25 @@ export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
           <p className="tx-cat__intro">{copy.intro}</p>
         </ScrollReveal>
 
-        {copy.goals.length > 1 ? (
-          <ScrollReveal variant="fade-up" delay={1} className="tx-cat__tabs-wrap">
-            <div className="tx-cat__tabs" role="tablist" aria-label={copy.goalLabel}>
-              {copy.goals.map((goal, index) => (
-                <button
-                  key={goal.id}
-                  ref={(node) => {
-                    tabsRef.current[index] = node;
-                  }}
-                  id={`tx-tab-${goal.id}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeIndex === index}
-                  aria-controls={`tx-panel-${goal.id}`}
-                  tabIndex={activeIndex === index ? 0 : -1}
-                  className={`tx-cat__tab${activeIndex === index ? ' is-active' : ''}`}
-                  onClick={() => setActiveIndex(index)}
-                  onKeyDown={(event) => handleTabKeyDown(event, index)}
-                >
-                  {goal.tab}
-                </button>
-              ))}
-            </div>
-          </ScrollReveal>
-        ) : null}
-
-        <div
-          key={`${locale}-${activeGoal.id}`}
-          id={`tx-panel-${activeGoal.id}`}
-          className="tx-cat__panel"
-          role="tabpanel"
-          aria-labelledby={copy.goals.length > 1 ? `tx-tab-${activeGoal.id}` : 'tx-cat-title'}
-        >
-          <div className="tx-cat__visual">
-            <ResponsiveImage
-              src={activeGoal.image}
-              alt={activeGoal.imageAlt}
-              className="tx-cat__image"
-              sizes="(max-width: 900px) 100vw, 48vw"
-            />
-            <div className="tx-cat__visual-copy">
-              <span>{activeGoal.kicker}</span>
-              <strong>{activeGoal.title}</strong>
-              <p>{activeGoal.description}</p>
-            </div>
-          </div>
-
-          <div className="tx-cat__cards">
-            {activeGoal.treatments.map((treatment) => (
-              <article key={treatment.id} className="tx-cat__card">
-                <div>
-                  <h3>{treatment.title}</h3>
-                  <p>{treatment.description}</p>
-                </div>
-                <div className="tx-cat__card-actions">
+        <div className="tx-duo">
+          {copy.treatments.map((treatment, index) => (
+            <ScrollReveal
+              key={treatment.id}
+              variant={index === 0 ? 'slide-left' : 'slide-right'}
+              delay={index + 1}
+              className="tx-duo__card"
+            >
+              <ResponsiveImage
+                src={treatment.image}
+                alt={treatment.imageAlt}
+                className="tx-duo__image"
+                sizes="(max-width: 900px) 100vw, 48vw"
+              />
+              <div className="tx-duo__copy">
+                <span>{treatment.kicker}</span>
+                <h3>{treatment.title}</h3>
+                <p>{treatment.description}</p>
+                <div className="tx-duo__actions">
                   <Link href={`/treatment/${treatment.id}`} className="tx-cat__link">
                     {copy.explore}
                   </Link>
@@ -184,11 +118,11 @@ export default function GoalTreatments({ locale }: GoalTreatmentsProps) {
                     <span aria-hidden="true">→</span>
                   </Link>
                 </div>
-              </article>
-            ))}
-            <p className="tx-cat__note">{copy.note}</p>
-          </div>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
+        <p className="tx-cat__note tx-duo__note">{copy.note}</p>
       </div>
     </section>
   );

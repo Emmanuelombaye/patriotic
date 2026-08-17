@@ -37,11 +37,20 @@ export const LEGAL_DOCS = {
 } as const;
 
 export type LegalDocKey = keyof typeof LEGAL_DOCS;
+export type LegalDoc = (typeof LEGAL_DOCS)[LegalDocKey];
+
+export const LEGAL_DOC_LIST: LegalDoc[] = [
+  LEGAL_DOCS.privacy,
+  LEGAL_DOCS.terms,
+  LEGAL_DOCS.medicalConsent,
+  LEGAL_DOCS.telehealthConsent,
+  LEGAL_DOCS.mensrx,
+];
 
 export function googleDocPreviewUrl(docId: string) {
   return `https://docs.google.com/document/d/${docId}/preview`;
 }
 
 export function googleDocViewUrl(docId: string) {
-  return `https://docs.google.com/document/d/${docId}/edit?usp=sharing`;
+  return `https://docs.google.com/document/d/${docId}/view`;
 }

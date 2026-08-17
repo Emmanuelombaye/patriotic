@@ -232,8 +232,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               </a>
             </li>
             <li>
-              <Link href="/treatment/weight" onClick={closeMenu}>
-                {locale === 'en' ? 'Weight Management' : 'Control de Peso'}
+              <Link href="/treatment/trt" onClick={closeMenu}>
+                {locale === 'en' ? 'TRT Therapy' : 'Terapia TRT'}
               </Link>
             </li>
             <li className="nav-mobile-only">

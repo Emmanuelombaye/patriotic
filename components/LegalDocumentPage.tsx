@@ -1,28 +1,44 @@
 import Link from 'next/link';
-import { googleDocPreviewUrl, googleDocViewUrl } from '@/lib/legalDocs';
+import { LEGAL_DOC_LIST, googleDocPreviewUrl, googleDocViewUrl } from '@/lib/legalDocs';
 
 type LegalDocumentPageProps = {
+  slug: string;
   title: string;
   description: string;
   docId: string;
 };
 
-export default function LegalDocumentPage({ title, description, docId }: LegalDocumentPageProps) {
+export default function LegalDocumentPage({ slug, title, description, docId }: LegalDocumentPageProps) {
   const previewUrl = googleDocPreviewUrl(docId);
   const viewUrl = googleDocViewUrl(docId);
 
   return (
     <div className="legal-doc">
-      <div className="container legal-doc__shell">
-        <p className="legal-doc__kicker">Legal</p>
+      <div className="legal-doc__shell">
+        <p className="legal-doc__kicker">Efexia legal</p>
         <h1>{title}</h1>
         <p className="legal-doc__lede">{description}</p>
+
+        <nav className="legal-doc__switch" aria-label="Legal documents">
+          {LEGAL_DOC_LIST.map((doc) => (
+            <Link
+              key={doc.slug}
+              href={`/${doc.slug}`}
+              className={doc.slug === slug ? 'is-active' : ''}
+              aria-current={doc.slug === slug ? 'page' : undefined}
+            >
+              {doc.title}
+            </Link>
+          ))}
+        </nav>
+
         <div className="legal-doc__actions">
-          <a href={viewUrl} target="_blank" rel="noreferrer">
+          <a className="legal-doc__open" href={viewUrl} target="_blank" rel="noreferrer">
             Open full document
           </a>
           <Link href="/">Back to home</Link>
         </div>
+
         <div className="legal-doc__frame-wrap">
           <iframe
             src={previewUrl}
@@ -33,8 +49,8 @@ export default function LegalDocumentPage({ title, description, docId }: LegalDo
           />
         </div>
         <p className="legal-doc__note">
-          If the document does not display above, use Open full document. Completing intake does not guarantee a
-          prescription.
+          These documents are required for clinical and pharmacy compliance. Completing the $2 intake does not
+          guarantee a prescription. If a document does not display, use Open full document.
         </p>
       </div>
     </div>
