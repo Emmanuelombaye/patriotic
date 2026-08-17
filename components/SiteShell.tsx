@@ -5,6 +5,7 @@ import {
   useEffect,
   useRef,
   useState,
+  type MouseEvent,
   type ReactNode,
 } from 'react';
 import Link from 'next/link';
@@ -29,6 +30,12 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   const goToSection = useCallback((sectionId: string) => {
+    if (sectionId === 'about-us') {
+      closeMenu();
+      router.push('/about');
+      return;
+    }
+
     pendingSectionRef.current = sectionId;
     updateSectionHash(sectionId);
     closeMenu();
@@ -38,6 +45,15 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       router.push(`/#${sectionId}`);
     }
   }, [closeMenu, pathname, router]);
+
+  const onHomeSectionClick = useCallback((event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    if (pathname === '/') {
+      event.preventDefault();
+      goToSection(sectionId);
+      return;
+    }
+    closeMenu();
+  }, [closeMenu, goToSection, pathname]);
 
   useEffect(() => {
     closeMenu();
@@ -64,6 +80,10 @@ export default function SiteShell({ children }: { children: ReactNode }) {
     const hash = window.location.hash;
     if (hash) {
       const sectionId = hash.slice(1);
+      if (sectionId === 'about-us') {
+        router.replace('/about');
+        return undefined;
+      }
       const timer = window.setTimeout(() => {
         scrollToSection(sectionId, { behavior: 'auto' });
       }, 100);
@@ -72,19 +92,24 @@ export default function SiteShell({ children }: { children: ReactNode }) {
 
     window.scrollTo(0, 0);
     return undefined;
-  }, [pathname]);
+  }, [pathname, router]);
 
   useEffect(() => {
     const onHashChange = () => {
       if (pendingSectionRef.current) return;
       const hash = window.location.hash;
       if (!hash) return;
-      scrollToSection(hash.slice(1), { behavior: 'auto' });
+      const sectionId = hash.slice(1);
+      if (sectionId === 'about-us') {
+        router.replace('/about');
+        return;
+      }
+      scrollToSection(sectionId, { behavior: 'auto' });
     };
 
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen);
@@ -179,7 +204,19 @@ export default function SiteShell({ children }: { children: ReactNode }) {
 
       <nav className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="container nav-container">
-          <Link href="/" className="logo-wrapper-PMC" style={{textDecoration: 'none'}} onClick={closeMenu}>
+          <Link
+            href="/"
+            className="logo-wrapper-PMC"
+            style={{textDecoration: 'none'}}
+            onClick={(event) => {
+              closeMenu();
+              if (pathname === '/') {
+                event.preventDefault();
+                window.history.replaceState(null, '', '/');
+                window.scrollTo({ top: 0, behavior: 'auto' });
+              }
+            }}
+          >
             <img
               src="/efexia-logo-transparent.png"
               srcSet="/efexia-logo-384.webp 384w, /efexia-logo-768.webp 768w"
@@ -206,14 +243,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             <li>
               <a
                 href="/#treatments"
-                onClick={(event) => {
-                  if (pathname === '/') {
-                    event.preventDefault();
-                    goToSection('treatments');
-                  } else {
-                    closeMenu();
-                  }
-                }}
+                onClick={(event) => onHomeSectionClick(event, 'treatments')}
               >
                 {t('treatments')}
               </a>
@@ -221,32 +251,15 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             <li>
               <a
                 href="/#how-it-works"
-                onClick={(event) => {
-                  if (pathname === '/') {
-                    event.preventDefault();
-                    goToSection('how-it-works');
-                  } else {
-                    closeMenu();
-                  }
-                }}
+                onClick={(event) => onHomeSectionClick(event, 'how-it-works')}
               >
                 {t('howItWorks')}
               </a>
             </li>
             <li>
-              <a
-                href="/#about-us"
-                onClick={(event) => {
-                  if (pathname === '/') {
-                    event.preventDefault();
-                    goToSection('about-us');
-                  } else {
-                    closeMenu();
-                  }
-                }}
-              >
+              <Link href="/about" onClick={closeMenu}>
                 {t('aboutUs')}
-              </a>
+              </Link>
             </li>
             <li>
               <Link href="/treatment/tirzepatide" onClick={closeMenu}>
@@ -261,14 +274,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             <li className="nav-mobile-only">
               <a
                 href="/#faqs"
-                onClick={(event) => {
-                  if (pathname === '/') {
-                    event.preventDefault();
-                    goToSection('faqs');
-                  } else {
-                    closeMenu();
-                  }
-                }}
+                onClick={(event) => onHomeSectionClick(event, 'faqs')}
               >
                 {t('faq')}
               </a>
@@ -277,14 +283,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               <Link href={startCheckoutHref()} onClick={closeMenu}>{locale === 'en' ? 'Get Started' : 'Comenzar'}</Link>
               <a
                 href="/#contact"
-                onClick={(event) => {
-                  if (pathname === '/') {
-                    event.preventDefault();
-                    goToSection('contact');
-                  } else {
-                    closeMenu();
-                  }
-                }}
+                onClick={(event) => onHomeSectionClick(event, 'contact')}
               >
                 {locale === 'en' ? 'Contact' : 'Contacto'}
               </a>
@@ -304,14 +303,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             <a
               href="/#contact"
               className="nav-login-pill"
-              onClick={(event) => {
-                if (pathname === '/') {
-                  event.preventDefault();
-                  goToSection('contact');
-                } else {
-                  closeMenu();
-                }
-              }}
+              onClick={(event) => onHomeSectionClick(event, 'contact')}
             >
               {locale === 'en' ? 'Contact' : 'Contacto'}
             </a>
@@ -372,16 +364,17 @@ export default function SiteShell({ children }: { children: ReactNode }) {
             <div>
               <h4 className="footer-title-PMC">{t('resources')}</h4>
               <ul className="footer-links-PMC">
-                <li><Link href="/#how-it-works">{t('howItWorks')}</Link></li>
-                <li><Link href="/#faqs">{t('faq')}</Link></li>
-                <li><Link href="/#contact">{locale === 'en' ? 'Contact Us' : 'Contáctenos'}</Link></li>
+                <li><a href="/#treatments" onClick={(event) => onHomeSectionClick(event, 'treatments')}>{t('treatments')}</a></li>
+                <li><a href="/#how-it-works" onClick={(event) => onHomeSectionClick(event, 'how-it-works')}>{t('howItWorks')}</a></li>
+                <li><a href="/#faqs" onClick={(event) => onHomeSectionClick(event, 'faqs')}>{t('faq')}</a></li>
+                <li><a href="/#contact" onClick={(event) => onHomeSectionClick(event, 'contact')}>{locale === 'en' ? 'Contact Us' : 'Contáctenos'}</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="footer-title-PMC">{t('company')}</h4>
               <ul className="footer-links-PMC">
-                <li><Link href="/#about-us">{t('aboutUs')}</Link></li>
+                <li><Link href="/about">{t('aboutUs')}</Link></li>
                 <li><Link href="/privacy">{locale === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</Link></li>
                 <li><Link href="/hipaa">{locale === 'en' ? 'HIPAA Notice' : 'Aviso HIPAA'}</Link></li>
                 <li><Link href="/terms">{locale === 'en' ? 'Terms of Use' : 'Términos de Uso'}</Link></li>
