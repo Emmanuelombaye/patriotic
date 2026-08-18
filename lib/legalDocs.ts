@@ -46,11 +46,3 @@ export const LEGAL_DOC_LIST: LegalDoc[] = [
   LEGAL_DOCS.medicalConsent,
   LEGAL_DOCS.telehealthConsent,
 ];
-
-export function googleDocPreviewUrl(docId: string) {
-  return `https://docs.google.com/document/d/${docId}/preview`;
-}
-
-export function googleDocViewUrl(docId: string) {
-  return `https://docs.google.com/document/d/${docId}/preview`;
-}

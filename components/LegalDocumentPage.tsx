@@ -1,18 +1,33 @@
 import Link from 'next/link';
 import { LEGAL_BODIES } from '@/lib/legalBodies';
-import { LEGAL_DOC_LIST, googleDocPreviewUrl, googleDocViewUrl } from '@/lib/legalDocs';
+import { LEGAL_DOC_LIST } from '@/lib/legalDocs';
 
 type LegalDocumentPageProps = {
   slug: string;
   title: string;
   description: string;
-  docId: string;
 };
 
-export default function LegalDocumentPage({ slug, title, description, docId }: LegalDocumentPageProps) {
+function renderParagraph(paragraph: string) {
+  if (paragraph.includes('\n• ') || paragraph.startsWith('• ')) {
+    const items = paragraph
+      .split('\n')
+      .map((item) => item.replace(/^•\s*/, '').trim())
+      .filter(Boolean);
+    return (
+      <ul>
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    );
+  }
+
+  return <p>{paragraph}</p>;
+}
+
+export default function LegalDocumentPage({ slug, title, description }: LegalDocumentPageProps) {
   const hosted = LEGAL_BODIES[slug];
-  const previewUrl = googleDocPreviewUrl(docId);
-  const viewUrl = googleDocViewUrl(docId);
 
   return (
     <div className="legal-doc">
@@ -35,43 +50,21 @@ export default function LegalDocumentPage({ slug, title, description, docId }: L
         </nav>
 
         <div className="legal-doc__actions">
-          {hosted ? (
-            <Link href="/">Back to home</Link>
-          ) : (
-            <>
-              <a className="legal-doc__open" href={viewUrl} target="_blank" rel="noreferrer">
-                Open full document
-              </a>
-              <Link href="/">Back to home</Link>
-            </>
-          )}
+          <Link href="/">Back to home</Link>
         </div>
 
-        {hosted ? (
-          <article className="legal-doc__article">
-            <p className="legal-doc__updated">Last updated: {hosted.updated}</p>
-            {hosted.intro ? <p>{hosted.intro}</p> : null}
-            {hosted.blocks.map((block) => (
-              <section key={block.heading || block.paragraphs[0]}>
-                {block.heading ? <h2>{block.heading}</h2> : null}
-                {block.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </section>
-            ))}
-          </article>
-        ) : (
-          <div className="legal-doc__frame-wrap">
-            <iframe
-              src={previewUrl}
-              title={title}
-              className="legal-doc__frame"
-              loading="eager"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        )}
+        <article className="legal-doc__article">
+          <p className="legal-doc__updated">Last updated: {hosted?.updated || 'August 17, 2026'}</p>
+          {hosted?.intro ? <p>{hosted.intro}</p> : null}
+          {(hosted?.blocks || []).map((block, index) => (
+            <section key={`${block.heading || 'block'}-${index}`}>
+              {block.heading ? <h2>{block.heading}</h2> : null}
+              {block.paragraphs.map((paragraph, paragraphIndex) => (
+                <div key={`${index}-${paragraphIndex}`}>{renderParagraph(paragraph)}</div>
+              ))}
+            </section>
+          ))}
+        </article>
         <p className="legal-doc__note">
           These documents are required for clinical and pharmacy compliance. Completing intake does not
           guarantee a prescription.
