@@ -10,6 +10,7 @@ import {
 } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { FooterTrustBadges } from '@/components/FooterTrustBadges';
 import ScrollReveal from '@/components/ScrollReveal';
 import { useLocale } from '@/context/LocaleContext';
 import { LEGAL_DOC_LIST } from '@/lib/legalDocs';
@@ -406,6 +407,8 @@ export default function SiteShell({ children }: { children: ReactNode }) {
               <strong>{locale === 'en' ? 'Telehealth Services:' : 'Servicios de Telemedicina:'}</strong> Telehealth consultations are provided by independent, U.S.-licensed physicians and nurse practitioners contracted with clinical groups. Prescription eligibility is subject to physician evaluation, clinical protocol guidelines, and lab test results when required. Services are cash-pay; insurance is not billed.
             </p>
           </ScrollReveal>
+
+          <FooterTrustBadges hipaaHref="/hipaa" />
 
           <div className="footer-bottom-PMC">
             <p>&copy; {new Date().getFullYear()} {t('allRightsReserved')}</p>
