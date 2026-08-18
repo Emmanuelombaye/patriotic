@@ -214,7 +214,7 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
         agreeTerms:
           'Acepto los Términos de Servicio, el formulario de Consentimiento Médico y reconozco el Consentimiento Informado de Telemedicina para protocolos médicos especializados.',
         authorize:
-          'Autorizo a los clínicos afiliados de Peakcare a revisar de forma segura mis registros médicos y recetar la medicación necesaria si soy candidato.',
+          'Autorizo a los clínicos afiliados de Efexia a revisar de forma segura mis registros médicos y recetar la medicación necesaria si soy candidato.',
         required: 'Este campo es obligatorio',
         invalidEmail: 'Ingrese un correo válido',
         invalidPhone: 'Ingrese un teléfono válido',
@@ -276,7 +276,7 @@ export default function PatientIntake({ locale, treatmentId = null }: PatientInt
       agreeTerms:
         'I agree to the Terms of Service, Medical Consent form, and acknowledge the Telehealth Informed Consent for specialized medical protocols.',
       authorize:
-        "I authorize Peakcare's affiliated clinicians to securely review my medical records and prescribe the necessary medication if candidate.",
+        "I authorize Efexia-affiliated clinicians to securely review my medical records and prescribe the necessary medication if candidate.",
       required: 'This field is required',
       invalidEmail: 'Enter a valid email address',
       invalidPhone: 'Enter a valid phone number',
